@@ -1,0 +1,21 @@
+.interface-container {
+  width: 750px;
+  height: 750px;
+  background-color: green;
+}
+
+.dealer-container {
+  width: 750px;
+  height: 375px;
+  background-color: red;
+}
+
+.player-container {
+  width: 750px;
+  height: 375px;
+  background-color: blue;
+}
+
+.cards {
+  display: flex;
+}
