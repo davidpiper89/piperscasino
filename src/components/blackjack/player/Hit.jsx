@@ -1,18 +1,19 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setDrawnCard } from "../../../features/blackjackSlice";
+import { setPlayerDrawnCard } from "../../../features/blackjackSlice";
 
 const Hit = () => {
   const deck = useSelector((state) => state.blackjack.deckId);
   const dispatch = useDispatch();
-  const drawCard = async () => {
+  const drawHitCard = async () => {
     const url = `https://www.deckofcardsapi.com/api/deck/${deck}/draw/?count=1`;
     const card = await axios.get(url);
+    console.log("player hit");
 
-    dispatch(setDrawnCard(card.data.cards));
+    dispatch(setPlayerDrawnCard(card.data.cards));
   };
-  return <button onClick={() => drawCard()}>Hit</button>;
+  return <button onClick={() => drawHitCard()}>Hit</button>;
 };
 
 export default Hit;

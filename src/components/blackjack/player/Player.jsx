@@ -5,10 +5,12 @@ import Hit from "./Hit";
 import Stand from "./Stand";
 import PlayerCards from "./PlayerCards";
 import { useSelector } from "react-redux";
-import Total from "./Total";
+import PlayerTotal from "./PlayerTotal";
 
 const Player = () => {
   const card = useSelector((state) => state.blackjack.playerCards[0]);
+  const stand = useSelector((state) => state.blackjack.stand);
+  const playerTotal = useSelector((state) => state.blackjack.playerTotal);
 
   return (
     <div className="player-container">
@@ -18,9 +20,9 @@ const Player = () => {
       <div className="cards">
         {card ? <PlayerCards /> : "Click Play to start"}
       </div>
-      <Total />
-      <Hit />
-      <Stand />
+      <PlayerTotal />
+      {!card ? "" : playerTotal > 21 ? "" : stand === true ? "" : <Hit />}
+      {!card ? "" : playerTotal > 21 ? "" : stand === true ? "" : <Stand />}
     </div>
   );
 };

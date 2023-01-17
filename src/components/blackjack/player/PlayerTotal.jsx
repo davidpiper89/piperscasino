@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setTotal } from "../../../features/blackjackSlice";
 // import { numberCard } from "../../../utils/utils";
 
-const Total = () => {
+const PlayerTotal = () => {
   const cards = useSelector((state) => state.blackjack.playerCards);
   const dispatch = useDispatch();
   // const [cardTotals, setTotals] = useState([]);
@@ -12,10 +12,10 @@ const Total = () => {
 
   const numberCard = (cards) => {
     cards.forEach((card) => {
-      const ace = 11;
+      const ace = { high: 11, low: 1 };
       const ten = 10;
       if (card.value === "ACE") {
-        return cardTotals.push(ace);
+        return cardTotals.push(ace.high);
       }
       if (
         card.value === "KING" ||
@@ -33,7 +33,12 @@ const Total = () => {
 
   dispatch(setTotal(playerTotal));
 
+
+  if (playerTotal > 21) {
+    playerTotal = "Bust";
+  }
+
   return <div>{playerTotal === 0 ? "" : playerTotal}</div>;
 };
 
-export default Total;
+export default PlayerTotal;

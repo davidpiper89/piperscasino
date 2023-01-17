@@ -1,6 +1,6 @@
 import React from "react";
 import DealerCards from "./DealerCards";
-import Total from "./Total";
+import DealerTotal from "./DealerTotal";
 
 const Dealer = () => {
   return (
@@ -9,7 +9,7 @@ const Dealer = () => {
         <DealerCards />
         
       </div>
-      <Total />
+      <DealerTotal />
     </div>
   );
 };
