@@ -3,14 +3,20 @@ import React from "react";
 import Play from "./Play";
 import Hit from "./Hit";
 import Stand from "./Stand";
+import BustModal from "./BustModal";
 import PlayerCards from "./PlayerCards";
 import { useSelector } from "react-redux";
-import PlayerTotal from "./PlayerTotal";
+import PlayerTotal from "./CardConverter";
 
 const Player = () => {
   const card = useSelector((state) => state.blackjack.playerCards[0]);
   const stand = useSelector((state) => state.blackjack.stand);
-  const playerTotal = useSelector((state) => state.blackjack.playerTotal);
+  const playerHighTotal = useSelector(
+    (state) => state.blackjack.playerHighTotal
+  );
+  const playerLowTotal = useSelector(
+    (state) => state.blackjack.playerHighTotal
+  );
 
   return (
     <div className="player-container">
@@ -20,9 +26,31 @@ const Player = () => {
       <div className="cards">
         {card ? <PlayerCards /> : "Click Play to start"}
       </div>
-      <PlayerTotal />
-      {!card ? "" : playerTotal > 21 ? "" : stand === true ? "" : <Hit />}
-      {!card ? "" : playerTotal > 21 ? "" : stand === true ? "" : <Stand />}
+      {!card ? "" : <PlayerTotal />}
+
+      {!card ? (
+        ""
+      ) : playerHighTotal >= 21 ? (
+        ""
+      ) : playerLowTotal >= 21 ? (
+        ""
+      ) : stand === true ? (
+        ""
+      ) : (
+        <Hit />
+      )}
+      {!card ? (
+        ""
+      ) : playerHighTotal >= 21 ? (
+        ""
+      ) : playerLowTotal >= 21 ? (
+        ""
+      ) : stand === true ? (
+        ""
+      ) : (
+        <Stand />
+      )}
+      {/* { playerHighTotal > 21 ? <BustModal /> : ""} */}
     </div>
   );
 };

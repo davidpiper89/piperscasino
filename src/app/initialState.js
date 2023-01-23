@@ -1,8 +1,12 @@
 export const initialState = {
   deckId: "",
-  dealerCards: [],
+  dealerFaceCards: [],
   dealerHidden: [],
   playerCards: [],
-  playerTotal: 0,
+  playerCardTotals: 0,
+  playerHighTotal: 0,
+  playerLowTotal: 0,
+  dealerTotal: 0,
+  playerBlackjack: false,
   stand: false,
 };

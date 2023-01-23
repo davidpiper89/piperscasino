@@ -11,23 +11,35 @@ export const blackjackSlice = createSlice({
     },
     setCards: (state, action) => {
       state.playerCards.push(action.payload[0]);
-      state.dealerCards.push(action.payload[1]);
+      state.dealerFaceCards.push(action.payload[1]);
       state.playerCards.push(action.payload[2]);
       state.dealerHidden.push(action.payload[3]);
     },
     setPlayerDrawnCard: (state, action) => {
       state.playerCards.push(action.payload[0]);
     },
-    setTotal: (state, action) => {
-      state.playerTotal = action.payload;
+    setPlayerCardTotals: (state, action) => {
+      state.playerCardTotals = action.payload;
+    },
+    setPlayerLowTotal: (state, action) => {
+      state.playerLowTotal = action.payload
+    },
+    setPlayerHighTotal: (state, action) => {
+      state.playerHighTotal = action.payload
+    },
+    setDealerTotal: (state, action) => {
+      state.dealerTotal = action.payload;
+    },
+    setPlayerBlackjack: (state) => {
+      state.playerBlackjack = !state.playerBlackjack
     },
     setDealersHand: (state, action) => {
-      state.dealerCards = action.payload;
+      state.dealerFaceCards.push(action.payload);
     },
     setDealerDrawnCard: (state, action) => {
-      state.dealerCards.push(action.payload);
+      state.dealerFaceCards.push(action.payload[0]);
     },
-    setplayerStand: (state, action) => {
+    setplayerStand: (state) => {
       state.stand = !state.stand;
     },
   },
@@ -37,7 +49,11 @@ export const {
   setDeck,
   setCards,
   setPlayerDrawnCard,
-  setTotal,
+  setPlayerCardTotals,
+  setPlayerLowTotal,
+  setPlayerHighTotal,
+  setDealerTotal,
+  setPlayerBlackjack,
   setDealersHand,
   setDealerDrawnCard,
   setplayerStand,

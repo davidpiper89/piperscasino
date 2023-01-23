@@ -1,5 +1,5 @@
 import React from "react";
-import "./interface.css"
+import "./Interface.css"
 import Dealer from "../dealer/Dealer";
 import Player from "../player/Player";
 

@@ -4,7 +4,7 @@ import Image from "./Image";
 
 
 const DealerCards = () => {
-  const dealerCards = useSelector((state) => state.blackjack.dealerCards);
+  const dealerCards = useSelector((state) => state.blackjack.dealerFaceCards);
 
   return dealerCards.map((card) => {
     return (

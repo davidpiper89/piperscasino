@@ -2,18 +2,23 @@
   width: 750px;
   height: 750px;
   background-color: green;
+  border-radius: 150px;
+  margin: 50px 50px;
+  
 }
 
 .dealer-container {
   width: 750px;
   height: 375px;
-  background-color: red;
+  border-bottom:  5px solid black;
+
+  ;
 }
 
 .player-container {
   width: 750px;
   height: 375px;
-  background-color: blue;
+  
 }
 
 .cards {

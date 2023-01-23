@@ -9,7 +9,7 @@ const Hit = () => {
   const drawHitCard = async () => {
     const url = `https://www.deckofcardsapi.com/api/deck/${deck}/draw/?count=1`;
     const card = await axios.get(url);
-    console.log("player hit");
+
 
     dispatch(setPlayerDrawnCard(card.data.cards));
   };

@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDealersHand, setplayerStand } from "../../../features/blackjackSlice";
 
 const Stand = () => {
-  const dealerCard = useSelector((state) => state.blackjack.dealerCards);
+
   const dealerHiddenCard = useSelector(
     (state) => state.blackjack.dealerHidden[0]
   );
   const dispatch = useDispatch();
 
-  const stand = (card, hidden) => {
-    const dealersHand = card.concat(hidden)
-    dispatch(setDealersHand(dealersHand));
+  const stand = (h) => {
+    // const dealersHand = card.concat(hidden)
+    dispatch(setDealersHand(dealerHiddenCard));
     dispatch(setplayerStand())
   };
 
   return (
-    <button onClick={() => stand(dealerCard, dealerHiddenCard)}>Stand</button>
+    <button onClick={() => stand(dealerHiddenCard)}>Stand</button>
   );
 };
 
