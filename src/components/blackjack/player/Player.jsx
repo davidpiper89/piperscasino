@@ -7,6 +7,7 @@ import BustModal from "./BustModal";
 import PlayerCards from "./PlayerCards";
 import { useSelector } from "react-redux";
 import PlayerTotal from "./CardConverter";
+import "./Player.css"
 
 const Player = () => {
   const card = useSelector((state) => state.blackjack.playerCards[0]);
@@ -25,6 +26,7 @@ const Player = () => {
         {card ? <PlayerCards /> : "Click Play to start"}
       </div>
       {!card ? "" : <PlayerTotal />}
+      <div className="player_buttons">
       {!card ? "" : stand === true ? "" : isBlackjack === true ? "" : <Hit />}
       {!card ? (
         ""
@@ -37,6 +39,7 @@ const Player = () => {
       ) : (
         <Stand />
       )}
+      </div>
 
       <BustModal />
     </div>

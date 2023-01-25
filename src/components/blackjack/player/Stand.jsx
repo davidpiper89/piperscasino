@@ -16,7 +16,7 @@ const Stand = () => {
   };
 
   return (
-    <button onClick={() => stand(dealerHiddenCard)}>Stand</button>
+    <button className = "stand_button" onClick={() => stand(dealerHiddenCard)}>Stand</button>
   );
 };
 

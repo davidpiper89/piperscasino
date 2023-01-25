@@ -22,17 +22,17 @@ const CardCalculations = () => {
 
   if (cards[0] === ace && cards[1] === ten) {
     dispatch(setPlayerBlackjack());
-    return <div>Blackjack</div>;
+    return <div className="player_total">Blackjack</div>;
   }
   if (cards[1] === ace && cards[0] === ten) {
     dispatch(setPlayerBlackjack(true));
-    return <div>Blackjack</div>;
+    return <div className="player_total">Blackjack</div>;
   }
   if (!cards.includes(ace)) {
     // not including ace
     highTotal = cards.reduce((a, b) => a + b, 0);
     dispatch(setPlayerHighTotal(highTotal));
-    return <div>{highTotal > 21 ? "" : highTotal}</div>;
+    return <div className="player_total">{highTotal > 21 ? "" : highTotal}</div>;
   }
   // including  aces
   if (cards.includes(ace)) {
@@ -57,7 +57,7 @@ const CardCalculations = () => {
       lowTotal = aces[0].low + sum;
       dispatch(setPlayerLowTotal(lowTotal));
       dispatch(setPlayerHighTotal(highTotal));
-      return <div>{highTotal > 21 ? lowTotal : highTotal}</div>;
+      return <div className="player_total">{highTotal > 21 ? lowTotal : highTotal}</div>;
     }
     // 2 aces
     else if (aces.length === 2) {
@@ -71,7 +71,7 @@ const CardCalculations = () => {
       lowTotal = aces[0].low + aces[1].low + sum;
       dispatch(setPlayerLowTotal(lowTotal));
       dispatch(setPlayerHighTotal(highTotal));
-      return <div>{highTotal > 21 ? lowTotal : highTotal}</div>;
+      return <div className="player_total">{highTotal > 21 ? lowTotal : highTotal}</div>;
     }
     // 3 aces
     else if (aces.length === 3) {
@@ -85,7 +85,7 @@ const CardCalculations = () => {
       lowTotal = aces[0].low + aces[1].low + aces[2].high + sum;
       dispatch(setPlayerLowTotal(lowTotal));
       dispatch(setPlayerHighTotal(highTotal));
-      return <div>{highTotal > 21 ? lowTotal : highTotal}</div>;
+      return <div className="player_total">{highTotal > 21 ? lowTotal : highTotal}</div>;
     }
     // 4 aces
     else if (aces.length === 4) {
@@ -100,7 +100,7 @@ const CardCalculations = () => {
       lowTotal = aces[0].low + aces[1].low + aces[2].high + aces[3].high + sum;
       dispatch(setPlayerLowTotal(lowTotal));
       dispatch(setPlayerHighTotal(highTotal));
-      return <div>{highTotal > 21 ? lowTotal : highTotal}</div>;
+      return <div className="player_total">{highTotal > 21 ? lowTotal : highTotal}</div>;
     }
   }
 };

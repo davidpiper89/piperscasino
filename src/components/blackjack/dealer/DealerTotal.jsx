@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDealerDrawnCard } from "../../../features/blackjackSlice";
 import axios from "axios";
+import "./Dealer.css"
 
 const DealerTotal = () => {
   const deck = useSelector((state) => state.blackjack.deckId);
@@ -37,15 +38,17 @@ const DealerTotal = () => {
       drawCard();
     }
   }, [dealerCards]);
+
   async function drawCard() {
     const url = `https://www.deckofcardsapi.com/api/deck/${deck}/draw/?count=1`;
     const card = await axios.get(url);
     dispatch(setDealerDrawnCard(card.data.cards));
   }
+
   if (dealerCards.length === 2 && total > 17) {
-    return <div>{total === 0 ? "" : total}</div>;
+    return <div className="dealer_total">{total === 0 ? "" : total}</div>;
   } else {
-    return <div>{total === 0 ? "" : total}</div>;
+    return <div className="dealer_total">{total === 0 ? "" : total}</div>;
   }
 };
 export default DealerTotal;

@@ -29,7 +29,7 @@ const Hit = () => {
   if (playerHighTotal > 21) {
     return "Bust";
   }
-  return <button onClick={() => drawHitCard()}>Hit</button>;
+  return <button className = "hit_button" onClick={() => drawHitCard()}>Hit</button>;
 };
 
 export default Hit;

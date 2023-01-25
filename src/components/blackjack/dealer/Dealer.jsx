@@ -9,6 +9,7 @@ const Dealer = () => {
         <DealerCards />
         
       </div>
+      
       <DealerTotal />
     </div>
   );

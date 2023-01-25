@@ -1,0 +1,26 @@
+.player_buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.hit_button {
+  width: 60px;
+  border-radius: 10%;
+  background-color: green;
+  color: white;
+  font-weight: bolder;
+}
+
+.stand_button {
+  width: 60px;
+  border-radius: 10%;
+  background-color: red;
+  color: white;
+  font-weight: bolder;
+}
+
+.player_total {
+  font-weight: bolder;
+  font-size: 19px;
+}
