@@ -14,9 +14,7 @@ const Player = () => {
   const playerHighTotal = useSelector(
     (state) => state.blackjack.playerHighTotal
   );
-  const playerLowTotal = useSelector(
-    (state) => state.blackjack.playerHighTotal
-  );
+  const isBlackjack = useSelector((state) => state.blackjack.playerBlackjack);
 
   return (
     <div className="player-container">
@@ -27,30 +25,20 @@ const Player = () => {
         {card ? <PlayerCards /> : "Click Play to start"}
       </div>
       {!card ? "" : <PlayerTotal />}
-
+      {!card ? "" : stand === true ? "" : isBlackjack === true ? "" : <Hit />}
       {!card ? (
         ""
       ) : playerHighTotal >= 21 ? (
         ""
-      ) : playerLowTotal >= 21 ? (
-        ""
       ) : stand === true ? (
         ""
-      ) : (
-        <Hit />
-      )}
-      {!card ? (
-        ""
-      ) : playerHighTotal >= 21 ? (
-        ""
-      ) : playerLowTotal >= 21 ? (
-        ""
-      ) : stand === true ? (
+      ) : isBlackjack === true ? (
         ""
       ) : (
         <Stand />
       )}
-      {/* { playerHighTotal > 21 ? <BustModal /> : ""} */}
+
+      <BustModal />
     </div>
   );
 };

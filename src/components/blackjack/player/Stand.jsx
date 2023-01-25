@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setDealersHand, setplayerStand } from "../../../features/blackjackSlice";
+import { setDealersHand, setPlayerStand } from "../../../features/blackjackSlice";
 
 const Stand = () => {
 
@@ -12,7 +12,7 @@ const Stand = () => {
   const stand = (h) => {
     // const dealersHand = card.concat(hidden)
     dispatch(setDealersHand(dealerHiddenCard));
-    dispatch(setplayerStand())
+    dispatch(setPlayerStand())
   };
 
   return (

@@ -1,23 +1,30 @@
 .interface-container {
-  width: 750px;
-  height: 750px;
-  background-color: green;
-  border-radius: 150px;
-  margin: 50px 50px;
+  width: 1249px;
+  background-image: url("table.svg") ;
+  background-repeat: no-repeat;
+  margin: 50px;
   
 }
 
 .dealer-container {
-  width: 750px;
-  height: 375px;
-  border-bottom:  5px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1249x;
+  height: 390px;
+
 
   ;
 }
 
 .player-container {
-  width: 750px;
-  height: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1249px;
+  height: 390px;
   
 }
 

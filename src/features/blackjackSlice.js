@@ -30,8 +30,8 @@ export const blackjackSlice = createSlice({
     setDealerTotal: (state, action) => {
       state.dealerTotal = action.payload;
     },
-    setPlayerBlackjack: (state) => {
-      state.playerBlackjack = !state.playerBlackjack
+    setPlayerBlackjack: (state, action) => {
+      state.playerBlackjack = action.payload
     },
     setDealersHand: (state, action) => {
       state.dealerFaceCards.push(action.payload);
@@ -39,7 +39,7 @@ export const blackjackSlice = createSlice({
     setDealerDrawnCard: (state, action) => {
       state.dealerFaceCards.push(action.payload[0]);
     },
-    setplayerStand: (state) => {
+    setPlayerStand: (state) => {
       state.stand = !state.stand;
     },
   },
@@ -56,7 +56,7 @@ export const {
   setPlayerBlackjack,
   setDealersHand,
   setDealerDrawnCard,
-  setplayerStand,
+  setPlayerStand,
 } = blackjackSlice.actions;
 
 export default blackjackSlice.reducer;
