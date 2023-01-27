@@ -2,12 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Bust = () => {
-  const playerHighTotal = useSelector(
-    (state) => state.blackjack.playerHighTotal
+  const playerTotal = useSelector(
+    (state) => state.blackjack.playerTotal
   );
-  const playerLowTotal = useSelector((state) => state.blackjack.playerLowTotal);
 
-  if (playerHighTotal > 21 && playerLowTotal === 0) {
+
+  if (playerTotal > 21) {
     return <div>Bust</div>;
   }
  

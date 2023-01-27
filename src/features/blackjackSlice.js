@@ -21,11 +21,8 @@ export const blackjackSlice = createSlice({
     setPlayerCardTotals: (state, action) => {
       state.playerCardTotals = action.payload;
     },
-    setPlayerLowTotal: (state, action) => {
-      state.playerLowTotal = action.payload
-    },
-    setPlayerHighTotal: (state, action) => {
-      state.playerHighTotal = action.payload
+    setPlayerTotal: (state, action) => {
+      state.playerTotal = action.payload
     },
     setDealerTotal: (state, action) => {
       state.dealerTotal = action.payload;
@@ -39,6 +36,9 @@ export const blackjackSlice = createSlice({
     setDealerDrawnCard: (state, action) => {
       state.dealerFaceCards.push(action.payload[0]);
     },
+    setDealerBlackjack: (state, action) => {
+      state.dealerBlackjack = action.payload
+    },
     setPlayerStand: (state) => {
       state.stand = !state.stand;
     },
@@ -50,12 +50,12 @@ export const {
   setCards,
   setPlayerDrawnCard,
   setPlayerCardTotals,
-  setPlayerLowTotal,
-  setPlayerHighTotal,
+  setPlayerTotal,
   setDealerTotal,
   setPlayerBlackjack,
   setDealersHand,
   setDealerDrawnCard,
+  setDealerBlackjack,
   setPlayerStand,
 } = blackjackSlice.actions;
 

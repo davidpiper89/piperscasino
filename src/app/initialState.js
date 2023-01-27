@@ -4,9 +4,9 @@ export const initialState = {
   dealerHidden: [],
   playerCards: [],
   playerCardTotals: 0,
-  playerHighTotal: 0,
-  playerLowTotal: 0,
+  playerTotal: 0,
   dealerTotal: 0,
   playerBlackjack: false,
+  dealerBlackjack: false,
   stand: false,
 };

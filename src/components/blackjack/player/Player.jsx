@@ -12,8 +12,8 @@ import "./Player.css"
 const Player = () => {
   const card = useSelector((state) => state.blackjack.playerCards[0]);
   const stand = useSelector((state) => state.blackjack.stand);
-  const playerHighTotal = useSelector(
-    (state) => state.blackjack.playerHighTotal
+  const playerTotal = useSelector(
+    (state) => state.blackjack.playerTotal
   );
   const isBlackjack = useSelector((state) => state.blackjack.playerBlackjack);
 
@@ -30,7 +30,7 @@ const Player = () => {
       {!card ? "" : stand === true ? "" : isBlackjack === true ? "" : <Hit />}
       {!card ? (
         ""
-      ) : playerHighTotal >= 21 ? (
+      ) : playerTotal >= 21 ? (
         ""
       ) : stand === true ? (
         ""
