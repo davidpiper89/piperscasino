@@ -6,7 +6,7 @@ import Stand from "./Stand";
 import BustModal from "./BustModal";
 import PlayerCards from "./PlayerCards";
 import { useSelector } from "react-redux";
-import PlayerTotal from "./CardConverter";
+import CardConverter from "./CardConverter";
 import "./Player.css"
 
 const Player = () => {
@@ -25,7 +25,7 @@ const Player = () => {
       <div className="cards">
         {card ? <PlayerCards /> : "Click Play to start"}
       </div>
-      {!card ? "" : <PlayerTotal />}
+      {!card ? "" : <CardConverter />}
       <div className="player_buttons">
       {!card ? "" : stand === true ? "" : isBlackjack === true ? "" : <Hit />}
       {!card ? (

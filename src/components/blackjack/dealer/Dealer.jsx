@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import DealerCards from "./DealerCards";
-import DealerTotal from "./DealerTotal";
+import CardConverter from "./CardConverter";
 
 const Dealer = () => {
+  const card = useSelector((state) => state.blackjack.playerCards[0]);
   return (
     <div className="dealer-container">
       <div className="cards">
@@ -10,7 +12,7 @@ const Dealer = () => {
         
       </div>
       
-      <DealerTotal />
+      {!card ? "" : <CardConverter />}
     </div>
   );
 };
