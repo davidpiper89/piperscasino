@@ -1,9 +1,8 @@
 .interface-container {
   width: 1249px;
-  background-image: url("table.svg") ;
+  background-image: url("table.svg");
   background-repeat: no-repeat;
   margin: 50px;
-  
 }
 
 .dealer-container {
@@ -13,9 +12,6 @@
   align-items: center;
   width: 1249x;
   height: 390px;
-
-
-  ;
 }
 
 .player-container {
@@ -25,7 +21,6 @@
   align-items: center;
   width: 1249px;
   height: 390px;
-  
 }
 
 .cards {

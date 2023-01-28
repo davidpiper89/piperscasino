@@ -24,3 +24,8 @@
   font-weight: bolder;
   font-size: 19px;
 }
+
+.double_button {
+  font-weight: bolder;
+  border-color: black;
+}

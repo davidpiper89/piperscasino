@@ -8,5 +8,7 @@ export const initialState = {
   dealerTotal: 0,
   playerBlackjack: false,
   dealerBlackjack: false,
+  double: false,
   stand: false,
+  dealerEndGo: false,
 };
