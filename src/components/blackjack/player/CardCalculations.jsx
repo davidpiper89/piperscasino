@@ -9,7 +9,6 @@ import {
 const CardCalculations = () => {
   const playerCards = useSelector((state) => state.blackjack.playerCardTotals);
 
-
   let cards = [...playerCards];
 
   const dispatch = useDispatch();
@@ -19,10 +18,14 @@ const CardCalculations = () => {
 
   //player blackjack
   if (cards[0] === ace && cards[1] === ten) {
-    dispatch(setPlayerBlackjack());
+    highTotal = 21;
+    dispatch(setPlayerTotal(highTotal))
+    dispatch(setPlayerBlackjack(true));
     return <div className="player_total">Blackjack</div>;
   }
   if (cards[1] === ace && cards[0] === ten) {
+    highTotal = 21;
+    dispatch(setPlayerTotal(highTotal))
     dispatch(setPlayerBlackjack(true));
     return <div className="player_total">Blackjack</div>;
   }
@@ -113,8 +116,7 @@ const CardCalculations = () => {
           sum += card;
         }
       });
-      highTotal =
-        aces[0].high + aces[1].low + aces[2].low + aces[3].low + sum;
+      highTotal = aces[0].high + aces[1].low + aces[2].low + aces[3].low + sum;
       lowTotal = aces[0].low + aces[1].low + aces[2].low + aces[3].low + sum;
       if (highTotal > 21) {
         highTotal = lowTotal;

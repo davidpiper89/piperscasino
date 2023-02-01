@@ -29,3 +29,8 @@
   font-weight: bolder;
   border-color: black;
 }
+
+.split-container {
+  display: flex;
+  justify-items: auto;
+}

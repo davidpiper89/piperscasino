@@ -19,7 +19,7 @@ const Double = () => {
 
     dispatch(setPlayerDrawnCard(card.data.cards));
     dispatch(setDealersHand(dealerHiddenCard));
-    dispatch(setPlayerDouble());
+    dispatch(setPlayerDouble(true));
   };
   return (
     <button className="double_button" onClick={() => drawHitCard()}>

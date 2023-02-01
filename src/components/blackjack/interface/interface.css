@@ -23,6 +23,9 @@
   height: 390px;
 }
 
-.cards {
+.player_card_container {
+  display: flex;
+}
+.dealer_card_container {
   display: flex;
 }

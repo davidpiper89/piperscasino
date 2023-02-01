@@ -11,6 +11,7 @@ import {
 const DealerCardCalculations = (totalArray) => {
   const cards = totalArray.totalArray;
   const deck = useSelector((state) => state.blackjack.deckId);
+
   const dispatch = useDispatch();
 
   let dealerHighTotal = 0;
@@ -30,13 +31,18 @@ const DealerCardCalculations = (totalArray) => {
     const card = await axios.get(url);
     dispatch(setDealerDrawnCard(card.data.cards));
   }
+
   // dealer blackjack
   if (cards[0] === ace && cards[1] === ten) {
     dispatch(setDealerBlackjack());
+    dispatch(setDealerTotal(21));
+    dealerHighTotal = 21;
     return <div className="dealer_total">Blackjack</div>;
   }
   if (cards[1] === ace && cards[0] === ten) {
     dispatch(setDealerBlackjack(true));
+    dispatch(setDealerTotal(21));
+    dealerHighTotal = 21;
     return <div className="dealer_total">Blackjack</div>;
   }
 
@@ -44,6 +50,7 @@ const DealerCardCalculations = (totalArray) => {
     //dealer no aces
     dealerHighTotal = cards.reduce((a, b) => a + b, 0);
     dispatch(setDealerTotal(dealerHighTotal));
+
     return <div className="dealer_total">{dealerHighTotal}</div>;
   }
 
