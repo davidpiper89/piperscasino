@@ -27,9 +27,8 @@ const PlayerTotal = () => {
   }, [total]);
 
   useEffect(() => {
-
-    if (total === 21) dispatch(setDealerHidden());
-  },[total]);
+    if (total === 21 && playerCards.length > 2) dispatch(setDealerHidden());
+  }, [total]);
 
   return <p className="fw-bold m-1 fs-5">{total} </p>;
 };

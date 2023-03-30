@@ -3,14 +3,14 @@ export const totalCalc = (totalsArr) => {
   let highTotal = 0;
   let lowTotal = 0;
   if (totalsArr.length === 2 && totalsArr[0] === ace && totalsArr[1] === 10) {
-    highTotal = "BlackJack";
+    highTotal = 21;
     return highTotal;
   } else if (
     totalsArr.length === 2 &&
     totalsArr[0] === 10 &&
     totalsArr[1] === ace
   ) {
-    highTotal = "BlackJack";
+    highTotal = 21;
     return highTotal;
   } else if (!totalsArr.includes(ace)) {
     highTotal = totalsArr.reduce((a, b) => a + b, 0);
