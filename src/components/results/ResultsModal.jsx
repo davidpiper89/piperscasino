@@ -12,7 +12,6 @@ import { deck } from "../../app/deck.js";
 import { useDispatch } from "react-redux";
 
 const ResultsModal = ({result}) => {
-    console.log(result);
   const deckStart = [...deck];
   const dispatch = useDispatch();
   const playAgain = () => {

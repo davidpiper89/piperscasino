@@ -14,14 +14,23 @@ const Results = () => {
   const dealerCards = useSelector((state) => state.blackjack.dealerCards);
   const dealerEnd = useSelector((state) => state.blackjack.dealerEnd);
 
-  //player ened go by stand or double
+  //player end go by double
   useEffect(() => {
-    if (stand || double === true) {
+    if (double === true && playerCards.length > 2 && playerTotal <= 21) {
       setTimeout(() => {
         dispatch(setDealerEnd());
       }, 2000);
     }
-  }, [double, stand]);
+  }, [double]);
+
+  //player end go by stand
+  useEffect(() => {
+    if (stand === true) {
+      setTimeout(() => {
+        dispatch(setDealerEnd());
+      }, 2000);
+    }
+  }, [stand]);
 
   //player blackjack
   useEffect(() => {
@@ -34,7 +43,7 @@ const Results = () => {
 
   //player hit 21 but not blackjack
   useEffect(() => {
-    if (playerTotal === 21 && playerCards.length > 2) {
+    if (playerTotal === 21 && playerCards.length > 2 && double === false) {
       setTimeout(() => {
         dispatch(setDealerEnd());
       }, 2000);
@@ -50,9 +59,9 @@ const Results = () => {
     }
   }, [dealerCards]);
 
-  //player busts
+  //player busts without doubling
   useEffect(() => {
-    if (playerTotal > 21) {
+    if (playerTotal > 21 && double === false) {
       setTimeout(() => {
         dispatch(setDealerEnd());
       }, 1000);
