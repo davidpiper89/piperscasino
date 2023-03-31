@@ -34,6 +34,7 @@ export const blackjackSlice = createSlice({
       state.double = !state.double;
     },
     setDealerHidden: (state) => {
+      console.log("i ran");
       state.dealerCards.push(state.dealerHidden[0]);
     },
     setDealerDrawn: (state, action) => {
