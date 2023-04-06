@@ -6,13 +6,15 @@ import ResultsModal from "./ResultsModal";
 
 const Results = () => {
   const dispatch = useDispatch();
-  const stand = useSelector((state) => state.blackjack.stand);
-  const double = useSelector((state) => state.blackjack.double);
-  const dealerTotal = useSelector((state) => state.blackjack.dealerTotal);
-  const playerTotal = useSelector((state) => state.blackjack.playerTotal);
-  const playerCards = useSelector((state) => state.blackjack.playerCards);
-  const dealerCards = useSelector((state) => state.blackjack.dealerCards);
-  const dealerEnd = useSelector((state) => state.blackjack.dealerEnd);
+  const {
+    stand,
+    double,
+    dealerTotal,
+    playerTotal,
+    playerCards,
+    dealerCards,
+    dealerEnd,
+  } = useSelector((state) => state.blackjack);
 
   //player end go by double
   useEffect(() => {

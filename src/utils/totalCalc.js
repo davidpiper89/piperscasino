@@ -53,6 +53,8 @@ export const totalCalc = (totalsArr) => {
         highTotal = lowTotal;
       }
       return highTotal;
+
+      //3 aces
     } else if (aces.length === 3) {
       let sum = 0;
       totalsArr.forEach((total) => {

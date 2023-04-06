@@ -8,10 +8,9 @@ import Stand from "./Stand";
 import Double from "./Double";
 
 const Player = () => {
-  const started = useSelector((state) => state.blackjack.started);
-  const stand = useSelector((state) => state.blackjack.stand);
-  const playerTotal = useSelector((state) => state.blackjack.playerTotal);
-  const double = useSelector((state) => state.blackjack.double);
+  const { started, stand, playerTotal, double } = useSelector(
+    (state) => state.blackjack
+  );
 
   return (
     <section className="d-flex flex-column align-items-center h-60 p-2 w-100">
