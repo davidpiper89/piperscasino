@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+  .dealer-card {
+    max-width: 100px;
+  }
+}
+
+@media (min-width: 768px ) {
+  .dealer-card {
+    max-width: 130px;
+  }
+  
+}

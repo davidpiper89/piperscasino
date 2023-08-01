@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400;500;600&display=swap");
+
+.homeContainer {
+  height: 100vh;
+  background: linear-gradient(110deg, #3e3e3e 60%, #0a0a0a 60%);
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-family: "Arvo", serif;
+  text-align: center;
+  font-size: 3rem;
+  padding: 20px;
+  margin-bottom: 30px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}

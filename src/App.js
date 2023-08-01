@@ -1,24 +1,23 @@
-import React from "react";
-import Interface from "./components/Interface";
-import Container from "react-bootstrap/Container";
+import React, { useState } from "react";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Blackjack from "./Blackjack/Blackjack";
+import Home from "./components/home/Home";
 import "./App.css";
 
-const App = () => {
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false); 
+
   return (
-    <>
-      <Container
-        fluid
-        className="d-flex flex-column align-items-center mediaContainer"
-   
-      >
-        <header>
-          <h1>Piper's BlackJack</h1>
-        </header>
-        <Interface />
-        <footer></footer>
-      </Container>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+        />
+        <Route path="/blackjack" element={<Blackjack />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;

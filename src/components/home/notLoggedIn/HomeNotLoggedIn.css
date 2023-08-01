@@ -1,0 +1,28 @@
+.form-container {
+  max-width: 500px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background: #ebebeb;
+  background: #a9a9a9;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-input {
+  margin-bottom: 20px;
+}
+
+.form-submit {
+  margin-bottom: 20px;
+}
+
+.form-switch {
+  display: block;
+  width: 100%;
+}

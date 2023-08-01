@@ -1,0 +1,155 @@
+@media (max-width: 480px) {
+  .hitButton,
+  .standButton,
+  .doubleButton,
+  .splitButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 14px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+}
+
+.hitButton {
+  padding: 10px 20px;
+  background-color: #ff0000;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.hitButton:active {
+  transform: scale(0.95);
+  background-color: #ff3333;
+}
+
+.hitButton:hover {
+  background-color: #ff1a1a;
+}
+
+.standButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.standButton:active {
+  transform: scale(0.95);
+  background-color: #0056b3;
+}
+
+.standButton:hover {
+  background-color: #0069d9;
+}
+
+.doubleButton {
+  padding: 10px 20px;
+  background-color: #000000;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.doubleButton:active {
+  transform: scale(0.95);
+  background-color: #404040;
+}
+
+.doubleButton:hover {
+  background-color: #808080;
+}
+
+.splitButton {
+  padding: 10px 20px;
+  background-color: #008000;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.splitButton:active {
+  transform: scale(0.95);
+  background-color: #006400;
+}
+
+.splitButton:hover {
+  background-color: #32cd32;
+}
+
+@media (max-width: 768px) {
+  .player-card0,
+  .player-card1,
+  .player-card2,
+  .player-card3 {
+    max-width: 100px;
+  }
+}
+
+@media (min-width: 768px) {
+  .player-card0,
+  .player-card1,
+  .player-card2,
+  .player-card3 {
+    max-width: 130px;
+  }
+}
+
+.split0 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.split1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 20px;
+}
+
+.split2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+}
+
+.split3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px;
+}

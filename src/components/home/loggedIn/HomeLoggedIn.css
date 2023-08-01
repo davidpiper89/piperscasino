@@ -1,0 +1,112 @@
+.loggedInContainer {
+  height: 100vh;
+  background: linear-gradient(110deg, #000428 60%, #004e92 60%);
+  display: flex;
+  flex-direction: column;
+  color: #f8f8f8;
+}
+
+.welcome {
+  text-align: center;
+  font-size: 2rem;
+  padding: 20px;
+  font-family: "Playfair Display", serif;
+}
+
+.gameLink {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnGame {
+  font-size: 1.2rem;
+  color: #f8f8f8;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+/* Burger.css */
+
+.burger {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 20;
+  display: none;
+  justify-content: space-around;
+  flex-flow: column nowrap;
+}
+
+.burger div {
+  width: 2rem;
+  height: 0.25rem;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  transform-origin: 1px;
+  transition: all 0.3s linear;
+}
+
+.burger.open div:first-child {
+  transform: rotate(46.5deg);
+}
+
+.burger.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open div:last-child {
+  transform: rotate(-46.5deg);
+}
+
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #023047;
+  position: absolute;
+  transform: translateX(0%);
+  top: 0;
+  right: 0;
+  width: 100vw;
+  padding-right: 2rem;
+  padding-top: 3rem;
+  transition: transform 0.3s ease-in-out;
+  z-index: 19;
+}
+
+.burger-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.burger-menu ul li {
+  margin-bottom: 7px;
+}
+
+.burger-menu ul li a {
+  color: #f8f8f8;
+  text-decoration: none;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.burger-menu a {
+  color: #f8f8f8;
+  text-decoration: none;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+}

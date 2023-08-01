@@ -1,0 +1,97 @@
+.image {
+  display: flex;
+}
+.card-image {
+  width: 100%;
+}
+
+.cards-container {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.bet-button,
+.confirm-button {
+  background-color: #ffffff;
+  border: none;
+  color: #2f9c75;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+}
+
+.confirm-button:hover,
+.bet-button:hover {
+  transform: scale(1.1);
+  color: #ffffff;
+  background-color: #206a4b;
+}
+
+@media (max-width: 768px) {
+  .bet-button,
+  .confirm-button {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+.app-title {
+  color: #ffffff;
+  font-size: 2.5em;
+  text-align: center;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 1.5em;
+    margin: auto;
+  }
+}
+
+.bet-text {
+  color: #ffffff;
+}
+
+.total {
+  color: #ffffff;
+  margin: 2px;
+}
+
+.info-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  margin: auto;
+}
+
+.mediaContainer {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(110deg, #288965 60%, #2f9c75 60%);
+  height: 100vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h1 {
+  color: #082032;
+}
+p {
+  color: #082032;
+}

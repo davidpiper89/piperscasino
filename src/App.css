@@ -1,15 +1,5 @@
-.mediaContainer {
-  height: 95vh;
-  
-}
 
-.cardContainer {
-  max-width: 125px;
-  height: 200px ;
-}
 
-@media (min-width: 762px) {
-  .mediaContainer {
-    height: 80vh;
-  }
+.home-button {
+  color: white;
 }
