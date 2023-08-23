@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logout from "./LogOut";
 
-const Burger = () => {
+const Burger = ({ setLoggedIn }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ const Burger = () => {
         <div></div>
       </div>
       {open && (
-        <div className="burger-menu">
+        <div className="d-flex flex-column burger-menu">
           <ul className="d-flex flex-column align-items-end">
             <li>
               <Link to="/BlackJack" onClick={() => setOpen(false)}>
@@ -24,7 +24,7 @@ const Burger = () => {
               </Link>
             </li>
             <li>
-              <Logout />
+              <Logout setLoggedIn={setLoggedIn}/>
             </li>
           </ul>
         </div>

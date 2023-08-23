@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import './HomeNotLoggedIn.css'; // Import custom styles
+import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import GoogleButton from "react-google-button";
+import { auth } from "../../../firebase";
+import "./HomeNotLoggedIn.css";
 
 const HomeNotLoggedIn = ({ setLoggedIn }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(auth, provider);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,14 +53,17 @@ const HomeNotLoggedIn = ({ setLoggedIn }) => {
           placeholder="Password"
           className="form-control form-input"
         />
-        <input 
-          type="submit" 
+        <input
+          type="submit"
           value={isLogin ? "Login" : "Signup"}
           className="btn btn-primary form-submit"
         />
       </form>
-      <button 
-        type="button" 
+      <div className="mb-4">
+        <GoogleButton onClick={googleSignIn} />
+      </div>
+      <button
+        type="button"
         onClick={() => setIsLogin(!isLogin)}
         className="btn btn-secondary form-switch"
       >
