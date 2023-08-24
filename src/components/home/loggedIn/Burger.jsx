@@ -16,7 +16,7 @@ const Burger = ({ setLoggedIn }) => {
         <div></div>
       </div>
       {open && (
-        <div className="d-flex flex-column burger-menu">
+        <div className="d-flex flex-column burgerMenu">
           <ul className="d-flex flex-column align-items-end">
             <li>
               <Link to="/BlackJack" onClick={() => setOpen(false)}>

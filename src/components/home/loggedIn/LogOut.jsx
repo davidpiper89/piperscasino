@@ -8,9 +8,9 @@ const Logout = ({ setLoggedIn }) => {
   };
 
   return (
-    <button className="m-auto" onClick={handleLogout}>
+    <div className="m-auto logoutBtn" onClick={handleLogout}>
       Logout
-    </button>
+    </div>
   );
 };
 

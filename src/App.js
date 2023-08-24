@@ -5,14 +5,25 @@ import Home from "./components/home/Home";
 import "./App.css";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false); 
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
+  const [username, setUsername] = useState("");
+
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+          element={
+            <Home
+              loggedIn={loggedIn}
+              setLoggedIn={setLoggedIn}
+              setToken={setToken}
+              setUsername={setUsername}
+              username={username}
+            />
+          }
         />
         <Route path="/blackjack" element={<Blackjack />} />
       </Routes>
