@@ -4,7 +4,7 @@ import Message from "./Message";
 import { db } from "../../../../firebase";
 import SendMessage from "./SendMessage";
 
-const Chatroom = () => {
+const Chatroom = ({username}) => {
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
 
@@ -30,10 +30,13 @@ const Chatroom = () => {
   return (
     <>
       <main className="chat">
-        {messages && messages.map((msg) => <Message key={msg.id} msg={msg} />)}
+        {messages &&
+          messages.map((msg) => (
+            <Message key={msg.id} msg={msg} username={username} />
+          ))}
         <span ref={scroll}></span>
       </main>
-      <SendMessage scroll={scroll} />
+      <SendMessage scroll={scroll} username={username} />
     </>
   );
 };

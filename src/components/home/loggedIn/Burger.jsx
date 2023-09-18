@@ -23,8 +23,11 @@ const Burger = ({ setLoggedIn }) => {
                 Blackjack
               </Link>
             </li>
+            <Link to="/profile" onClick={() => setOpen(false)}>
+              Profile
+            </Link>
             <li>
-              <Logout setLoggedIn={setLoggedIn}/>
+              <Logout setLoggedIn={setLoggedIn} />
             </li>
           </ul>
         </div>

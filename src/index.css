@@ -2,11 +2,14 @@
 
 body {
   margin: 0;
-  font-family: "Arvo", serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: "Arvo", serif;
+h1,
+h2,
+h3,
+.decorative-class {
+  font-family: "Playfair Display", serif;
 }

@@ -1,13 +1,12 @@
-
 .homeContainer {
   height: 100vh;
   background: linear-gradient(110deg, #3e3e3e 60%, #0a0a0a 60%);
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .title {
-  
   text-align: center;
   font-size: 3rem;
   padding: 20px;

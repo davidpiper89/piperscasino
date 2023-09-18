@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ResultsModal from "./ResultsModal";
+import axios from "axios";
 
 const Result = ({
   total,
@@ -15,6 +16,9 @@ const Result = ({
   setWins,
   setLoses,
   setDraws,
+  chips,
+  token,
+  username,
 }) => {
   const result = { win: "You win", lose: "You lose", draw: "Push" };
   const [outcome, setOutcome] = useState([]);
@@ -37,7 +41,6 @@ const Result = ({
     setOutcome([]);
     setShowModal(false);
   };
-  
 
   useEffect(() => {
     let timer;
@@ -48,6 +51,24 @@ const Result = ({
     }
     return () => clearTimeout(timer);
   }, [outcome]);
+
+  useEffect(() => {
+    const updateBackend = async (newChipCount, username) => {
+      console.log(newChipCount, username);
+      try {
+        const { data } = await axios.post(
+          "http://localhost:6001/update-chips",
+          { newChipCount, username }
+        );
+
+        console.log(data);
+      } catch (error) {
+        localStorage.setItem("unsavedChipCount", newChipCount);
+      }
+    };
+
+    updateBackend(chips, token, username);
+  }, [chips]);
 
   useEffect(() => {
     let newOutcome = [...outcome];
@@ -81,6 +102,10 @@ const Result = ({
     }
     setOutcome(newOutcome);
   }, [dealerEnd]);
+
+  useEffect(() => {
+    localStorage.setItem("chips", chips);
+  }, [chips]);
 
   return showModal ? (
     <ResultsModal

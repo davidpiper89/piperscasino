@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { HomeButton } from "../loggedIn/HomeButton";
@@ -6,9 +6,12 @@ import Burger from "./Burger";
 import Chatroom from "./chatRoom/ChatRoom";
 import { auth } from "../../../firebase";
 import "./HomeLoggedIn.css";
+import Logout from "./LogOut";
 
-const HomeLoggedIn = ({ setLoggedIn, username }) => {
+const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
   const [user] = useAuthState(auth);
+
+  const displayName = user ? user.displayName || username : username;
 
   const Section = ({ title, content, onClick }) => (
     <section className="d-flex flex-column align-items-center section">
@@ -18,19 +21,42 @@ const HomeLoggedIn = ({ setLoggedIn, username }) => {
       </div>
     </section>
   );
+  useEffect(() => {
+    const storedChips = localStorage.getItem("chips");
+    if (storedChips) {
+      setChips(Number(storedChips));
+    }
+  }, []);
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+  const updateMedia = () => {
+    setIsMobile(window.innerWidth < 700);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  }, []);
+
+  const DesktopMenu = () => (
+    <div className="desktopMenu">
+      <Link to="/profile">Profile</Link>
+      <Logout />
+    </div>
+  );
 
   return (
     <div className="d-flex flex-column loggedInContainer">
       <header className="d-flex">
         <HomeButton />
-        <h1 className="welcome m-auto">
-          Welcome!
-        </h1>
+        <h1 className="welcome m-auto">Welcome {displayName.split(" ")[0]}!</h1>
         <div className="m-auto">
-          <Burger setLoggedIn={setLoggedIn} />
+          {isMobile ? <Burger setLoggedIn={setLoggedIn} /> : <DesktopMenu />}
         </div>
       </header>
       <main className="mt-4 m-auto">
+        <Section title="Profile" content={<p>Chips: {chips}</p>} />
         <Section
           title="Games"
           content={<Link to="/BlackJack">Blackjack</Link>}
@@ -38,14 +64,14 @@ const HomeLoggedIn = ({ setLoggedIn, username }) => {
         />
         <Section
           title="News"
-          content={<p>Lorem, ipsum ... cum earum!</p>}
+          content={<p>Slot machine next!</p>}
           onClick={() => {}}
         />
         <Section
           title="Chat"
           content={
             <div className="chatContent">
-              <Chatroom />
+              <Chatroom username={username} />
             </div>
           }
           onClick={() => {}}

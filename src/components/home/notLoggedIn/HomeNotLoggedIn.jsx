@@ -6,34 +6,88 @@ import {
   signInWithCustomToken,
   signInWithRedirect,
   onAuthStateChanged,
+  updateProfile,
+  getRedirectResult,
 } from "firebase/auth";
 import GoogleButton from "react-google-button";
 import { auth } from "../../../firebase";
 import "./HomeNotLoggedIn.css";
+import { ToastContainer, toast } from "react-toastify";
 
-const HomeNotLoggedIn = ({ setLoggedIn, setToken, setUsername, username }) => {
+const HomeNotLoggedIn = ({
+  setLoggedIn,
+  setToken,
+  setUsername,
+  username,
+  setChips,
+}) => {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
 
+  // useEffect(() => {
+  //   const checkRedirect = async () => {
+  //     try {
+  //       const result = await getRedirectResult(auth);
+  //       if (result.user) {
+  //         const googleUser = result.user;
+  //         const id_token = await googleUser.getIdToken();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is logged in with UID:", user.uid);
-      } else {
-        console.log("No user is logged in.");
-      }
-    });
+  //         handleGoogleResponse(id_token, googleUser);
+  //       }
+  //     } catch (error) {
+  //       console.error("Redirect sign-in error:", error);
+  //     }
+  //   };
 
-    return () => unsubscribe();
-  }, []);
+  //   checkRedirect();
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       console.log("User is logged in with UID:", user.uid);
+  //     } else {
+  //       console.log("No user is logged in.");
+  //     }
+  //   });
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
-  };
+  //   return () => unsubscribe();
+  // }, []);
+
+  // const googleSignIn = () => {
+  //   const provider = new GoogleAuthProvider();
+  //   signInWithRedirect(auth, provider).catch((error) => {
+  //     console.error("Google Sign-In Error:", error);
+  //   });
+  // };
+
+  // const handleGoogleResponse = async (id_token, googleUser) => {
+  //   try {
+  //     const { data } = await axios.post("http://localhost:6001/google-login", {
+  //       id_token: id_token,
+  //     });
+
+  //     if (data.status === 1) {
+  //       setLoggedIn(true);
+  //       setToken(data.token);
+
+  //       // You can get the username from the response data if your backend sends it.
+  //       setUsername(data.username || googleUser.displayName);
+
+  //       if (data.firebaseToken) {
+  //         await signInWithCustomToken(auth, data.firebaseToken);
+  //         if (!auth.currentUser.displayName) {
+  //           await updateProfile(auth.currentUser, {
+  //             displayName: googleUser.displayName,
+  //           });
+  //         }
+  //       }
+  //     } else if (data.status === 0) {
+  //       toast.error("Google Sign-In failed. Please try again.");
+  //     }
+  //   } catch (err) {
+  //     console.error("Google Sign-In Error:", err);
+  //   }
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,18 +111,30 @@ const HomeNotLoggedIn = ({ setLoggedIn, setToken, setUsername, username }) => {
       if (isLogin) {
         const { data } = await axios.post(
           "http://localhost:6001/login",
-          userDetails
+          userDetails,
+          { withCredentials: true }
         );
 
         if (data.status === 1) {
           setLoggedIn(true);
           setToken(data.token);
           setUsername(userDetails.username);
+          localStorage.setItem("username", userDetails.username);
+          setChips(data.chips);
+          localStorage.setItem("chips", data.chips);
           if (data.firebaseToken) {
             await signInWithCustomToken(auth, data.firebaseToken);
+            if (!auth.currentUser.displayName) {
+              await updateProfile(auth.currentUser, {
+                displayName: userDetails.username,
+              });
+            }
           }
         }
         if (data.status === 0) {
+          toast.error(
+            "Login failed. Please check your credentials and try again."
+          );
         }
       } else {
         const { data } = await axios.post(
@@ -77,6 +143,18 @@ const HomeNotLoggedIn = ({ setLoggedIn, setToken, setUsername, username }) => {
         );
         if (data.status === 1) {
           console.log("successful signup");
+          setLoggedIn(true);
+          setToken(data.token);
+          setUsername(userDetails.username);
+          setChips(data.chips);
+          if (data.firebaseToken) {
+            await signInWithCustomToken(auth, data.firebaseToken);
+            if (!auth.currentUser.displayName) {
+              await updateProfile(auth.currentUser, {
+                displayName: userDetails.username,
+              });
+            }
+          }
         }
         if (data.status === 0) {
           console.log("duplicate user");
@@ -131,9 +209,10 @@ const HomeNotLoggedIn = ({ setLoggedIn, setToken, setUsername, username }) => {
           className="btn btn-primary form-submit"
         />
       </form>
-      <div className="mb-4">
+      <ToastContainer />
+      {/* <div className="mb-4">
         <GoogleButton onClick={googleSignIn} />
-      </div>
+      </div> */}
       <button
         type="button"
         onClick={() => setIsLogin(!isLogin)}

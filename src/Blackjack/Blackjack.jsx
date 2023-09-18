@@ -8,7 +8,7 @@ import "./Blackjack.css";
 import InfoButton from "./components/InfoButton";
 import { HomeButton } from "../components/home/loggedIn/HomeButton";
 
-const Blackjack = () => {
+const Blackjack = ({ chips, setChips, token, username }) => {
   const deckStart = useMemo(() => [...deck], []);
   const [bet, setBet] = useState(false);
   const [playerCards, setPlayerCards] = useState([[]]);
@@ -20,7 +20,7 @@ const Blackjack = () => {
   const [dealerEnd, setDealerEnd] = useState(false);
   const [stand, setStand] = useState([false, false, false, false]);
   const [double, setDouble] = useState([false, false, false, false]);
-  const [chips, setChips] = useState(100);
+
   const [stake, setStake] = useState([0, 0, 0, 0]);
   const [total, setTotal] = useState([false, false, false, false]);
   const [bust, setBust] = useState([false, false, false, false]);
@@ -58,6 +58,14 @@ const Blackjack = () => {
     setDealerCards(start.dealerCards);
     setDealerHidden(start.dealerHidden);
   }, [deckStart]);
+
+  useEffect(() => {
+    const storedChips = localStorage.getItem("chips");
+    if (storedChips) {
+      setChips(Number(storedChips));
+    }
+  }, []);
+  
 
   return (
     <>
@@ -140,6 +148,9 @@ const Blackjack = () => {
           setLoses={setLoses}
           draws={draws}
           setDraws={setDraws}
+          chips={chips}
+          token={token}
+          username={username}
         />
         <footer></footer>
       </div>

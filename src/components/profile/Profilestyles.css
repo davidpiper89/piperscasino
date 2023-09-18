@@ -1,0 +1,37 @@
+.profileSection {
+  background: linear-gradient(110deg, #000428 60%, #004e92 60%);
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ProfileHeader.css */
+.profileHeaderContainer {
+  display: flex;
+  align-items: center;
+  color: #f8f8f8;
+  border-bottom: 1px solid rgba(8, 78, 146, 0.4);
+}
+
+.profileHeaderContainer a {
+  color: #f8f8f8;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.profileHeaderContainer a:hover {
+  color: #e62121;
+}
+
+
+/* Profile bio css */
+
+.avatarContainer {
+  display: flex;
+  color: #f8f8f8;
+
+  padding: 2px;;
+}
+.avatarContainer > input {
+  margin-left: 10px;
+}
