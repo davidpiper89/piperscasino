@@ -6,7 +6,7 @@
 
 .homeButton {
   position: fixed;
-  top: 20px;
+  top: 18px;
   left: 15px;
   font-size: 24px;
   color: #f8f8f8;
@@ -18,7 +18,7 @@
   max-width: 300px;
   font-size: 20px;
   padding: 20px;
-  margin: 7px auto auto auto
+  margin: 7px auto auto auto;
 }
 
 /* Burger Menu Styles */
@@ -102,8 +102,8 @@
   .welcome {
     max-width: none;
     font-size: 27px;
-    margin-left: 2px;
-    margin-top: 3px
+    margin-left: 100px;
+    margin-top: 0px;
   }
 
   .headerContainer {
@@ -117,11 +117,12 @@
     margin: auto;
   }
 }
-@media screen and (min-width: 700px) {
+/* @media screen and (min-width: 700px) {
   .welcome {
-    margin: auto;
+    margin-top: auto;
+    margin-left: 100px
   }
-}
+} */
 
 .logoutBtn {
   color: #f8f8f8;

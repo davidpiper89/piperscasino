@@ -9,8 +9,8 @@ import Profile from "./components/profile/Profile";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [chips, setChips] = useState();
-  const [token, setToken] = useState(null);
   const [username, setUsername] = useState("");
+
 
   return (
     <BrowserRouter>
@@ -22,8 +22,6 @@ function App() {
               loggedIn={loggedIn}
               setLoggedIn={setLoggedIn}
               setChips={setChips}
-              token={token}
-              setToken={setToken}
               username={username}
               setUsername={setUsername}
               chips={chips}
@@ -36,7 +34,6 @@ function App() {
             <Blackjack
               chips={chips}
               setChips={setChips}
-              token={token}
               username={username}
             />
           }

@@ -5,7 +5,7 @@ import HomeNotLoggedIn from "./notLoggedIn/HomeNotLoggedIn";
 import HomeLoggedIn from "./loggedIn/HomeLoggedIn";
 import "./Home.css";
 
-const Home = ({ loggedIn, setLoggedIn, chips, setChips, setToken, username, setUsername }) => {
+const Home = ({ loggedIn, setLoggedIn, chips, setChips, username, setUsername }) => {
   const [user] = useAuthState(auth);
 
 
@@ -28,7 +28,6 @@ const Home = ({ loggedIn, setLoggedIn, chips, setChips, setToken, username, setU
         <div className="title">Piper's Casino</div>
         <HomeNotLoggedIn
           setLoggedIn={setLoggedIn}
-          setToken={setToken}
           setUsername={setUsername}
           username={username}
           setChips={setChips}

@@ -16,7 +16,6 @@ import { ToastContainer, toast } from "react-toastify";
 
 const HomeNotLoggedIn = ({
   setLoggedIn,
-  setToken,
   setUsername,
   username,
   setChips,
@@ -25,69 +24,6 @@ const HomeNotLoggedIn = ({
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
-
-  // useEffect(() => {
-  //   const checkRedirect = async () => {
-  //     try {
-  //       const result = await getRedirectResult(auth);
-  //       if (result.user) {
-  //         const googleUser = result.user;
-  //         const id_token = await googleUser.getIdToken();
-
-  //         handleGoogleResponse(id_token, googleUser);
-  //       }
-  //     } catch (error) {
-  //       console.error("Redirect sign-in error:", error);
-  //     }
-  //   };
-
-  //   checkRedirect();
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       console.log("User is logged in with UID:", user.uid);
-  //     } else {
-  //       console.log("No user is logged in.");
-  //     }
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
-
-  // const googleSignIn = () => {
-  //   const provider = new GoogleAuthProvider();
-  //   signInWithRedirect(auth, provider).catch((error) => {
-  //     console.error("Google Sign-In Error:", error);
-  //   });
-  // };
-
-  // const handleGoogleResponse = async (id_token, googleUser) => {
-  //   try {
-  //     const { data } = await axios.post("http://localhost:6001/google-login", {
-  //       id_token: id_token,
-  //     });
-
-  //     if (data.status === 1) {
-  //       setLoggedIn(true);
-  //       setToken(data.token);
-
-  //       // You can get the username from the response data if your backend sends it.
-  //       setUsername(data.username || googleUser.displayName);
-
-  //       if (data.firebaseToken) {
-  //         await signInWithCustomToken(auth, data.firebaseToken);
-  //         if (!auth.currentUser.displayName) {
-  //           await updateProfile(auth.currentUser, {
-  //             displayName: googleUser.displayName,
-  //           });
-  //         }
-  //       }
-  //     } else if (data.status === 0) {
-  //       toast.error("Google Sign-In failed. Please try again.");
-  //     }
-  //   } catch (err) {
-  //     console.error("Google Sign-In Error:", err);
-  //   }
-  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -117,11 +53,14 @@ const HomeNotLoggedIn = ({
 
         if (data.status === 1) {
           setLoggedIn(true);
-          setToken(data.token);
           setUsername(userDetails.username);
           localStorage.setItem("username", userDetails.username);
           setChips(data.chips);
           localStorage.setItem("chips", data.chips);
+
+       
+          document.cookie = `token=${data.token}; Secure; HttpOnly;`;
+
           if (data.firebaseToken) {
             await signInWithCustomToken(auth, data.firebaseToken);
             if (!auth.currentUser.displayName) {
@@ -137,28 +76,7 @@ const HomeNotLoggedIn = ({
           );
         }
       } else {
-        const { data } = await axios.post(
-          "http://localhost:6001/signup",
-          userDetails
-        );
-        if (data.status === 1) {
-          console.log("successful signup");
-          setLoggedIn(true);
-          setToken(data.token);
-          setUsername(userDetails.username);
-          setChips(data.chips);
-          if (data.firebaseToken) {
-            await signInWithCustomToken(auth, data.firebaseToken);
-            if (!auth.currentUser.displayName) {
-              await updateProfile(auth.currentUser, {
-                displayName: userDetails.username,
-              });
-            }
-          }
-        }
-        if (data.status === 0) {
-          console.log("duplicate user");
-        }
+        // ... existing signup code
       }
     } catch (err) {
       console.error("Error:", err.data ? err.data.message : err.message);

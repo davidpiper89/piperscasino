@@ -17,7 +17,6 @@ const Result = ({
   setLoses,
   setDraws,
   chips,
-  token,
   username,
 }) => {
   const result = { win: "You win", lose: "You lose", draw: "Push" };
@@ -54,20 +53,28 @@ const Result = ({
 
   useEffect(() => {
     const updateBackend = async (newChipCount, username) => {
-      console.log(newChipCount, username);
+      const token = getCookie("token");
+      console.log(token); // For debugging purposes
+
       try {
         const { data } = await axios.post(
           "http://localhost:6001/update-chips",
-          { newChipCount, username }
+          { newChipCount, username },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+          }
         );
 
-        console.log(data);
+        console.log(data); 
       } catch (error) {
         localStorage.setItem("unsavedChipCount", newChipCount);
       }
     };
 
-    updateBackend(chips, token, username);
+    updateBackend(chips, username);
   }, [chips]);
 
   useEffect(() => {
@@ -106,6 +113,14 @@ const Result = ({
   useEffect(() => {
     localStorage.setItem("chips", chips);
   }, [chips]);
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  const token = getCookie("token");
 
   return showModal ? (
     <ResultsModal

@@ -31,6 +31,7 @@ const Blackjack = ({ chips, setChips, token, username }) => {
   const [draws, setDraws] = useState(0);
 
   const [dealerTotal, setDealerTotal] = useState([0]);
+ 
 
   const resetGame = useCallback(() => {
     const start = beginGame([...deck]);
@@ -73,9 +74,9 @@ const Blackjack = ({ chips, setChips, token, username }) => {
         fluid="true"
         className="d-flex flex-column align-items-center mediaContainer"
       >
-        <header className="d-flex align-items-center w-100 justify-content-center justify-content-around mt-4 mb-5">
-          <HomeButton className="home-button" />
-          <h1 className="app-title">Piper's BlackJack</h1>
+        <header className="blackjackHeader">
+          <HomeButton />
+          <h1 className="blackjackTitle">Piper's BlackJack</h1>
           <InfoButton wins={wins} loses={loses} draws={draws} />
         </header>
 
@@ -149,7 +150,7 @@ const Blackjack = ({ chips, setChips, token, username }) => {
           draws={draws}
           setDraws={setDraws}
           chips={chips}
-          token={token}
+  
           username={username}
         />
         <footer></footer>

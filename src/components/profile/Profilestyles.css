@@ -7,6 +7,14 @@
   align-items: center;
 }
 
+.profileTitle {
+  text-align: center;
+  max-width: 300px;
+  font-size: 20px;
+  padding: 20px;
+  margin: 7px auto auto auto;
+}
+
 /* ProfileHeader.css */
 
 .profileHeaderContainer {
@@ -20,8 +28,12 @@
 }
 
 @media screen and (min-width: 500px) {
-  .welcome {
+  .profileTitle {
     margin-left: auto;
+    max-width: none;
+    font-size: 27px;
+    margin-left: 2px;
+    margin-top: 3px;
   }
   .homeButton {
     position: fixed;

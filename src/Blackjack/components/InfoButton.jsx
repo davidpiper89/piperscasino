@@ -14,7 +14,7 @@ const InfoButton = ({
   return (
     <>
       <button
-        className="info-button"
+        className="infoButton"
         onClick={() => {
           setShowStats(!showStats);
         }}

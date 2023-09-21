@@ -1,3 +1,41 @@
+/*header */
+
+.blackjackHeader {
+  display: flex;
+}
+.blackjackTitle {
+  color: #ffffff;
+  text-align: center;
+  max-width: 300px;
+  font-size: 20px;
+  padding: 20px;
+  margin: 7px auto auto auto;
+}
+.infoButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  margin: auto;
+}
+
+@media screen and (min-width: 500px) {
+  .blackjackTitle {
+    max-width: none;
+    font-size: 27px;
+    margin-left: 2px;
+    margin-top: 3px;
+  }
+
+  .blackjackHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .homeButton {
+    position: static;
+  }
+}
+
 .image {
   display: flex;
 }
@@ -42,13 +80,6 @@
   }
 }
 
-.app-title {
-  color: #ffffff;
-  font-size: 2.5em;
-  text-align: center;
-  margin: auto;
-}
-
 @media (max-width: 768px) {
   .app-title {
     font-size: 1.5em;
@@ -63,14 +94,6 @@
 .total {
   color: #ffffff;
   margin: 2px;
-}
-
-.info-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: #ffffff;
-  margin: auto;
 }
 
 .mediaContainer {
@@ -88,4 +111,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-

@@ -6,7 +6,7 @@ const ProfileHeader = ({ username }) => {
   return (
     <header className="profileHeaderContainer">
       <HomeButton />
-      <h2 className="welcome">{username}</h2>
+      <h2 className="profileTitle">{username}</h2>
     </header>
   );
 };
