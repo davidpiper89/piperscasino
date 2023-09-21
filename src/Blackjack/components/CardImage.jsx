@@ -3,7 +3,7 @@ import React from "react";
 const CardImage = ({ card }) => {
   return (
     <img
-      src={`../../assets/${card.image}.svg`}
+      src={`${process.env.PUBLIC_URL}/assets/${card.image}.svg`}
       alt="missing img"
       className="card-image"
     />

@@ -7,6 +7,7 @@ const Logout = ({ setLoggedIn }) => {
     auth.signOut();
   };
 
+
   return (
     <div className="m-auto logoutBtn" onClick={handleLogout}>
       Logout

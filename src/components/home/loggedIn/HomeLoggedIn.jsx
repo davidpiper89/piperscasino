@@ -42,16 +42,16 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
   const DesktopMenu = () => (
     <div className="desktopMenu">
       <Link to="/profile">Profile</Link>
-      <Logout />
+      <Logout setLoggedIn={setLoggedIn} />
     </div>
   );
 
   return (
     <div className="d-flex flex-column loggedInContainer">
-      <header className="d-flex">
+      <header className="headerContainer">
         <HomeButton />
-        <h1 className="welcome m-auto">Welcome {displayName.split(" ")[0]}!</h1>
-        <div className="m-auto">
+        <h1 className="welcome">Welcome {displayName.split(" ")[0]}!</h1>
+        <div className="burgerContainer">
           {isMobile ? <Burger setLoggedIn={setLoggedIn} /> : <DesktopMenu />}
         </div>
       </header>

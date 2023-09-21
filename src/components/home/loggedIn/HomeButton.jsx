@@ -5,10 +5,8 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 export const HomeButton = () => {
   return (
-    <div className="m-auto">
-      <Link to="/">
-        <FontAwesomeIcon className="home-button" icon={faHouse} />
-      </Link>
-    </div>
+    <Link to="/" className="homeButton">
+      <FontAwesomeIcon icon={faHouse} />
+    </Link>
   );
 };

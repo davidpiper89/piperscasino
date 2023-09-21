@@ -1,37 +1,88 @@
 .profileSection {
   background: linear-gradient(110deg, #000428 60%, #004e92 60%);
-  height: 100vh;
-  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ProfileHeader.css */
+
 .profileHeaderContainer {
   display: flex;
-  align-items: center;
   color: #f8f8f8;
   border-bottom: 1px solid rgba(8, 78, 146, 0.4);
 }
 
-.profileHeaderContainer a {
-  color: #f8f8f8;
-  text-decoration: none;
-  margin: 0 15px;
-  transition: color 0.3s ease;
+.homeButton {
+  left: 20px;
 }
 
-.profileHeaderContainer a:hover {
-  color: #e62121;
+@media screen and (min-width: 500px) {
+  .welcome {
+    margin-left: auto;
+  }
+  .homeButton {
+    position: fixed;
+    left: 50px;
+  }
 }
 
-
-/* Profile bio css */
-
+/* Profile Avatar */
 .avatarContainer {
   display: flex;
-  color: #f8f8f8;
-
-  padding: 2px;;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #004e92;
+  border-radius: 10px;
+  margin: 20px 0;
 }
-.avatarContainer > input {
-  margin-left: 10px;
+
+.avatarPicture,
+.newAvatarPreview {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.avatarTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  background-color: #ffc107;
+  color: #212121;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ffd54f;
+}
+
+/* Profile Details */
+.profileDetailsContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* New Avatar Preview */
+.newAvatarPreview {
+  width: 100px;
 }

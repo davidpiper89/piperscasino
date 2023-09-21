@@ -4,27 +4,30 @@
   color: #f8f8f8;
 }
 
+.homeButton {
+  position: fixed;
+  top: 20px;
+  left: 15px;
+  font-size: 24px;
+  color: #f8f8f8;
+  z-index: 999;
+}
+
 .welcome {
   text-align: center;
   max-width: 300px;
-  font-size: 27px;
+  font-size: 20px;
   padding: 20px;
-  font-family: "Playfair Display", serif;
-}
-
-@media screen and (min-width: 450px) {
-  .welcome {
-    max-width: none;
-  }
+  margin: 7px auto auto auto
 }
 
 /* Burger Menu Styles */
 .burger {
   width: 2rem;
   height: 2rem;
-  /* position: absolute;
-  top: 24px;
-  right: 20px; */
+  position: fixed;
+  top: 25px;
+  right: 15px;
   z-index: 20;
   display: flex;
   justify-content: space-around;
@@ -95,6 +98,31 @@
   color: #e62121;
 }
 
+@media screen and (min-width: 500px) {
+  .welcome {
+    max-width: none;
+    font-size: 27px;
+    margin-left: 2px;
+    margin-top: 3px
+  }
+
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  .homeButton,
+  .burgerContainer,
+  .burger {
+    position: static;
+    margin: auto;
+  }
+}
+@media screen and (min-width: 700px) {
+  .welcome {
+    margin: auto;
+  }
+}
+
 .logoutBtn {
   color: #f8f8f8;
   padding: 12px 20px;
@@ -130,7 +158,7 @@
 
 /* DesktopMenu styles */
 .desktopMenu {
-  display: none;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   width: 50%;
@@ -160,12 +188,6 @@
 
 .desktopMenu button:hover {
   background-color: #006680;
-}
-
-@media screen and (min-width: 700px) {
-  .desktopMenu {
-    display: flex;
-  }
 }
 
 /* Section Container Styles */
