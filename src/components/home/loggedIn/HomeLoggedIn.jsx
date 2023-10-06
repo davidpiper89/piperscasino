@@ -7,6 +7,8 @@ import Chatroom from "./chatRoom/ChatRoom";
 import { auth } from "../../../firebase";
 import "./HomeLoggedIn.css";
 import Logout from "./LogOut";
+import Header from "./Header";
+
 
 const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
   const [user] = useAuthState(auth);
@@ -28,10 +30,10 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
     }
   }, []);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
 
   const updateMedia = () => {
-    setIsMobile(window.innerWidth < 700);
+    setIsMobile(window.innerWidth <= 800);
   };
 
   useEffect(() => {
@@ -42,19 +44,23 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
   const DesktopMenu = () => (
     <div className="desktopMenu">
       <Link to="/profile">Profile</Link>
+      <Link to="/store">Store</Link>
       <Logout setLoggedIn={setLoggedIn} />
     </div>
   );
 
   return (
     <div className="d-flex flex-column loggedInContainer">
-      <header className="headerContainer">
-        <HomeButton />
-        <h1 className="welcome">Welcome {displayName.split(" ")[0]}!</h1>
-        <div className="burgerContainer">
-          {isMobile ? <Burger setLoggedIn={setLoggedIn} /> : <DesktopMenu />}
-        </div>
-      </header>
+      <Header
+        title={`Welcome ${displayName.split(" ")[0]}!`}
+        leftIcon={<HomeButton />}
+        rightContent={
+          <div className="burgerContainer">
+            {isMobile ? <Burger setLoggedIn={setLoggedIn} /> : <DesktopMenu />}
+          </div>
+        }
+      />
+
       <main className="mt-4 m-auto">
         <Section title="Profile" content={<p>Chips: {chips}</p>} />
         <Section

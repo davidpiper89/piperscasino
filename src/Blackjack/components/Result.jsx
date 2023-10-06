@@ -24,6 +24,7 @@ const Result = ({
 
   const [showModal, setShowModal] = useState(false);
 
+
   useEffect(() => {
     if (outcome.length === 1 && outcome[0] === "You lose") {
       setLoses((prevLoses) => prevLoses + 1);
@@ -54,10 +55,9 @@ const Result = ({
   useEffect(() => {
     const updateBackend = async (newChipCount, username) => {
       const token = getCookie("token");
-      console.log(token); // For debugging purposes
 
       try {
-        const { data } = await axios.post(
+        const { data } = await axios.put(
           "http://localhost:6001/update-chips",
           { newChipCount, username },
           {
@@ -68,7 +68,7 @@ const Result = ({
           }
         );
 
-        console.log(data); 
+        console.log(data);
       } catch (error) {
         localStorage.setItem("unsavedChipCount", newChipCount);
       }
@@ -119,8 +119,6 @@ const Result = ({
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(";").shift();
   }
-
-  const token = getCookie("token");
 
   return showModal ? (
     <ResultsModal

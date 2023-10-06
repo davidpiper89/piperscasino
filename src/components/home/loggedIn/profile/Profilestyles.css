@@ -7,39 +7,6 @@
   align-items: center;
 }
 
-.profileTitle {
-  text-align: center;
-  max-width: 300px;
-  font-size: 20px;
-  padding: 20px;
-  margin: 7px auto auto auto;
-}
-
-/* ProfileHeader.css */
-
-.profileHeaderContainer {
-  display: flex;
-  color: #f8f8f8;
-  border-bottom: 1px solid rgba(8, 78, 146, 0.4);
-}
-
-.homeButton {
-  left: 20px;
-}
-
-@media screen and (min-width: 500px) {
-  .profileTitle {
-    margin-left: auto;
-    max-width: none;
-    font-size: 27px;
-    margin-left: 2px;
-    margin-top: 3px;
-  }
-  .homeButton {
-    position: fixed;
-    left: 50px;
-  }
-}
 
 /* Profile Avatar */
 .avatarContainer {

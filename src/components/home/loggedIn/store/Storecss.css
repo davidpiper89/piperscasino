@@ -1,0 +1,115 @@
+/* Storecss.css */
+
+.storeContainer {
+  min-height: 100vh;
+  background: linear-gradient(110deg, #000428 60%, #004e92 60%);
+  color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.chipsTitle {
+  position: absolute;
+  top: -15px;
+  left: 15px;
+  background-color: #000428;
+  padding: 0 15px;
+  color: #f8f8f8;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  z-index: 999;
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.08),
+    5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Store Chips */
+.chipsContainer {
+  position: relative;
+  cursor: pointer;
+  width: 80vw;
+  padding: 20px;
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.08),
+    5px 5px 15px rgba(0, 0, 0, 0.2);
+  margin: 25px 0;
+  border-radius: 15px;
+  background-color: #000428;
+  border: 1px solid #004e92;
+  transition: all 0.3s ease-out;
+}
+
+.getChips {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.getChips ul {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.getChips ul li {
+  list-style-type: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #ffc107;
+  color: #212121;
+  font-weight: 500;
+}
+
+.buyChips {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.buyChips ul {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}
+
+.buyChips ul li {
+  list-style-type: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #ffc107;
+  color: #212121;
+  font-weight: 500;
+}
+
+/* Store Avatars */
+.avatarsContainer {
+  position: relative;
+  cursor: pointer;
+  width: 80vw;
+  padding: 20px;
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.08),
+    5px 5px 15px rgba(0, 0, 0, 0.2);
+  margin: 25px 0;
+  border-radius: 15px;
+  background-color: #000428;
+  border: 1px solid #004e92;
+  transition: all 0.3s ease-out;
+}
+
+.amberButton {
+  color: #212121;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.amberButton:hover {
+  background-color: #ffd54f;
+}

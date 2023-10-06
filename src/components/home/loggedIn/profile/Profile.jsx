@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ProfileHeader from "./ProfileHeader";
+import Header from "../Header";
 import "./Profilestyles.css";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileDetails from "./ProfileDetails";
+import { HomeButton } from "../HomeButton";
 
 const Profile = ({ username: propUsername }) => {
   const [username, setUsername] = useState(propUsername);
@@ -18,8 +19,7 @@ const Profile = ({ username: propUsername }) => {
 
   return (
     <div className="profileSection">
-      <ProfileHeader username={username} />
-
+      <Header title={username} leftIcon={<HomeButton />} />
       <ProfileAvatar />
       <ProfileDetails propUsername={username} />
     </div>

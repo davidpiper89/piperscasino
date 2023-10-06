@@ -23,9 +23,17 @@ const Burger = ({ setLoggedIn }) => {
                 Blackjack
               </Link>
             </li>
-            <Link to="/profile" onClick={() => setOpen(false)}>
-              Profile
-            </Link>
+            <li>
+              <Link to="/store" onClick={() => setOpen(false)}>
+                Store
+              </Link>
+            </li>
+            <li>
+              <Link to="/profile" onClick={() => setOpen(false)}>
+                Profile
+              </Link>
+            </li>
+
             <li>
               <Logout setLoggedIn={setLoggedIn} />
             </li>

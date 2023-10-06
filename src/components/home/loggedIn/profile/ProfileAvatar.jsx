@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DefaultProfile from "../../assets/DefaultProfile.svg";
+import DefaultProfile from "../../../../assets/DefaultProfile.svg";
 
 function ProfileAvatar() {
   const [avatar, setAvatar] = useState(DefaultProfile);
