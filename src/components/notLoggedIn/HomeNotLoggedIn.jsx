@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { validate } from "../../../validation";
+import { validate } from "../../validation";
 import {
   GoogleAuthProvider,
   signInWithCustomToken,
@@ -10,7 +10,7 @@ import {
   getRedirectResult,
 } from "firebase/auth";
 import GoogleButton from "react-google-button";
-import { auth } from "../../../firebase";
+import { auth } from "../../firebase";
 import "./HomeNotLoggedIn.css";
 import { ToastContainer, toast } from "react-toastify";
 

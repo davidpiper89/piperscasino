@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { auth, db } from "../../../../firebase";
+import { auth, db } from "../../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const SendMessage = ({ scroll, username}) => {

@@ -6,7 +6,7 @@ import DealerInterface from "./components/dealer/DealerInterface";
 import PlayerInterface from "./components/player/PlayerInterface";
 import "./Blackjack.css";
 import InfoButton from "./components/InfoButton";
-import { HomeButton } from "../components/home/loggedIn/HomeButton";
+import { HomeButton } from "../components/loggedIn/HomeButton";
 
 const Blackjack = ({ chips, setChips, token, username }) => {
   const deckStart = useMemo(() => [...deck], []);

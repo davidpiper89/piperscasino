@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { getCookie } from "../../../../utils/GetCookie";
+import { getCookie } from "../../../utils/GetCookie";
 
 const StoreChips = ({ chips, setChips, username }) => {
   async function updateBackend(newChips, username) {

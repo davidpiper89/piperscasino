@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { getCookie } from "../../../../utils/GetCookie";
-import { validate } from "../../../../validation";
+import { getCookie } from "../../../utils/GetCookie";
+import { validate } from "../../../validation";
 
 const ProfileDetails = ({ username }) => {
   const [editingUsername, setEditingUsername] = useState(false);

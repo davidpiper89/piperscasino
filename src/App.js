@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Blackjack from "./Blackjack/Blackjack";
-import Home from "./components/home/Home";
+import Home from "./components/Home";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import Profile from "./components/home/loggedIn/profile/Profile";
-import Store from "./components/home/loggedIn/store/Store";
+import Profile from "./components/loggedIn/profile/Profile";
+import Store from "./components/loggedIn/store/Store";
 
 function App() {
   const initialUsername = localStorage.getItem("username") || "";

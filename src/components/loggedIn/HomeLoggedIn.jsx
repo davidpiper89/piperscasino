@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { HomeButton } from "../loggedIn/HomeButton";
 import Burger from "./Burger";
 import Chatroom from "./chatRoom/ChatRoom";
-import { auth } from "../../../firebase";
+import { auth } from "../../firebase";
 import "./HomeLoggedIn.css";
 import Logout from "./LogOut";
 import Header from "./Header";
