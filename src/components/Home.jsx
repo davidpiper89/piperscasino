@@ -5,7 +5,7 @@ import HomeNotLoggedIn from "./notLoggedIn/HomeNotLoggedIn";
 import HomeLoggedIn from "./loggedIn/HomeLoggedIn";
 import "./Home.css";
 
-const Home = ({ loggedIn, setLoggedIn, chips, setChips, username, setUsername }) => {
+const Home = ({ loggedIn, setLoggedIn, chips, setChips, username, setUsername, avatar }) => {
   const [user] = useAuthState(auth);
 
 
@@ -19,6 +19,7 @@ const Home = ({ loggedIn, setLoggedIn, chips, setChips, username, setUsername })
           username={username}
           chips={chips}
           setChips={setChips}
+          avatar={avatar}
         />
       );
     }

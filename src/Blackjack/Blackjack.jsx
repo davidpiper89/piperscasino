@@ -7,6 +7,7 @@ import PlayerInterface from "./components/player/PlayerInterface";
 import "./Blackjack.css";
 import InfoButton from "./components/InfoButton";
 import { HomeButton } from "../components/loggedIn/HomeButton";
+import Header from "../components/loggedIn/Header";
 
 const Blackjack = ({ chips, setChips, token, username }) => {
   const deckStart = useMemo(() => [...deck], []);
@@ -31,7 +32,6 @@ const Blackjack = ({ chips, setChips, token, username }) => {
   const [draws, setDraws] = useState(0);
 
   const [dealerTotal, setDealerTotal] = useState([0]);
- 
 
   const resetGame = useCallback(() => {
     const start = beginGame([...deck]);
@@ -66,7 +66,6 @@ const Blackjack = ({ chips, setChips, token, username }) => {
       setChips(Number(storedChips));
     }
   }, []);
-  
 
   return (
     <>
@@ -74,11 +73,11 @@ const Blackjack = ({ chips, setChips, token, username }) => {
         fluid="true"
         className="d-flex flex-column align-items-center mediaContainer"
       >
-        <header className="blackjackHeader">
-          <HomeButton />
-          <h1 className="blackjackTitle">Piper's BlackJack</h1>
-          <InfoButton wins={wins} loses={loses} draws={draws} />
-        </header>
+        <Header
+          title="Piper's BlackJack"
+          leftIcon={<HomeButton />}
+          rightContent={<InfoButton wins={wins} loses={loses} draws={draws} />}
+        />
 
         <>
           <DealerInterface
@@ -150,7 +149,6 @@ const Blackjack = ({ chips, setChips, token, username }) => {
           draws={draws}
           setDraws={setDraws}
           chips={chips}
-  
           username={username}
         />
         <footer></footer>

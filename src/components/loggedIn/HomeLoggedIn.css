@@ -1,15 +1,15 @@
 .loggedInContainer {
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(110deg, #000428 60%, #004e92 60%);
   color: #f8f8f8;
 }
-
 
 /* Section Container Styles */
 .profileContainer,
 .gamesContainer,
 .newsContainer,
-.chatContainer {
+.chatContainer,
+.leaderboardContainer {
   position: relative;
   cursor: pointer;
   width: 80vw;
@@ -25,7 +25,8 @@
 .profileContainer:hover,
 .gamesContainer:hover,
 .newsContainer:hover,
-.chatContainer:hover {
+.chatContainer:hover,
+.leaderboardContainer:hover {
   transform: translateY(-5px);
   box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.08),
     3px 3px 7px rgba(0, 0, 0, 0.2);
@@ -33,7 +34,8 @@
 .profileContainer > div.title,
 .gamesContainer > div.title,
 .newsContainer > div.title,
-.chatContainer > div.title {
+.chatContainer > div.title,
+.leaderboardContainer > div.title{
   position: absolute;
   top: -15px;
   left: 15px;
@@ -47,6 +49,46 @@
     5px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+.profileContent {
+  display: flex;
+  align-items: center;
+}
+
+.userAvatar {
+  width: 70px;
+  height: auto;
+  margin-right: 15px;
+  border-radius: 50%;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.blackjackLinkContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.blackjackIcon {
+  width: 70px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.blackjackLinkContainer > a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: color 0.3s;
+  &:hover {
+    color: #004e92;
+  }
+}
+
 .chatContainer > .chatContent {
   max-height: 35vh;
   overflow-y: scroll;
@@ -56,6 +98,9 @@
 
 .gamesContainer {
   border: 1px solid rgba(8, 78, 146, 0.4);
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
 }
 
 .newsContainer {

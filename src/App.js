@@ -6,13 +6,16 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./components/loggedIn/profile/Profile";
 import Store from "./components/loggedIn/store/Store";
+import defaultProfile from "./assets/DefaultProfile.svg"
 
 function App() {
   const initialUsername = localStorage.getItem("username") || "";
-  const initialChips = localStorage.getItem("chips") 
+  const initialChips = localStorage.getItem("chips");
   const [loggedIn, setLoggedIn] = useState(false);
   const [chips, setChips] = useState(initialChips);
   const [username, setUsername] = useState(initialUsername);
+  const [userAvatars, setUserAvatars] = useState([]);
+  const [avatar, setAvatar] = useState(defaultProfile);
 
   useEffect(() => {
     localStorage.setItem("username", username);
@@ -32,6 +35,7 @@ function App() {
               username={username}
               setUsername={setUsername}
               chips={chips}
+              avatar={avatar}
             />
           }
         />
@@ -41,11 +45,29 @@ function App() {
             <Blackjack chips={chips} setChips={setChips} username={username} />
           }
         />
-        <Route path="/profile" element={<Profile username={username} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              username={username}
+              userAvatars={userAvatars}
+              setUserAvatars={setUserAvatars}
+              avatar={avatar}
+              setAvatar={setAvatar}
+              defaultProfile={defaultProfile}
+            />
+          }
+        />
         <Route
           path="/store"
           element={
-            <Store chips={chips} setChips={setChips} username={username} />
+            <Store
+              chips={chips}
+              setChips={setChips}
+              username={username}
+              userAvatars={userAvatars}
+              setUserAvatars={setUserAvatars}
+            />
           }
         />
       </Routes>

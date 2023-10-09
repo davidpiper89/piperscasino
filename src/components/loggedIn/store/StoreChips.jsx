@@ -1,83 +1,47 @@
 import React from "react";
-import axios from "axios";
-import { getCookie } from "../../../utils/GetCookie";
+import { updateBackend } from "../../../utils/updateBackendChips";
 
 const StoreChips = ({ chips, setChips, username }) => {
-  async function updateBackend(newChips, username) {
-    const token = getCookie("token");
-
-    try {
-      const { data } = await axios.put(
-        "http://localhost:6001/update-chips",
-        { newChipCount: newChips, username },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      );
-      if (data.status === 1) {
-        setChips(newChips);
-      } else {
-        console.log("Failed to update backend");
-
-      }
-    } catch (error) {
-      console.log("Error while updating backend:", error);
-
+  async function handlePlusChips(add) {
+    const result = await updateBackend(chips + add, username);
+    if (result.success) {
+      setChips(result.newChips);
     }
   }
 
-  function handlePlusChips(add) {
-    const newChips = chips + add;
-    updateBackend(newChips, username);
-  }
-
-  function handleBuyChips(cost, amount) {
+  async function handleBuyChips(cost, amount) {
     if (chips >= cost) {
       const newChips = chips - cost + amount;
-      updateBackend(newChips, username);
+      const result = await updateBackend(newChips, username);
+      if (result.success) {
+        setChips(newChips);
+      }
     } else {
       alert("Not enough chips to make this purchase");
-  
     }
   }
 
   return (
     <div className="chipsContainer">
       <div className="chipsTitle">Store Chips</div>
-      <div>Your Chips: {chips}</div>
+      <div className="yourChips">Your Chips: {chips}</div>
+      <div className="chipsDivider"></div>
       <div className="getChips">
         Get Chips
         <ul>
-          <li
-            className="amberButton"
-            onClick={() => {
-              handlePlusChips(100);
-            }}
-          >
+          <li className="amberButton" onClick={() => handlePlusChips(100)}>
             + 100
           </li>
         </ul>
       </div>
-      <div className="getChips">
+      <div className="chipsDivider"></div>
+      <div className="buyChips">
         Buy Chips
         <ul>
-          <li
-            className="amberButton"
-            onClick={() => {
-              handleBuyChips(10, 100);
-            }}
-          >
+          <li className="amberButton" onClick={() => handleBuyChips(10, 100)}>
             + 100 for 10 chips
           </li>
-          <li
-            className="amberButton"
-            onClick={() => {
-              handleBuyChips(100, 1000);
-            }}
-          >
+          <li className="amberButton" onClick={() => handleBuyChips(100, 1000)}>
             + 1000 for 100 chips
           </li>
         </ul>

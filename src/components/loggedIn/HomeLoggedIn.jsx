@@ -8,12 +8,13 @@ import { auth } from "../../firebase";
 import "./HomeLoggedIn.css";
 import Logout from "./LogOut";
 import Header from "./Header";
+import blackjackIcon from "../../assets/blackjackIcon.png";
 
-
-const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
+const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
   const [user] = useAuthState(auth);
 
   const displayName = user ? user.displayName || username : username;
+
 
   const Section = ({ title, content, onClick }) => (
     <section className="d-flex flex-column align-items-center section">
@@ -62,17 +63,42 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips }) => {
       />
 
       <main className="mt-4 m-auto">
-        <Section title="Profile" content={<p>Chips: {chips}</p>} />
+        <Section
+          title="Profile"
+          content={
+            <div className="profileContent">
+              <img src={avatar} alt="User Avatar" className="userAvatar" />
+              <div className="userInfo">
+                <div>{displayName}</div>
+                <p>Chips: {chips}</p>
+              </div>
+            </div>
+          }
+        />
+
         <Section
           title="Games"
-          content={<Link to="/BlackJack">Blackjack</Link>}
+          content={
+            <div className="blackjackLinkContainer">
+              <Link to="/BlackJack">
+                <img
+                  src={blackjackIcon}
+                  alt="Blackjack"
+                  className="blackjackIcon"
+                />
+                <div>Blackjack</div>
+              </Link>
+            </div>
+          }
           onClick={() => {}}
         />
-        <Section
+
+        {/* <Section
           title="News"
           content={<p>Slot machine next!</p>}
           onClick={() => {}}
-        />
+        /> */}
+        {/* <Section title="LeaderBoard" content={<p>leaderboard here</p>} /> */}
         <Section
           title="Chat"
           content={

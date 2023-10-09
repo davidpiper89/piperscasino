@@ -7,7 +7,6 @@
   align-items: center;
 }
 
-
 /* Profile Avatar */
 .avatarContainer {
   display: flex;
@@ -24,6 +23,7 @@
 .newAvatarPreview {
   width: 200px;
   margin-bottom: 10px;
+  border-radius: 50%;
 }
 
 .avatarTitle {
@@ -64,4 +64,62 @@ input {
 /* New Avatar Preview */
 .newAvatarPreview {
   width: 100px;
+}
+
+/* Profile Collection */
+.collectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #004e92;
+  border-radius: 10px;
+  margin: 20px 0;
+  width: 80%;
+  max-width: 600px;
+}
+
+.collectionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.avatarCollection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.collectionAvatar {
+  width: 100px;
+  border: 1px solid #004e92;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.collectionAvatar:hover {
+  transform: scale(1.1);
+}
+
+.selectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #004e92;
+  border-radius: 10px;
+  margin: 20px 0;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
 }

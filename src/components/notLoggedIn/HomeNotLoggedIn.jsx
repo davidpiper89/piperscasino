@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { validate } from "../../validation";
-import {
-  GoogleAuthProvider,
-  signInWithCustomToken,
-  signInWithRedirect,
-  onAuthStateChanged,
-  updateProfile,
-  getRedirectResult,
-} from "firebase/auth";
-import GoogleButton from "react-google-button";
+import { signInWithCustomToken, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 import "./HomeNotLoggedIn.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const HomeNotLoggedIn = ({
-  setLoggedIn,
-  setUsername,
-  username,
-  setChips,
-}) => {
+const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -45,41 +32,56 @@ const HomeNotLoggedIn = ({
 
     try {
       if (isLogin) {
+        await loginUser(userDetails);
+      } else {
         const { data } = await axios.post(
-          "http://localhost:6001/login",
+          "http://localhost:6001/signup",
           userDetails,
           { withCredentials: true }
         );
 
         if (data.status === 1) {
-          setLoggedIn(true);
-          setUsername(userDetails.username);
-          localStorage.setItem("username", userDetails.username);
-          setChips(data.chips);
-          localStorage.setItem("chips", data.chips);
-
-       
-          document.cookie = `token=${data.token}; Secure; HttpOnly;`;
-
-          if (data.firebaseToken) {
-            await signInWithCustomToken(auth, data.firebaseToken);
-            if (!auth.currentUser.displayName) {
-              await updateProfile(auth.currentUser, {
-                displayName: userDetails.username,
-              });
-            }
-          }
-        }
-        if (data.status === 0) {
+          await loginUser({
+            username: username,
+            password: password,
+          });
+        } else {
           toast.error(
-            "Login failed. Please check your credentials and try again."
+            "Signup failed. Please check your details and try again."
           );
         }
-      } else {
-        // ... existing signup code
       }
     } catch (err) {
       console.error("Error:", err.data ? err.data.message : err.message);
+    }
+  };
+
+  const loginUser = async (userDetails) => {
+    const { data } = await axios.post(
+      "http://localhost:6001/login",
+      userDetails,
+      { withCredentials: true }
+    );
+
+    if (data.status === 1) {
+      setLoggedIn(true);
+      setUsername(userDetails.username);
+      localStorage.setItem("username", userDetails.username);
+      setChips(data.chips);
+      localStorage.setItem("chips", data.chips);
+
+      document.cookie = `token=${data.token}; Secure; HttpOnly;`;
+
+      if (data.firebaseToken) {
+        await signInWithCustomToken(auth, data.firebaseToken);
+        if (!auth.currentUser.displayName) {
+          await updateProfile(auth.currentUser, {
+            displayName: userDetails.username,
+          });
+        }
+      }
+    } else {
+      toast.error("Login failed. Please check your credentials and try again.");
     }
   };
 
