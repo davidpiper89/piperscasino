@@ -48,6 +48,7 @@ const Profile = ({
         setAvatar={setAvatar}
         previewAvatar={previewAvatar}
         setPreviewAvatar={setPreviewAvatar}
+        propUsername={propUsername}
       />
       <button
         className="amberButton"

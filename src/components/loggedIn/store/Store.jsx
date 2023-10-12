@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import StoreChips from "./StoreChips";
 import StoreAvatars from "./StoreAvatars";
 import Header from "../Header";

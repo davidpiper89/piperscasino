@@ -15,7 +15,7 @@ const Betting = ({ setBet, bet, setChips, chips, stake, setStake }) => {
 
   return (
     <>
-      <div>
+      <div className="bettingContainer">
         <button
           className="bet-button cypress-bet-test"
           onClick={() => placeBet(1)}

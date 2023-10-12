@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import DealerHoleCards from "./DealerHoleCards";
 import Total from "../Total";
 import { RandomCardPicker } from "../../utils/RandomCardPicker";
@@ -17,91 +17,142 @@ const DealerInterface = ({
   setDealerEnd,
   bust,
   split,
+  blackjack,
 }) => {
-  let playerBusted;
+  //work out if player busts in 1 or all hands
+  const playerBusted = bust.slice(0, split + 1).every(Boolean);
+  //work out if player 1 hand blackjack
+  const playerOneHandBlackjack = blackjack[0] && split === 0;
+  //work out if player has blackjacks in split hands
+  const playerBlackJackInSplit = blackjack.includes(true) && split > 0;
+  //work out if player has no b
 
-  if (split === 0) {
-    playerBusted = bust[0];
-  }
-  if (split === 1) {
-    playerBusted = bust[0] && bust[1];
-  }
-  if (split === 2) {
-    playerBusted = bust[0] && bust[1] && bust[2];
-  }
+  // dealer draw mechanic
+
+  const dealerDraw = useCallback(() => {
+    const newCard = RandomCardPicker(remainingDeck);
+    setDealerCards((prevCards) => [...prevCards, newCard.card]);
+    setDeck(newCard.array);
+  }, [remainingDeck, setDealerCards, setDeck]);
+
+  // what to do if player gets blackjack
+  useEffect(() => {
+    if (playerOneHandBlackjack && bet) {
+   
+      if (dealerCards[0].value === 10 || dealerCards[0].value === "ACE") {
+        const timeoutId = setTimeout(() => {
+          setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
+        }, 1500);
+
+        return () => clearTimeout(timeoutId);
+      } else {
+        setDealerEnd(true);
+      }
+    }
+  }, [playerOneHandBlackjack, bet]);
 
   useEffect(() => {
-    if (!playerBusted) {
-      const timeoutId = setTimeout(() => {
-        if (
-          playerEnd &&
-          dealerHidden &&
-          !dealerCards.includes(dealerHidden[0])
-        ) {
-          const newDealerCards = [...dealerCards, dealerHidden[0]];
-          setDealerCards(newDealerCards);
-        }
-      }, 1000);
-
-      return () => clearTimeout(timeoutId);
+    if (dealerCards && dealerCards.length === 2 && blackjack[0] === true) {
+      setDealerEnd(true);
     }
-  }, [playerEnd, dealerCards, dealerHidden, setDealerCards, playerBusted]);
+  }, [dealerCards]);
 
-  const dealerDraw = useCallback(
-    (remainingDeck) => {
-      const newCard = RandomCardPicker(remainingDeck);
-      const newCards = [...dealerCards, newCard.card];
-
-      setDealerCards(newCards);
-      setDeck(newCard.array);
-    },
-    [dealerCards, setDealerCards, setDeck]
-  );
+  // what to do if player busts
 
   useEffect(() => {
     if (playerBusted) {
       setDealerEnd(true);
-      return;
-    } else if (dealerCards && dealerCards.length >= 2 && dealerTotal < 17) {
-      const timeoutId = setTimeout(() => {
-        dealerDraw(remainingDeck);
-      }, 1000);
-      return () => clearTimeout(timeoutId);
-    } else if (playerEnd && dealerTotal >= 17) {
-      setDealerEnd(true);
     }
-  }, [
-    dealerCards,
-    remainingDeck,
-    dealerTotal,
-    dealerDraw,
-    playerEnd,
-    setDealerEnd,
-    split,
-    bust,
-  ]);
+  }, [playerBusted]);
 
-  return (
-    <>
-      {!bet ? (
-        ""
-      ) : (
-        <div data-testid="dealer-interface">
-          <div className="d-flex justify-content-center align-items-center">
-            <DealerHoleCards dealerCards={dealerCards} />
-          </div>
-          <div className="d-flex flex-column justify-content-center align-items-center">
-            <Total
-              hand={dealerCards}
-              handIndex={0}
-              total={dealerTotal}
-              setTotal={setDealerTotal}
-            />
-          </div>
-        </div>
-      )}
-    </>
-  );
+  // what to do if player go has ended, they haven't busted and they don't have blackjack
+
+  useEffect(() => {
+ 
+    if (
+      !playerBusted &&
+      !playerOneHandBlackjack &&
+      !playerBlackJackInSplit &&
+      playerEnd &&
+      dealerCards &&
+      dealerCards.length === 1
+    ) {
+   
+      const timeoutId = setTimeout(() => {
+        setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
+      }, 1200);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [playerBusted, playerOneHandBlackjack, dealerCards, playerEnd]);
+
+  useEffect(() => {
+    if (
+      !playerBusted &&
+      !playerOneHandBlackjack &&
+      playerEnd &&
+      dealerCards &&
+      dealerCards.length >= 2
+    ) {
+      if (dealerTotal < 17) {
+        const timeoutId = setTimeout(dealerDraw, 1000);
+        return () => clearTimeout(timeoutId);
+      } else {
+        setDealerEnd(true);
+      }
+    }
+  }, [dealerCards, dealerTotal, playerBusted, blackjack, playerEnd]);
+
+  // what do to if player has split and has some blackjacks
+
+  useEffect(() => {
+
+    if (
+      !playerBusted &&
+      playerBlackJackInSplit &&
+      playerEnd &&
+      dealerCards &&
+      dealerCards.length === 1
+    ) {
+  
+      const timeoutId = setTimeout(() => {
+        setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
+      }, 2000);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [playerEnd, playerBusted, blackjack, dealerCards, dealerHidden]);
+
+  useEffect(() => {
+    if (
+      !playerBusted &&
+      split &&
+      playerEnd &&
+      dealerCards &&
+      dealerCards.length >= 2
+    ) {
+      if (dealerTotal < 17) {
+        const timeoutId = setTimeout(dealerDraw, 1000);
+        return () => clearTimeout(timeoutId);
+      } else {
+        setDealerEnd(true);
+      }
+    }
+  }, [dealerCards, dealerTotal, playerBusted, blackjack, playerEnd]);
+
+  return bet ? (
+    <div data-testid="dealer-interface" className="dealerInterface">
+      <div className="d-flex justify-content-center align-items-center">
+        <DealerHoleCards dealerCards={dealerCards} />
+      </div>
+      <div className="d-flex flex-column justify-content-center align-items-center">
+        <Total
+          hand={dealerCards}
+          handIndex={0}
+          total={dealerTotal}
+          setTotal={setDealerTotal}
+        />
+      </div>
+    </div>
+  ) : null;
 };
 
 export default DealerInterface;

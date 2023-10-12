@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 
 const StatsModal = ({ setShowStats, wins, loses, draws }) => {
   const hands = wins + loses + draws;
+
   return (
     <Modal
       show={true}

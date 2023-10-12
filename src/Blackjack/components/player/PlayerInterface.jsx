@@ -38,8 +38,14 @@ const PlayerInterface = ({
   double,
   setDouble,
 }) => {
+  // Checks if the player's turn has ended, considering conditions like blackjack, bust, stand, double and split.
   useEffect(() => {
-    if (!playerEnd && playerCards.length > 0 && playerCards.length <= 4) {
+    if (
+      bet &&
+      !playerEnd &&
+      playerCards.length > 0 &&
+      playerCards.length <= 4
+    ) {
       let allHandsOver = playerCards.every(
         (_, index) =>
           stand[index] ||
@@ -58,6 +64,7 @@ const PlayerInterface = ({
       }
     }
   }, [
+    bet,
     playerCards,
     playerEnd,
     stand,
@@ -68,6 +75,8 @@ const PlayerInterface = ({
     setPlayerEnd,
     split,
   ]);
+
+  // Checks and updates if a player has blackjack.
 
   useEffect(() => {
     const flatPlayerCards = playerCards.flat();
@@ -80,10 +89,14 @@ const PlayerInterface = ({
       ) {
         const newBlackjack = [...blackjack];
         newBlackjack[handIndex] = true;
-        setBlackjack(newBlackjack);
+        setTimeout(() => {
+          setBlackjack(newBlackjack);
+        }, 0);
       }
     });
   }, [playerCards, total, blackjack]);
+
+  // Updates player's bust and total based on current hand value.
 
   useEffect(() => {
     const flatPlayerCards = playerCards.flat();
@@ -106,6 +119,8 @@ const PlayerInterface = ({
       }
     });
   }, [playerCards, bust, total]);
+
+  // Determines the CSS class for grid based on the split value.
 
   const gridClass = useMemo(() => {
     switch (split) {

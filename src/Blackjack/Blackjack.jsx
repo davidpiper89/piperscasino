@@ -9,7 +9,18 @@ import InfoButton from "./components/InfoButton";
 import { HomeButton } from "../components/loggedIn/HomeButton";
 import Header from "../components/loggedIn/Header";
 
-const Blackjack = ({ chips, setChips, token, username }) => {
+const Blackjack = ({
+  chips,
+  setChips,
+  token,
+  username,
+  wins,
+  setWins,
+  loses,
+  setLoses,
+  draws,
+  setDraws,
+}) => {
   const deckStart = useMemo(() => [...deck], []);
   const [bet, setBet] = useState(false);
   const [playerCards, setPlayerCards] = useState([[]]);
@@ -26,10 +37,6 @@ const Blackjack = ({ chips, setChips, token, username }) => {
   const [total, setTotal] = useState([false, false, false, false]);
   const [bust, setBust] = useState([false, false, false, false]);
   const [blackjack, setBlackjack] = useState([false, false, false, false]);
-
-  const [wins, setWins] = useState(0);
-  const [loses, setLoses] = useState(0);
-  const [draws, setDraws] = useState(0);
 
   const [dealerTotal, setDealerTotal] = useState([0]);
 
@@ -94,6 +101,7 @@ const Blackjack = ({ chips, setChips, token, username }) => {
             setDealerEnd={setDealerEnd}
             bust={bust}
             split={split}
+            blackjack={blackjack}
           />
           <PlayerInterface
             playerCards={playerCards}
@@ -150,6 +158,7 @@ const Blackjack = ({ chips, setChips, token, username }) => {
           setDraws={setDraws}
           chips={chips}
           username={username}
+  
         />
         <footer></footer>
       </div>

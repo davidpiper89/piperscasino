@@ -43,7 +43,7 @@ const Split = ({
       const newStake = [...stake];
       newStake[index] = stake[index];
 
-      // Find the next '0' in stake and replace it with the current stake
+      // Find the next 0 in stake and replace it with the current stake
       const nextZeroIndex = newStake.findIndex(
         (stakeValue) => stakeValue === 0
       );

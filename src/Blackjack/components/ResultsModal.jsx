@@ -24,12 +24,16 @@ const ResultsModal = ({ resetGame, setBet, resetOutcome, results }) => {
       <Modal.Body>
         {results.map((result, index) => (
           <p key={index}>
-            Hand {index + 1}: {result}
+            Hand {index + 1}: {result.result || "No Result"} (
+            {result.stakeResult > 0 ? "+" : ""}
+            {result.stakeResult || 0})
           </p>
         ))}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handleRestartGame}>Play Again?</Button>
+        <Button variant="primary" onClick={handleRestartGame}>
+          Play Again?
+        </Button>
       </Modal.Footer>
     </Modal>
   );

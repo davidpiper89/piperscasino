@@ -5,11 +5,20 @@ import HomeNotLoggedIn from "./notLoggedIn/HomeNotLoggedIn";
 import HomeLoggedIn from "./loggedIn/HomeLoggedIn";
 import "./Home.css";
 
-const Home = ({ loggedIn, setLoggedIn, chips, setChips, username, setUsername, avatar }) => {
+const Home = ({
+  loggedIn,
+  setLoggedIn,
+  chips,
+  setChips,
+  username,
+  setUsername,
+  avatar,
+  setAvatar,
+  setWins,
+  setDraws,
+  setLoses
+}) => {
   const [user] = useAuthState(auth);
-
-
- 
 
   const renderHomeContent = () => {
     if (loggedIn || user) {
@@ -32,6 +41,11 @@ const Home = ({ loggedIn, setLoggedIn, chips, setChips, username, setUsername, a
           setUsername={setUsername}
           username={username}
           setChips={setChips}
+          avatar={avatar}
+          setAvatar={setAvatar}
+          setWins={setWins}
+          setDraws={setDraws}
+          setLoses={setLoses}
         />
       </div>
     );

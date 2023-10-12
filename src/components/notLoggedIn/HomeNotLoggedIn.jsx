@@ -6,16 +6,33 @@ import { auth } from "../../firebase";
 import "./HomeNotLoggedIn.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
+const HomeNotLoggedIn = ({
+  setLoggedIn,
+  setUsername,
+  username,
+  setChips,
+  setAvatar,
+  setWins,
+  setDraws,
+  setLoses,
+}) => {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const errors = validate(username, password, email, isLogin);
+    const errors = validate(
+      username,
+      password,
+      email,
+      isLogin,
+      confirmPassword
+    );
+
     setErrors(errors || {});
     if (errors) return;
 
@@ -39,7 +56,6 @@ const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
           userDetails,
           { withCredentials: true }
         );
-
         if (data.status === 1) {
           await loginUser({
             username: username,
@@ -47,7 +63,8 @@ const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
           });
         } else {
           toast.error(
-            "Signup failed. Please check your details and try again."
+            data.error ||
+              "Signup failed. Please check your details and try again."
           );
         }
       }
@@ -62,13 +79,26 @@ const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
       userDetails,
       { withCredentials: true }
     );
-
     if (data.status === 1) {
       setLoggedIn(true);
       setUsername(userDetails.username);
       localStorage.setItem("username", userDetails.username);
       setChips(data.chips);
-      localStorage.setItem("chips", data.chips);
+      Number(localStorage.setItem("chips", data.chips));
+      setAvatar(data.avatar);
+      localStorage.setItem("avatar", data.avatar);
+      setWins(data.results[0].casino_blackjack_wins);
+      Number(
+        localStorage.setItem("wins", data.results[0].casino_blackjack_wins)
+      );
+      setDraws(data.results[0].casino_blackjack_draws);
+      Number(
+        localStorage.setItem("wins", data.results[0].casino_blackjack_draws)
+      );
+      setLoses(data.results[0].casino_blackjack_loses);
+      Number(
+        localStorage.setItem("wins", data.results[0].casino_blackjack_loses)
+      );
 
       document.cookie = `token=${data.token}; Secure; HttpOnly;`;
 
@@ -123,6 +153,20 @@ const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
         {errors.password && (
           <div className="alert alert-danger">{errors.password}</div>
         )}
+        {!isLogin && (
+          <>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm Password"
+              className="form-control form-input"
+            />
+            {errors.confirmPassword && (
+              <div className="alert alert-danger">{errors.confirmPassword}</div>
+            )}
+          </>
+        )}
         <input
           type="submit"
           value={isLogin ? "Login" : "Signup"}
@@ -143,5 +187,4 @@ const HomeNotLoggedIn = ({ setLoggedIn, setUsername, username, setChips }) => {
     </div>
   );
 };
-
 export default HomeNotLoggedIn;

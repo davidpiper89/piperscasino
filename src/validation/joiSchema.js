@@ -25,7 +25,21 @@ export const getSchema = (isLogin) => {
       .email({ tlds: { allow: false } })
       .required()
       .label("Email");
-  }
+
+    baseSchema.confirmPassword = Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .label("Confirm Password")
+      .error((errors) => {
+        errors.forEach((err) => {
+          if (err.path && err.path[0] === 'confirmPassword' && err.type === "any.allowOnly") {
+            err.message = "Passwords do not match";
+          }
+        });
+        return errors;
+      });
+  } 
 
   return Joi.object(baseSchema);
 };
+
