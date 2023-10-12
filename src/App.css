@@ -1,7 +1,7 @@
 /* Header CSS */
 .headerContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 0 15px;
   color: #f8f8f8;
@@ -28,9 +28,6 @@
 }
 
 .homeButton {
-  position: fixed;
-  top: 18px;
-  left: 15px;
   font-size: 24px;
   color: #f8f8f8;
   z-index: 999;
@@ -75,10 +72,13 @@
   transform: rotate(-46.5deg);
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 550px) {
+  .headerContainer {
+    justify-content: space-around;
+  }
   .headerTitle {
-    flex-grow: 1;
     font-size: 27px;
+    flex-grow: 0;
   }
 
   .homeButton,

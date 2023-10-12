@@ -25,7 +25,7 @@ const DealerInterface = ({
   const playerOneHandBlackjack = blackjack[0] && split === 0;
   //work out if player has blackjacks in split hands
   const playerBlackJackInSplit = blackjack.includes(true) && split > 0;
-  //work out if player has no b
+
 
   // dealer draw mechanic
 

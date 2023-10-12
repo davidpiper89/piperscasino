@@ -6,6 +6,9 @@ import ProfileDetails from "./ProfileDetails";
 import { HomeButton } from "../HomeButton";
 import ProfileCollection from "./ProfileCollection";
 import { fetchAvatars } from "../../../utils/fetchAvatars";
+import Burger from "../Burger";
+import DesktopMenu from "../DesktopMenu";
+import useMobileDetector from "../../../hooks/useMobileDetector";
 
 const Profile = ({
   username: propUsername,
@@ -14,14 +17,16 @@ const Profile = ({
   avatar,
   setAvatar,
   defualtProfile,
+  setLoggedIn,
 }) => {
   const [username, setUsername] = useState(propUsername);
   const [showDetails, setShowDetails] = useState(false);
   const [previewAvatar, setPreviewAvatar] = useState(null);
+  const isMobile = useMobileDetector();
 
   useEffect(() => {
     fetchAvatars(username, setUserAvatars);
-  }, [username]);
+  }, []);
 
   useEffect(() => {
     if (!username) {
@@ -34,7 +39,19 @@ const Profile = ({
 
   return (
     <div className="profileSection">
-      <Header title={username} leftIcon={<HomeButton />} />
+      <Header
+        title={username}
+        leftIcon={<HomeButton />}
+        rightContent={
+          <div className="burgerContainer">
+            {isMobile ? (
+              <Burger setLoggedIn={setLoggedIn} />
+            ) : (
+              <DesktopMenu setLoggedIn={setLoggedIn} />
+            )}
+          </div>
+        }
+      />
       <ProfileAvatar
         avatar={avatar}
         setAvatar={setAvatar}

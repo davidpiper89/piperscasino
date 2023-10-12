@@ -82,6 +82,7 @@ function App() {
               avatar={avatar}
               setAvatar={setAvatar}
               defaultProfile={defaultProfile}
+              setLoggedIn={setLoggedIn}
             />
           }
         />
@@ -94,6 +95,7 @@ function App() {
               username={username}
               userAvatars={userAvatars}
               setUserAvatars={setUserAvatars}
+              setLoggedIn={setLoggedIn}
             />
           }
         />

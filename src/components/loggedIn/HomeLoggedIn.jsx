@@ -6,15 +6,16 @@ import Burger from "./Burger";
 import Chatroom from "./chatRoom/ChatRoom";
 import { auth } from "../../firebase";
 import "./HomeLoggedIn.css";
-import Logout from "./LogOut";
+import DesktopMenu from "./DesktopMenu";
 import Header from "./Header";
 import blackjackIcon from "../../assets/blackjackIcon.png";
+import useMobileDetector from "../../hooks/useMobileDetector";
 
 const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
+  const isMobile = useMobileDetector();
   const [user] = useAuthState(auth);
 
   const displayName = user ? user.displayName || username : username;
-
 
   const Section = ({ title, content, onClick }) => (
     <section className="d-flex flex-column align-items-center section">
@@ -31,25 +32,6 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
     }
   }, []);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
-
-  const updateMedia = () => {
-    setIsMobile(window.innerWidth <= 800);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateMedia);
-    return () => window.removeEventListener("resize", updateMedia);
-  }, []);
-
-  const DesktopMenu = () => (
-    <div className="desktopMenu">
-      <Link to="/profile">Profile</Link>
-      <Link to="/store">Store</Link>
-      <Logout setLoggedIn={setLoggedIn} />
-    </div>
-  );
-
   return (
     <div className="d-flex flex-column loggedInContainer">
       <Header
@@ -57,7 +39,11 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
         leftIcon={<HomeButton />}
         rightContent={
           <div className="burgerContainer">
-            {isMobile ? <Burger setLoggedIn={setLoggedIn} /> : <DesktopMenu />}
+            {isMobile ? (
+              <Burger setLoggedIn={setLoggedIn} />
+            ) : (
+              <DesktopMenu setLoggedIn={setLoggedIn} />
+            )}
           </div>
         }
       />
