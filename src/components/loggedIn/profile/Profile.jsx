@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../Header";
 import "./Profilestyles.css";
 import ProfileAvatar from "./ProfileAvatar";
@@ -10,15 +10,20 @@ import DesktopMenu from "../DesktopMenu";
 import useMobileDetector from "../../../hooks/useMobileDetector";
 
 const Profile = ({
-  username: propUsername,
+  username,
+  setUsername,
   userAvatars,
   setUserAvatars,
   avatar,
   setAvatar,
   defualtProfile,
   setLoggedIn,
+  chips,
+  setChips,
+  setWins,
+  setDraws,
+  setLoses,
 }) => {
-  const [username, setUsername] = useState(propUsername);
   const [showDetails, setShowDetails] = useState(false);
   const [previewAvatar, setPreviewAvatar] = useState(null);
   const isMobile = useMobileDetector();
@@ -31,9 +36,33 @@ const Profile = ({
         rightContent={
           <div className="burgerContainer">
             {isMobile ? (
-              <Burger setLoggedIn={setLoggedIn} />
+              <Burger
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             ) : (
-              <DesktopMenu setLoggedIn={setLoggedIn} />
+              <DesktopMenu
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             )}
           </div>
         }
@@ -42,7 +71,7 @@ const Profile = ({
         avatar={avatar}
         setAvatar={setAvatar}
         defualtProfile={defualtProfile}
-        propUsername={propUsername}
+        username={username}
         setPreviewAvatar={setPreviewAvatar}
       />
       <ProfileCollection
@@ -51,7 +80,7 @@ const Profile = ({
         setAvatar={setAvatar}
         previewAvatar={previewAvatar}
         setPreviewAvatar={setPreviewAvatar}
-        propUsername={propUsername}
+        username={username}
       />
       <button
         className="amberButton"
@@ -61,7 +90,7 @@ const Profile = ({
       </button>
 
       {showDetails && (
-        <ProfileDetails propUsername={username} setUsername={setUsername} />
+        <ProfileDetails username={username} setUsername={setUsername} />
       )}
     </div>
   );

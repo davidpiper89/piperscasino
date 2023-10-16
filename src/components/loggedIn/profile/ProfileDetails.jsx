@@ -3,9 +3,9 @@ import axios from "axios";
 import { getCookie } from "../../../utils/GetCookie";
 import { validate } from "../../../validation";
 
-const ProfileDetails = ({ propUsername, setUsername }) => {
+const ProfileDetails = ({ username, setUsername }) => {
   const [editingUsername, setEditingUsername] = useState(false);
-  const [newUsername, setNewUsername] = useState(propUsername || "");
+  const [newUsername, setNewUsername] = useState(username || "");
 
   const [editingPassword, setEditingPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");

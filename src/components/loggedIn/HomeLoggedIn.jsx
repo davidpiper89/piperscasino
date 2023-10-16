@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { HomeButton } from "../loggedIn/HomeButton";
 import Burger from "./Burger";
 import Chatroom from "./chatRoom/ChatRoom";
-import { auth } from "../../firebase";
 import "./HomeLoggedIn.css";
 import DesktopMenu from "./DesktopMenu";
 import Header from "./Header";
 import blackjackIcon from "../../assets/blackjackIcon.png";
 import useMobileDetector from "../../hooks/useMobileDetector";
 
-const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
+const HomeLoggedIn = ({
+  setLoggedIn,
+  username,
+  chips,
+  setChips,
+  avatar,
+  setAvatar,
+  setWins,
+  setDraws,
+  setLoses,
+  setUserAvatars,
+  setUsername,
+}) => {
   const isMobile = useMobileDetector();
 
   const Section = ({ title, content, onClick }) => (
@@ -37,9 +47,33 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
         rightContent={
           <div className="burgerContainer">
             {isMobile ? (
-              <Burger setLoggedIn={setLoggedIn} />
+              <Burger
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             ) : (
-              <DesktopMenu setLoggedIn={setLoggedIn} />
+              <DesktopMenu
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             )}
           </div>
         }

@@ -47,7 +47,6 @@ function AppContent() {
   const [loses, setLoses] = useState(initialLoses);
   const [draws, setDraws] = useState(initialDraws);
 
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,7 +71,6 @@ function AppContent() {
         path="/"
         element={
           <Home
-            loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
             setChips={setChips}
             username={username}
@@ -115,6 +113,10 @@ function AppContent() {
             setAvatar={setAvatar}
             defaultProfile={defaultProfile}
             setLoggedIn={setLoggedIn}
+            setChips={setChips}
+            setWins={setWins}
+            setLoses={setLoses}
+            setDraws={setDraws}
           />
         }
       />
@@ -122,12 +124,18 @@ function AppContent() {
         path="/store"
         element={
           <Store
-            chips={chips}
-            setChips={setChips}
             username={username}
+            setUsername={setUsername}
             userAvatars={userAvatars}
             setUserAvatars={setUserAvatars}
+            avatar={avatar}
+            setAvatar={setAvatar}
+            defaultProfile={defaultProfile}
             setLoggedIn={setLoggedIn}
+            setChips={setChips}
+            setWins={setWins}
+            setLoses={setLoses}
+            setDraws={setDraws}
           />
         }
       />

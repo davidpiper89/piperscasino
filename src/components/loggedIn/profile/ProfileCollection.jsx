@@ -13,7 +13,7 @@ const avatarMap = {
   avatar4: avatar4,
 };
 
-const ProfileCollection = ({ userAvatars, setAvatar, propUsername }) => {
+const ProfileCollection = ({ userAvatars, setAvatar, username }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const handleClick = (avatarId) => {
@@ -27,7 +27,7 @@ const ProfileCollection = ({ userAvatars, setAvatar, propUsername }) => {
       setAvatar(selectedAvatar);
       try {
         const response = await axios.post(
-          `http://localhost:6001/set-avatar/${propUsername}`,
+          `http://localhost:6001/set-avatar/${username}`,
           {
             avatar: selectedAvatar,
           },

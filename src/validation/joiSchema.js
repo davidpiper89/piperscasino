@@ -2,7 +2,7 @@ import Joi from "joi-browser";
 
 export const getSchema = (isLogin) => {
   let baseSchema = {
-    username: Joi.string().min(5).max(30).required().label("Username"),
+    username: Joi.string().min(4).max(30).required().label("Username"),
     password: Joi.string()
       .min(8)
       .regex(

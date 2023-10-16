@@ -8,14 +8,19 @@ import Burger from "../Burger";
 import DesktopMenu from "../DesktopMenu";
 import useMobileDetector from "../../../hooks/useMobileDetector";
 
-
 const Store = ({
-  chips,
-  setChips,
   username,
   userAvatars,
   setUserAvatars,
+  avatar,
+  setAvatar,
   setLoggedIn,
+  chips,
+  setChips,
+  setWins,
+  setDraws,
+  setLoses,
+  setUsername
 }) => {
   const isMobile = useMobileDetector();
 
@@ -27,9 +32,33 @@ const Store = ({
         rightContent={
           <div className="burgerContainer">
             {isMobile ? (
-              <Burger setLoggedIn={setLoggedIn} />
+              <Burger
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             ) : (
-              <DesktopMenu setLoggedIn={setLoggedIn} />
+              <DesktopMenu
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             )}
           </div>
         }

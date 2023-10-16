@@ -2,7 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logout from "./LogOut";
 
-const Burger = ({ setLoggedIn }) => {
+const Burger = ({
+  setLoggedIn,
+  username,
+  chips,
+  setChips,
+  avatar,
+  setAvatar,
+  setWins,
+  setDraws,
+  setLoses,
+  setUserAvatars,
+  setUsername,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -35,7 +47,19 @@ const Burger = ({ setLoggedIn }) => {
             </li>
 
             <li>
-              <Logout setLoggedIn={setLoggedIn} />
+              <Logout
+                setLoggedIn={setLoggedIn}
+                setChips={setChips}
+                username={username}
+                setUsername={setUsername}
+                chips={chips}
+                avatar={avatar}
+                setAvatar={setAvatar}
+                setWins={setWins}
+                setDraws={setDraws}
+                setLoses={setLoses}
+                setUserAvatars={setUserAvatars}
+              />
             </li>
           </ul>
         </div>

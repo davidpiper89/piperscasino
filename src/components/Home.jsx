@@ -30,6 +30,12 @@ const Home = ({
           chips={chips}
           setChips={setChips}
           avatar={avatar}
+          setUsername={setUsername}
+          setWins={setWins}
+          setDraws={setDraws}
+          setLoses={setLoses}
+          setUserAvatars={setUserAvatars}
+          setAvatar={setAvatar}
         />
       );
     }

@@ -5,6 +5,7 @@ import { signInWithCustomToken, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 import "./HomeNotLoggedIn.css";
 import { ToastContainer, toast } from "react-toastify";
+import defaultProfile from "../../assets/DefaultProfile.svg"
 
 const HomeNotLoggedIn = ({
   setLoggedIn,
@@ -86,21 +87,33 @@ const HomeNotLoggedIn = ({
       setUsername(userDetails.username);
       localStorage.setItem("username", userDetails.username);
       setChips(data.chips);
-      Number(localStorage.setItem("chips", data.chips));
-      setAvatar(data.avatar);
-      localStorage.setItem("avatar", data.avatar);
-      setWins(data.results[0].casino_blackjack_wins);
-      Number(
-        localStorage.setItem("wins", data.results[0].casino_blackjack_wins)
-      );
-      setDraws(data.results[0].casino_blackjack_draws);
-      Number(
-        localStorage.setItem("wins", data.results[0].casino_blackjack_draws)
-      );
-      setLoses(data.results[0].casino_blackjack_loses);
-      Number(
-        localStorage.setItem("wins", data.results[0].casino_blackjack_loses)
-      );
+      localStorage.setItem("chips", data.chips.toString());
+      setAvatar(data.avatar || defaultProfile); 
+      localStorage.setItem("avatar", data.avatar || defaultProfile);
+    
+      if (data.results && data.results.length > 0) {
+        const wins = data.results[0].casino_blackjack_wins || 0;
+        setWins(wins);
+        localStorage.setItem("wins", wins.toString());
+
+        const draws = data.results[0].casino_blackjack_draws || 0;
+        setDraws(draws);
+        localStorage.setItem("draws", draws.toString());
+
+        const loses = data.results[0].casino_blackjack_loses || 0;
+        setLoses(loses);
+        localStorage.setItem("loses", loses.toString());
+      } else {
+        setWins(0);
+        localStorage.setItem("wins", "0");
+
+        setDraws(0);
+        localStorage.setItem("draws", "0");
+
+        setLoses(0);
+        localStorage.setItem("loses", "0");
+      }
+
       setUserAvatars(data.avatars);
       localStorage.setItem("avatars", JSON.stringify(data.avatars));
 
