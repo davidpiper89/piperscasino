@@ -13,9 +13,6 @@ import useMobileDetector from "../../hooks/useMobileDetector";
 
 const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
   const isMobile = useMobileDetector();
-  const [user] = useAuthState(auth);
-
-  const displayName = user ? user.displayName || username : username;
 
   const Section = ({ title, content, onClick }) => (
     <section className="d-flex flex-column align-items-center section">
@@ -35,7 +32,7 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
   return (
     <div className="d-flex flex-column loggedInContainer">
       <Header
-        title={`Welcome ${displayName.split(" ")[0]}!`}
+        title={`Welcome ${username}!`}
         leftIcon={<HomeButton />}
         rightContent={
           <div className="burgerContainer">
@@ -55,7 +52,7 @@ const HomeLoggedIn = ({ setLoggedIn, username, chips, setChips, avatar }) => {
             <div className="profileContent">
               <img src={avatar} alt="User Avatar" className="userAvatar" />
               <div className="userInfo">
-                <div>{displayName}</div>
+                <div>{username}</div>
                 <p>Chips: {chips}</p>
               </div>
             </div>

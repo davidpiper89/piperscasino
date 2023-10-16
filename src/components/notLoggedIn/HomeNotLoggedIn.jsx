@@ -15,6 +15,7 @@ const HomeNotLoggedIn = ({
   setWins,
   setDraws,
   setLoses,
+  setUserAvatars,
 }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
@@ -79,6 +80,7 @@ const HomeNotLoggedIn = ({
       userDetails,
       { withCredentials: true }
     );
+    console.log(data);
     if (data.status === 1) {
       setLoggedIn(true);
       setUsername(userDetails.username);
@@ -99,6 +101,8 @@ const HomeNotLoggedIn = ({
       Number(
         localStorage.setItem("wins", data.results[0].casino_blackjack_loses)
       );
+      setUserAvatars(data.avatars);
+      localStorage.setItem("avatars", JSON.stringify(data.avatars));
 
       document.cookie = `token=${data.token}; Secure; HttpOnly;`;
 

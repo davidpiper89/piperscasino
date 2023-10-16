@@ -72,7 +72,7 @@
   transform: rotate(-46.5deg);
 }
 
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 600px) {
   .headerContainer {
     justify-content: space-around;
   }

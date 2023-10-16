@@ -26,7 +26,6 @@ const DealerInterface = ({
   //work out if player has blackjacks in split hands
   const playerBlackJackInSplit = blackjack.includes(true) && split > 0;
 
-
   // dealer draw mechanic
 
   const dealerDraw = useCallback(() => {
@@ -38,7 +37,6 @@ const DealerInterface = ({
   // what to do if player gets blackjack
   useEffect(() => {
     if (playerOneHandBlackjack && bet) {
-   
       if (dealerCards[0].value === 10 || dealerCards[0].value === "ACE") {
         const timeoutId = setTimeout(() => {
           setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
@@ -61,6 +59,7 @@ const DealerInterface = ({
 
   useEffect(() => {
     if (playerBusted) {
+
       setDealerEnd(true);
     }
   }, [playerBusted]);
@@ -68,7 +67,6 @@ const DealerInterface = ({
   // what to do if player go has ended, they haven't busted and they don't have blackjack
 
   useEffect(() => {
- 
     if (
       !playerBusted &&
       !playerOneHandBlackjack &&
@@ -77,7 +75,7 @@ const DealerInterface = ({
       dealerCards &&
       dealerCards.length === 1
     ) {
-   
+  
       const timeoutId = setTimeout(() => {
         setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
       }, 1200);
@@ -105,7 +103,6 @@ const DealerInterface = ({
   // what do to if player has split and has some blackjacks
 
   useEffect(() => {
-
     if (
       !playerBusted &&
       playerBlackJackInSplit &&
@@ -113,7 +110,6 @@ const DealerInterface = ({
       dealerCards &&
       dealerCards.length === 1
     ) {
-  
       const timeoutId = setTimeout(() => {
         setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
       }, 2000);
@@ -124,6 +120,7 @@ const DealerInterface = ({
   useEffect(() => {
     if (
       !playerBusted &&
+      playerBlackJackInSplit &&
       split &&
       playerEnd &&
       dealerCards &&

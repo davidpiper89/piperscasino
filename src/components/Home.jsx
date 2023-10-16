@@ -16,7 +16,8 @@ const Home = ({
   setAvatar,
   setWins,
   setDraws,
-  setLoses
+  setLoses,
+  setUserAvatars
 }) => {
   const [user] = useAuthState(auth);
 
@@ -46,6 +47,7 @@ const Home = ({
           setWins={setWins}
           setDraws={setDraws}
           setLoses={setLoses}
+          setUserAvatars={setUserAvatars}
         />
       </div>
     );

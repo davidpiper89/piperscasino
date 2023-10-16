@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import StoreChips from "./StoreChips";
 import StoreAvatars from "./StoreAvatars";
 import Header from "../Header";
@@ -7,6 +7,7 @@ import "./Storecss.css";
 import Burger from "../Burger";
 import DesktopMenu from "../DesktopMenu";
 import useMobileDetector from "../../../hooks/useMobileDetector";
+
 
 const Store = ({
   chips,

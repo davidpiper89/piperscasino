@@ -19,7 +19,6 @@ const Result = ({
   setDraws,
   chips,
   username,
-  bet,
 }) => {
   const result = { win: "You win", lose: "You lose", draw: "Push" };
   const [outcome, setOutcome] = useState([]);

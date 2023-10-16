@@ -5,7 +5,6 @@ import ProfileAvatar from "./ProfileAvatar";
 import ProfileDetails from "./ProfileDetails";
 import { HomeButton } from "../HomeButton";
 import ProfileCollection from "./ProfileCollection";
-import { fetchAvatars } from "../../../utils/fetchAvatars";
 import Burger from "../Burger";
 import DesktopMenu from "../DesktopMenu";
 import useMobileDetector from "../../../hooks/useMobileDetector";
@@ -23,19 +22,6 @@ const Profile = ({
   const [showDetails, setShowDetails] = useState(false);
   const [previewAvatar, setPreviewAvatar] = useState(null);
   const isMobile = useMobileDetector();
-
-  useEffect(() => {
-    fetchAvatars(username, setUserAvatars);
-  }, []);
-
-  useEffect(() => {
-    if (!username) {
-      const storedUsername = localStorage.getItem("username");
-      if (storedUsername) {
-        setUsername(storedUsername);
-      }
-    }
-  }, [username]);
 
   return (
     <div className="profileSection">
@@ -74,7 +60,9 @@ const Profile = ({
         {showDetails ? "Close" : "Change Details"}
       </button>
 
-      {showDetails && <ProfileDetails propUsername={username} />}
+      {showDetails && (
+        <ProfileDetails propUsername={username} setUsername={setUsername} />
+      )}
     </div>
   );
 };

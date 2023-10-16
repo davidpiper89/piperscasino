@@ -3,18 +3,52 @@ import axios from "axios";
 import { getCookie } from "../../../utils/GetCookie";
 import { validate } from "../../../validation";
 
-const ProfileDetails = ({ username }) => {
+const ProfileDetails = ({ propUsername, setUsername }) => {
   const [editingUsername, setEditingUsername] = useState(false);
-  const [newUsername, setNewUsername] = useState(username);
+  const [newUsername, setNewUsername] = useState(propUsername || "");
+
   const [editingPassword, setEditingPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleUsernameChange = () => {
-    // logic for changing the username (e.g., update the backend)
-    setEditingUsername(false);
+  const handleUsernameChange = async () => {
+    if (!newUsername || newUsername.trim() === "") {
+      alert("Username cannot be empty.");
+      return;
+    }
+
+    const responseMessage = await updateUsernameBackend(newUsername);
+    alert(responseMessage.message);
+    if (responseMessage.message === "Username updated successfully.") {
+      setUsername(newUsername);
+      setEditingUsername(false);
+
+    }
+  };
+
+  const updateUsernameBackend = async (newUsername) => {
+    const token = getCookie("token");
+    try {
+      const { data } = await axios.put(
+        "http://localhost:6001/update-username",
+        { username: newUsername },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return error.response.data;
+      }
+      return "An error occurred. Please try again.";
+    }
   };
 
   const handlePasswordChange = async () => {
@@ -25,14 +59,23 @@ const ProfileDetails = ({ username }) => {
     const passwordErrors = validate("", newPassword, "", false);
     setErrors(passwordErrors || {});
 
+    if (currentPassword === newPassword) {
+      alert("New password cannot be the same as the current password.");
+      return;
+    }
+
     if (passwordErrors && passwordErrors.password) {
       alert(passwordErrors.password);
       return;
     }
 
-    const success = await updateBackend(currentPassword, newPassword);
-    if (success) {
+    const responseMessage = await updateBackend(currentPassword, newPassword);
+    alert(responseMessage);
+    if (responseMessage === "Password updated successfully.") {
       setEditingPassword(false);
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmNewPassword("");
     }
   };
 
@@ -49,20 +92,18 @@ const ProfileDetails = ({ username }) => {
           withCredentials: true,
         }
       );
-
-      if (data.status === 1) {
-        console.log("password changed");
-        return true;
-      }
+      return data;
     } catch (error) {
-      console.log(error);
-      return false;
+      if (error.response && error.response.data) {
+        return error.response.data;
+      }
+      return "An error occurred. Please try again.";
     }
   };
 
   return (
     <div className="profileDetailsContainer">
-      <h2>{username}</h2>
+      <h2>{propUsername}</h2>
 
       <h3>Change Username</h3>
       {editingUsername ? (

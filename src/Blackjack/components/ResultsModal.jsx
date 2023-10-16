@@ -16,7 +16,7 @@ const ResultsModal = ({ resetGame, setBet, resetOutcome, results }) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Game Results
         </Modal.Title>
