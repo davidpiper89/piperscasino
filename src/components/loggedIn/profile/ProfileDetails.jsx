@@ -103,8 +103,6 @@ const ProfileDetails = ({ propUsername, setUsername }) => {
 
   return (
     <div className="profileDetailsContainer">
-      <h2>{propUsername}</h2>
-
       <h3>Change Username</h3>
       {editingUsername ? (
         <div>
