@@ -7,7 +7,7 @@ import { HomeButton } from "../HomeButton";
 import ProfileCollection from "./ProfileCollection";
 import Burger from "../Burger";
 import DesktopMenu from "../DesktopMenu";
-import useMobileDetector from "../../../hooks/useMobileDetector";
+import { useMobileDetector } from "../../../hooks/customHooks";
 
 const Profile = ({
   username,
@@ -31,7 +31,7 @@ const Profile = ({
   return (
     <div className="profileSection">
       <Header
-        title={username}
+        title="Profile"
         leftIcon={<HomeButton />}
         rightContent={
           <div className="burgerContainer">

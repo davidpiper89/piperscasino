@@ -7,7 +7,7 @@ import "./HomeLoggedIn.css";
 import DesktopMenu from "./DesktopMenu";
 import Header from "./Header";
 import blackjackIcon from "../../assets/blackjackIcon.png";
-import useMobileDetector from "../../hooks/useMobileDetector";
+import { useMobileDetector } from "../../hooks/customHooks";
 
 const HomeLoggedIn = ({
   setLoggedIn,
@@ -40,7 +40,7 @@ const HomeLoggedIn = ({
   }, []);
 
   return (
-    <div className="d-flex flex-column loggedInContainer">
+    <div className="d-flex flex-column loggedInContainer" data-testid="loggedInTest">
       <Header
         title={`Welcome ${username}!`}
         leftIcon={<HomeButton />}

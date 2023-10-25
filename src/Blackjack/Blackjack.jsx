@@ -12,7 +12,6 @@ import Header from "../components/loggedIn/Header";
 const Blackjack = ({
   chips,
   setChips,
-  token,
   username,
   wins,
   setWins,

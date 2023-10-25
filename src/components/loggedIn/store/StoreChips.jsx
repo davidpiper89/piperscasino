@@ -2,6 +2,8 @@ import React from "react";
 import { updateBackend } from "../../../utils/updateBackendChips";
 
 const StoreChips = ({ chips, setChips, username }) => {
+  
+
   async function handlePlusChips(add) {
     const result = await updateBackend(chips + add, username);
     if (result.success) {

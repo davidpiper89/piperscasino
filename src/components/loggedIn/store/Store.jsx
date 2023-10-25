@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import StoreChips from "./StoreChips";
 import StoreAvatars from "./StoreAvatars";
 import Header from "../Header";
@@ -6,7 +6,7 @@ import { HomeButton } from "../HomeButton";
 import "./Storecss.css";
 import Burger from "../Burger";
 import DesktopMenu from "../DesktopMenu";
-import useMobileDetector from "../../../hooks/useMobileDetector";
+import { useMobileDetector } from "../../../hooks/customHooks";
 
 const Store = ({
   username,
@@ -20,7 +20,7 @@ const Store = ({
   setWins,
   setDraws,
   setLoses,
-  setUsername
+  setUsername,
 }) => {
   const isMobile = useMobileDetector();
 

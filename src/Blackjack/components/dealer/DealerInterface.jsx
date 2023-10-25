@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback } from "react";
 import DealerHoleCards from "./DealerHoleCards";
 import Total from "../Total";
 import { RandomCardPicker } from "../../utils/RandomCardPicker";

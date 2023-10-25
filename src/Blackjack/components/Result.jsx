@@ -24,6 +24,73 @@ const Result = ({
   const [outcome, setOutcome] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  const determineHandOutcome = (
+    handTotal,
+    dealerTotal,
+    stakeForHand,
+    playerCardsForHand,
+    dealerCards
+  ) => {
+    const isPlayerBlackJack =
+      playerCardsForHand.length === 2 && handTotal === 21;
+    const isDealerBlackJack = dealerCards.length === 2 && dealerTotal === 21;
+
+    if (handTotal > 21) {
+      return { result: result.lose, stakeResult: -stakeForHand };
+    } else if (isDealerBlackJack && isPlayerBlackJack) {
+      return { result: result.draw, stakeResult: 0 };
+    } else if (isPlayerBlackJack && !isDealerBlackJack) {
+      return { result: result.win, stakeResult: 1.5 * stakeForHand };
+    } else if (dealerTotal === handTotal) {
+      return { result: result.draw, stakeResult: 0 };
+    } else if (dealerTotal > 21 || handTotal > dealerTotal) {
+      return { result: result.win, stakeResult: stakeForHand };
+    } else if (isDealerBlackJack || dealerTotal > handTotal) {
+      return { result: result.lose, stakeResult: -stakeForHand };
+    }
+  };
+
+  useEffect(() => {
+    const newOutcome = [...outcome];
+    for (let i = 0; i < 4; i++) {
+      if (total[i] !== false) {
+        const handOutcome = determineHandOutcome(
+          total[i],
+          dealerTotal[0],
+          stake[i],
+          playerCards[i],
+          dealerCards
+        );
+        if (handOutcome) {
+          newOutcome[i] = handOutcome;
+
+          // Adjust chips based on the outcome
+          if (handOutcome.result === result.win) {
+            setChips((prevChips) => prevChips + handOutcome.stakeResult * 2);
+          } else if (handOutcome.result === result.draw) {
+            setChips((prevChips) => prevChips + handOutcome.stakeResult);
+          }
+        }
+      }
+    }
+    setOutcome(newOutcome);
+  }, [dealerEnd]);
+
+  useEffect(() => {
+    outcome.forEach((outcomeResult) => {
+      if (outcomeResult.result === result.lose) {
+        setLoses((prevLoses) => prevLoses + 1);
+        updateBlackjackResults("lose", username);
+      } else if (outcomeResult.result === result.win) {
+        setWins((prevWins) => prevWins + 1);
+        updateBlackjackResults("win", username);
+      } else if (outcomeResult.result === result.draw) {
+        setDraws((prevDraws) => prevDraws + 1);
+        updateBlackjackResults("draw", username);
+      }
+    });
+  }, [outcome]);
+
   const updateBlackjackResults = async (resultType, username) => {
     const token = getCookie("token");
     try {
@@ -43,26 +110,6 @@ const Result = ({
   };
 
   useEffect(() => {
-    if (outcome.length === 1 && outcome[0] === "You lose") {
-      setLoses((prevLoses) => prevLoses + 1);
-      updateBlackjackResults("lose", username);
-    }
-    if (outcome.length === 1 && outcome[0] === "You win") {
-      setWins((prevWins) => prevWins + 1);
-      updateBlackjackResults("win", username);
-    }
-    if (outcome.length === 1 && outcome[0] === "Push") {
-      setDraws((prevDraws) => prevDraws + 1);
-      updateBlackjackResults("draw", username);
-    }
-  }, [outcome]);
-
-  const handleResetOutcome = () => {
-    setOutcome([]);
-    setShowModal(false);
-  };
-
-  useEffect(() => {
     let timer;
     if (outcome.length > 0 && playerEnd) {
       timer = setTimeout(() => {
@@ -75,7 +122,6 @@ const Result = ({
   useEffect(() => {
     const updateBackend = async (newChipCount, username) => {
       const token = getCookie("token");
-
       try {
         const { data } = await axios.put(
           "http://localhost:6001/update-chips",
@@ -91,52 +137,19 @@ const Result = ({
         localStorage.setItem("unsavedChipCount", newChipCount);
       }
     };
-
     updateBackend(chips, username);
   }, [chips]);
-
-  useEffect(() => {
-    let newOutcome = [...outcome];
-    for (let i = 0; i < 4; i++) {
-      if (total[i] !== false) {
-        const isPlayerBlackJack =
-          playerCards[i][0].length === 2 && total[i] === 21;
-        const isDealerBlackJack =
-          dealerCards.length === 2 && dealerTotal[0] === 21;
-
-        if (total[i] > 21) {
-          newOutcome[i] = { result: result.lose, stakeResult: -stake[i] };
-        } else if (isDealerBlackJack && isPlayerBlackJack) {
-          newOutcome[i] = { result: result.draw, stakeResult: 0 };
-          setChips((prevChips) => prevChips + stake[i]);
-        } else if (isPlayerBlackJack && !isDealerBlackJack) {
-          newOutcome[i] = { result: result.win, stakeResult: 1.5 * stake[i] };
-          setChips((prevChips) => prevChips + 2.5 * stake[i]);
-        } else if (dealerTotal[0] === total[i] && dealerEnd) {
-          newOutcome[i] = { result: result.draw, stakeResult: 0 };
-          setChips((prevChips) => prevChips + stake[i]);
-        } else if (dealerEnd) {
-          if (dealerTotal[0] > 21 || total[i] > dealerTotal[0]) {
-            newOutcome[i] = { result: result.win, stakeResult: stake[i] };
-            setChips((prevChips) => prevChips + 2 * stake[i]);
-          } else if (isDealerBlackJack || dealerTotal[0] > total[i]) {
-            newOutcome[i] = { result: result.lose, stakeResult: -stake[i] };
-          }
-        }
-      }
-    }
-    setOutcome(newOutcome);
-  }, [dealerEnd]);
 
   useEffect(() => {
     localStorage.setItem("chips", chips);
   }, [chips]);
 
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-  }
+  const handleResetOutcome = () => {
+    setOutcome([]);
+    setShowModal(false);
+  };
+
+
   return showModal ? (
     <ResultsModal
       resetGame={resetGame}

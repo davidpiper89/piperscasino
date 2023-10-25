@@ -5,7 +5,7 @@ import { signInWithCustomToken, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 import "./HomeNotLoggedIn.css";
 import { ToastContainer, toast } from "react-toastify";
-import defaultProfile from "../../assets/DefaultProfile.svg"
+import defaultProfile from "../../assets/DefaultProfile.svg";
 
 const HomeNotLoggedIn = ({
   setLoggedIn,
@@ -81,16 +81,16 @@ const HomeNotLoggedIn = ({
       userDetails,
       { withCredentials: true }
     );
-    console.log(data);
     if (data.status === 1) {
       setLoggedIn(true);
       setUsername(userDetails.username);
       localStorage.setItem("username", userDetails.username);
       setChips(data.chips);
       localStorage.setItem("chips", data.chips.toString());
-      setAvatar(data.avatar || defaultProfile); 
+      setAvatar(data.avatar || defaultProfile);
       localStorage.setItem("avatar", data.avatar || defaultProfile);
-    
+      toast.success("Logged in successfully");
+
       if (data.results && data.results.length > 0) {
         const wins = data.results[0].casino_blackjack_wins || 0;
         setWins(wins);
@@ -133,8 +133,8 @@ const HomeNotLoggedIn = ({
   };
 
   return (
-    <div className="form-container">
-      <h2 className="form-title">{isLogin ? "Login" : "Signup"}</h2>
+    <div className="formContainer">
+      <h2 className="formTitle">{isLogin ? "Login" : "Signup"}</h2>
       <form onSubmit={handleSubmit} className="form">
         {!isLogin && (
           <>
@@ -143,10 +143,10 @@ const HomeNotLoggedIn = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="form-control form-input"
+              className="formControl formInput"
             />
             {errors.email && (
-              <div className="alert alert-danger">{errors.email}</div>
+              <div className="alert alertDanger">{errors.email}</div>
             )}
           </>
         )}
@@ -155,20 +155,20 @@ const HomeNotLoggedIn = ({
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
-          className="form-control form-input"
+          className="formControl formInput"
         />
         {errors.username && (
-          <div className="alert alert-danger">{errors.username}</div>
+          <div className="alert alertDanger">{errors.username}</div>
         )}
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="form-control form-input"
+          className="formControl formInput"
         />
         {errors.password && (
-          <div className="alert alert-danger">{errors.password}</div>
+          <div className="alert alertDanger">{errors.password}</div>
         )}
         {!isLogin && (
           <>
@@ -177,18 +177,16 @@ const HomeNotLoggedIn = ({
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm Password"
-              className="form-control form-input"
+              className="formControl formInput"
             />
             {errors.confirmPassword && (
-              <div className="alert alert-danger">{errors.confirmPassword}</div>
+              <div className="alert alertDanger">{errors.confirmPassword}</div>
             )}
           </>
         )}
-        <input
-          type="submit"
-          value={isLogin ? "Login" : "Signup"}
-          className="btn btn-primary form-submit"
-        />
+        <button type="submit" className="loginBtn formSubmit">
+          {isLogin ? "Login" : "Signup"}
+        </button>
       </form>
       <ToastContainer />
       {/* <div className="mb-4">
@@ -197,7 +195,7 @@ const HomeNotLoggedIn = ({
       <button
         type="button"
         onClick={() => setIsLogin(!isLogin)}
-        className="btn btn-secondary form-switch"
+        className="signupBtn formSwitch"
       >
         Switch to {isLogin ? "Signup" : "Login"}
       </button>
