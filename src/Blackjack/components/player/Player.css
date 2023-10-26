@@ -108,19 +108,19 @@
 }
 
 @media (max-width: 768px) {
-  .player-card0,
-  .player-card1,
-  .player-card2,
-  .player-card3 {
+  .playerCard0,
+  .playerCard1,
+  .playerCard2,
+  .playerCard3 {
     max-width: 100px;
   }
 }
 
 @media (min-width: 768px) {
-  .player-card0,
-  .player-card1,
-  .player-card2,
-  .player-card3 {
+  .playerCard0,
+  .playerCard1,
+  .playerCard2,
+  .playerCard3 {
     max-width: 130px;
   }
 }

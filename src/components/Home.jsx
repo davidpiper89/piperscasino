@@ -20,7 +20,6 @@ const Home = ({
   setUserAvatars
 }) => {
   const [user] = useAuthState(auth);
-  console.log(user);
 
   const renderHomeContent = () => {
     if (loggedIn || user) {

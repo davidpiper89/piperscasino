@@ -39,17 +39,17 @@
 .image {
   display: flex;
 }
-.card-image {
+.cardImage {
   width: 100%;
 }
 
-.cards-container {
+.cardsContainer {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.bet-button,
-.confirm-button {
+.betButton,
+.confirmButton {
   background-color: #ffffff;
   border: none;
   color: #2f9c75;
@@ -65,29 +65,29 @@
   font-weight: bold;
 }
 
-.confirm-button:hover,
-.bet-button:hover {
+.confirmButton:hover,
+.betButton:hover {
   transform: scale(1.1);
   color: #ffffff;
   background-color: #206a4b;
 }
 
 @media (max-width: 768px) {
-  .bet-button,
-  .confirm-button {
+  .betButton,
+  .confirmButton {
     padding: 12px 24px;
     font-size: 14px;
   }
 }
 
 @media (max-width: 768px) {
-  .app-title {
+  .appTitle {
     font-size: 1.5em;
     margin: auto;
   }
 }
 
-.bet-text {
+.betText {
   color: #ffffff;
 }
 

@@ -5,7 +5,7 @@ const CardImage = ({ card }) => {
     <img
       src={`${process.env.PUBLIC_URL}/assets/${card.image}.svg`}
       alt="missing img"
-      className="card-image"
+      className="cardImage"
     />
   );
 };

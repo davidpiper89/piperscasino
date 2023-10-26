@@ -6,7 +6,9 @@ import defaultProfile from "./assets/DefaultProfile.svg";
 import { ROUTE_PATHS } from "./App";
 import { useNavigate } from "react-router-dom";
 import App from "./App";
+import { waitFor } from "@testing-library/react";
 
+// Mocking navigation behavior for isolated testing
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: jest.fn(),
@@ -37,28 +39,32 @@ describe("App Component Tests NOT LOGGED IN", () => {
     useNavigate.mockImplementation(() => mockNavigate);
   });
 
-  test("it renders without crashing [UNIT TEST]", () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+  test("it renders without crashing [UNIT TEST]", async () => {
+    await waitFor(() => {
+      render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+    });
   });
 
-  test("the ROUTE_PATHS constants contain the correct paths [UNIT TEST]", () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+  test("the ROUTE_PATHS constants contain the correct paths [UNIT TEST]", async () => {
+    await waitFor(() => {
+      render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+    });
     expect(ROUTE_PATHS.HOME).toBe("/");
     expect(ROUTE_PATHS.BLACKJACK).toBe("/BLACKJACK");
     expect(ROUTE_PATHS.PROFILE).toBe("/PROFILE");
     expect(ROUTE_PATHS.STORE).toBe("/STORE");
   });
 
-  test("it initializes default values in local storage [INTEGRATION TEST]", () => {
-    act(() => {
+  test("it initializes default values in local storage [INTEGRATION TEST]", async () => {
+    await waitFor(() => {
       render(
         <MemoryRouter>
           <App />
@@ -91,27 +97,42 @@ describe("App Component Tests NOT LOGGED IN", () => {
     expect(storedLoggedIn).toBe(false);
   });
 
-  test("it loads the HomeNotLoggedInComponent [INTEGRATION TEST]", () => {
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
-    const loginTitle = screen.getByRole("heading", { name: /login/i });
-    expect(loginTitle).toBeInTheDocument();
-  });
-
-  test("rendering the app component redirects to the HomeNotLoggedIn page if not logged in [INTEGRATION TEST]", async () => {
-    const mockNavigate = jest.fn();
-    useNavigate.mockImplementation(() => mockNavigate);
-    await act(async () => {
+  test("it loads the HomeNotLoggedInComponent [INTEGRATION TEST]", async () => {
+    await waitFor(() => {
       render(
         <MemoryRouter>
           <App />
         </MemoryRouter>
       );
     });
+    const loginTitle = screen.getByRole("heading", { name: /login/i });
+    expect(loginTitle).toBeInTheDocument();
+  });
 
+  test("rendering the app component redirects to the HomeNotLogged-in page if not logged in [INTEGRATION TEST]", async () => {
+    useNavigate.mockImplementation(() => mockNavigate);
+    await waitFor(() => {
+      render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+    });
+    expect(mockNavigate).toHaveBeenCalledWith("/");
+    const loginTitle = screen.getByRole("heading", { name: /login/i });
+    expect(loginTitle).toBeInTheDocument();
+  });
+
+  test("it redirects to home from /profile if not logged in", async () => {
+    useNavigate.mockImplementation(() => mockNavigate);
+
+    await waitFor(() => {
+      render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+    });
     expect(mockNavigate).toHaveBeenCalledWith("/");
     const loginTitle = screen.getByRole("heading", { name: /login/i });
     expect(loginTitle).toBeInTheDocument();

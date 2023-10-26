@@ -136,7 +136,7 @@ const DealerInterface = ({
   }, [dealerCards, dealerTotal, playerBusted, blackjack, playerEnd]);
 
   return bet ? (
-    <div data-testid="dealer-interface" className="dealerInterface">
+    <div className="dealerInterface" role="region" aria-label="Dealer Interface">
       <div className="d-flex justify-content-center align-items-center">
         <DealerHoleCards dealerCards={dealerCards} />
       </div>

@@ -40,7 +40,7 @@ const HomeLoggedIn = ({
   }, []);
 
   return (
-    <div className="d-flex flex-column loggedInContainer" data-testid="loggedInTest">
+    <div className="d-flex flex-column loggedInContainer">
       <Header
         title={`Welcome ${username}!`}
         leftIcon={<HomeButton />}

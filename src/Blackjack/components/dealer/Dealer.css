@@ -1,11 +1,11 @@
 @media (max-width: 768px) {
-  .dealer-card {
+  .dealerCard {
     max-width: 100px;
   }
 }
 
 @media (min-width: 768px) {
-  .dealer-card {
+  .dealerCard {
     max-width: 130px;
   }
 }

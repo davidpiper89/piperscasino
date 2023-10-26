@@ -17,6 +17,7 @@ export const ROUTE_PATHS = {
   STORE: "/STORE",
 };
 
+// App Component: The main application component that manages routes and state for user information.
 function App() {
   // Using useLocalStorage for state management and syncing with localStorage
   const [username, setUsername] = useLocalStorage("username", "");
@@ -28,9 +29,9 @@ function App() {
   const [userAvatars, setUserAvatars] = useLocalStorage("avatars", []);
   const [loggedIn, setLoggedIn] = useLocalStorage("loggedIn", false);
 
-
   const navigate = useNavigate();
 
+  // Redirects the user to the homepage if not logged in
   useEffect(() => {
     if (!loggedIn) {
       navigate("/");
