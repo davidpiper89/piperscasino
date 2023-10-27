@@ -12,7 +12,34 @@ import "./Player.css";
 import { cardConverterToTotals } from "../../utils/cardConverter";
 import { totalCalc } from "../../utils/totalCalc";
 
-const PlayerInterface = ({
+// Checks if the player's turn has ended, considering all hands are either blackjack, bust, stand, double. takes into account split.
+
+export const isAllHandsOver = (
+  playerCards,
+  stand,
+  double,
+  total,
+  blackjack,
+  bust,
+  split
+) => {
+  let allHandsOver = playerCards.every(
+    (_, index) =>
+      stand[index] ||
+      (double[index] && total[index] <= 21) ||
+      blackjack[index] ||
+      bust[index] ||
+      total[index] === 21
+  );
+
+  if (split > 0) {
+    allHandsOver = allHandsOver && playerCards.length === split + 1;
+  }
+
+  return allHandsOver;
+};
+
+export const PlayerInterface = ({
   playerCards,
   remainingDeck,
   setPlayerCards,
@@ -38,24 +65,6 @@ const PlayerInterface = ({
   double,
   setDouble,
 }) => {
-  // Checks if the player's turn has ended, considering conditions like blackjack, bust, stand, double and split.
-  const isAllHandsOver = () => {
-    let allHandsOver = playerCards.every(
-      (_, index) =>
-        stand[index] ||
-        (double[index] && total[index] <= 21) ||
-        blackjack[index] ||
-        bust[index] ||
-        total[index] === 21
-    );
-
-    if (split > 0) {
-      allHandsOver = allHandsOver && playerCards.length === split + 1;
-    }
-
-    return allHandsOver;
-  };
-
   // Checks and updates if a player has blackjack.
 
   const updateBlackjackStatus = () => {
@@ -101,7 +110,7 @@ const PlayerInterface = ({
       !playerEnd &&
       playerCards.length > 0 &&
       playerCards.length <= 4 &&
-      isAllHandsOver()
+      isAllHandsOver(playerCards, stand, double, total, blackjack, bust, split)
     ) {
       setPlayerEnd(true);
     }

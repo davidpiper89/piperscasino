@@ -2,7 +2,7 @@ import { beginGame } from "./beginGame";
 import { RandomCardPicker } from "./RandomCardPicker";
 
 describe("RandomCardPicker", () => {
-  it("should pick a random card from the deck and remove it", () => {
+  test("should pick a random card from the deck and remove it", () => {
     const mockDeck = [1, 2, 3, 4, 5];
     const result = RandomCardPicker(mockDeck);
 
@@ -16,7 +16,7 @@ describe("RandomCardPicker", () => {
 });
 
 describe("beginGame", () => {
-  it("should begin the game with the right state", () => {
+  test("should begin the game with the right state", () => {
     const mockDeck = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
     const result = beginGame(mockDeck);
 

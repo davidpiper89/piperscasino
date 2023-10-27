@@ -28,11 +28,10 @@ const Result = ({
     handTotal,
     dealerTotal,
     stakeForHand,
-    playerCardsForHand,
+    playerCards,
     dealerCards
   ) => {
-    const isPlayerBlackJack =
-      playerCardsForHand.length === 2 && handTotal === 21;
+    const isPlayerBlackJack = playerCards.length === 1 && handTotal === 21;
     const isDealerBlackJack = dealerCards.length === 2 && dealerTotal === 21;
 
     if (handTotal > 21) {
@@ -148,7 +147,6 @@ const Result = ({
     setOutcome([]);
     setShowModal(false);
   };
-
 
   return showModal ? (
     <ResultsModal
