@@ -19,7 +19,6 @@ const DealerInterface = ({
   split,
   blackjack,
 }) => {
-  console.log(blackjack);
   const dealerDraw = useCallback(() => {
     setTimeout(() => {
       console.log(dealerTotal);
