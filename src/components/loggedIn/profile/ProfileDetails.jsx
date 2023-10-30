@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { getCookie } from "../../../utils/GetCookie";
 import { validate } from "../../../validation";
+import {apiURL} from "../../../config/apiUrl"
 
 const ProfileDetails = ({ username, setUsername }) => {
   const [editingUsername, setEditingUsername] = useState(false);
@@ -32,7 +33,7 @@ const ProfileDetails = ({ username, setUsername }) => {
     const token = getCookie("token");
     try {
       const { data } = await axios.put(
-        "http://localhost:6001/update-username",
+        `${apiURL}/update-username`,
         { username: newUsername },
         {
           headers: {
@@ -83,7 +84,7 @@ const ProfileDetails = ({ username, setUsername }) => {
     const token = getCookie("token");
     try {
       const { data } = await axios.put(
-        "http://localhost:6001/update-password",
+        `${apiURL}/update-password`,
         { currentPassword, newPassword },
         {
           headers: {

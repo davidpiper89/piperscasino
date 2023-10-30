@@ -5,6 +5,7 @@ import avatar2 from "../../../assets/avatar2.png";
 import avatar3 from "../../../assets/avatar3.png";
 import avatar4 from "../../../assets/avatar4.png";
 import { getCookie } from "../../../utils/GetCookie";
+import {apiURL} from "../../../config/apiUrl"
 
 const avatarMap = {
   avatar1: avatar1,
@@ -27,7 +28,7 @@ const ProfileCollection = ({ userAvatars, setAvatar, username }) => {
       setAvatar(selectedAvatar);
       try {
         const response = await axios.post(
-          `http://localhost:6001/set-avatar/${username}`,
+          `${apiURL}/set-avatar/${username}`,
           {
             avatar: selectedAvatar,
           },

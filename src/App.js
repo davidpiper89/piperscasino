@@ -28,6 +28,7 @@ function App() {
   const [draws, setDraws] = useLocalStorage("draws", DEFAULT_RESULTS);
   const [userAvatars, setUserAvatars] = useLocalStorage("avatars", []);
   const [loggedIn, setLoggedIn] = useLocalStorage("loggedIn", false);
+  const [UID, setUID] = useLocalStorage("UID", "");
 
   const navigate = useNavigate();
 
@@ -55,6 +56,8 @@ function App() {
             setDraws={setDraws}
             setLoses={setLoses}
             setUserAvatars={setUserAvatars}
+            UID={UID}
+            setUID={setUID}
           />
         }
       />
@@ -71,6 +74,8 @@ function App() {
             setLoses={setLoses}
             draws={draws}
             setDraws={setDraws}
+            UID={UID}
+            setUID={setUID}
           />
         }
       />
@@ -110,6 +115,8 @@ function App() {
             setLoses={setLoses}
             setDraws={setDraws}
             chips={chips}
+            UID={UID}
+            setUID={setUID}
           />
         }
       />

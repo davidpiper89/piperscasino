@@ -1,9 +1,9 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
 import HomeNotLoggedIn from "./notLoggedIn/HomeNotLoggedIn";
 import HomeLoggedIn from "./loggedIn/HomeLoggedIn";
 import "./Home.css";
+import { auth } from "../firebase/firebase";
 
 const Home = ({
   loggedIn,
@@ -17,7 +17,9 @@ const Home = ({
   setWins,
   setDraws,
   setLoses,
-  setUserAvatars
+  setUserAvatars,
+  UID,
+  setUID
 }) => {
   const [user] = useAuthState(auth);
 
@@ -36,6 +38,7 @@ const Home = ({
           setLoses={setLoses}
           setUserAvatars={setUserAvatars}
           setAvatar={setAvatar}
+          
         />
       );
     }
@@ -54,6 +57,8 @@ const Home = ({
           setDraws={setDraws}
           setLoses={setLoses}
           setUserAvatars={setUserAvatars}
+          UID={UID}
+          setUID={setUID}
         />
       </div>
     );

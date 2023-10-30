@@ -1,7 +1,7 @@
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import React, { useState, useEffect, useRef } from "react";
 import Message from "./Message";
-import { db } from "../../../firebase";
+import { db } from "../../../firebase/firebase";
 import SendMessage from "./SendMessage";
 
 const Chatroom = ({ username }) => {

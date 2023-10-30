@@ -19,6 +19,8 @@ const Blackjack = ({
   setLoses,
   draws,
   setDraws,
+  UID,
+  setUID,
 }) => {
   const deckStart = useMemo(() => [...deck], []);
   const [bet, setBet] = useState(false);
@@ -66,12 +68,12 @@ const Blackjack = ({
     setDealerHidden(start.dealerHidden);
   }, [deckStart]);
 
-  useEffect(() => {
-    const storedChips = localStorage.getItem("chips");
-    if (storedChips) {
-      setChips(Number(storedChips));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedChips = localStorage.getItem("chips");
+  //   if (storedChips) {
+  //     setChips(Number(storedChips));
+  //   }
+  // }, []);
 
   return (
     <>
@@ -157,7 +159,8 @@ const Blackjack = ({
           setDraws={setDraws}
           chips={chips}
           username={username}
-  
+          UID={UID}
+          split={split}
         />
         <footer></footer>
       </div>

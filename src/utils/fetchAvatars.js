@@ -1,11 +1,12 @@
 import axios from "axios";
 import { getCookie } from "./GetCookie";
+import {apiURL} from "../config/apiUrl"
 
 export const fetchAvatars = async (username, setUserAvatars) => {
   const token = getCookie("token");
   try {
     const { data } = await axios.get(
-      `http://localhost:6001/get-avatars/${username}`,
+      `${apiURL}/get-avatars/${username}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

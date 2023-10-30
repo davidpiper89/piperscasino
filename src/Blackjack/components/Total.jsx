@@ -7,7 +7,8 @@ const Total = ({ hand, handIndex, total, setTotal }) => {
   useEffect(() => {
     if (hand) {
       const handTotals = cardConverterToTotals(hand);
-      const { total: handTotal } = totalCalc(handTotals); 
+      const { total: handTotal } = totalCalc(handTotals);
+    
 
       if (total[handIndex] !== handTotal) {
         setTotal((prevState) => {

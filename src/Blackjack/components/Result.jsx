@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ResultsModal from "./ResultsModal";
-import axios from "axios";
-import { getCookie } from "../../utils/GetCookie";
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 
 const Result = ({
   total,
@@ -18,7 +18,7 @@ const Result = ({
   setLoses,
   setDraws,
   chips,
-  username,
+  UID,
 }) => {
   const result = { win: "You win", lose: "You lose", draw: "Push" };
   const [outcome, setOutcome] = useState([]);
@@ -31,7 +31,8 @@ const Result = ({
     playerCards,
     dealerCards
   ) => {
-    const isPlayerBlackJack = playerCards.length === 1 && handTotal === 21;
+
+    const isPlayerBlackJack = playerCards[0].length === 2 && handTotal === 21;
     const isDealerBlackJack = dealerCards.length === 2 && dealerTotal === 21;
 
     if (handTotal > 21) {
@@ -39,7 +40,7 @@ const Result = ({
     } else if (isDealerBlackJack && isPlayerBlackJack) {
       return { result: result.draw, stakeResult: 0 };
     } else if (isPlayerBlackJack && !isDealerBlackJack) {
-      return { result: result.win, stakeResult: 1.5 * stakeForHand };
+      return { result: result.win, stakeResult: 2.5 * stakeForHand };
     } else if (dealerTotal === handTotal) {
       return { result: result.draw, stakeResult: 0 };
     } else if (dealerTotal > 21 || handTotal > dealerTotal) {
@@ -79,33 +80,22 @@ const Result = ({
     outcome.forEach((outcomeResult) => {
       if (outcomeResult.result === result.lose) {
         setLoses((prevLoses) => prevLoses + 1);
-        updateBlackjackResults("lose", username);
+        updateBlackjackResults("loses", UID);
       } else if (outcomeResult.result === result.win) {
         setWins((prevWins) => prevWins + 1);
-        updateBlackjackResults("win", username);
+        updateBlackjackResults("wins", UID);
       } else if (outcomeResult.result === result.draw) {
         setDraws((prevDraws) => prevDraws + 1);
-        updateBlackjackResults("draw", username);
+        updateBlackjackResults("draws", UID);
       }
     });
   }, [outcome]);
 
-  const updateBlackjackResults = async (resultType, username) => {
-    const token = getCookie("token");
-    try {
-      const { data } = await axios.put(
-        `http://localhost:6001/update-blackjack-results/${username}`,
-        { resultType },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      );
-    } catch (error) {
-      console.error("Error updating blackjack results:", error);
-    }
+  const updateBlackjackResults = async (resultType, UID) => {
+    const userResultRef = doc(db, "casino_users", UID);
+    await updateDoc(userResultRef, {
+      [resultType]: increment(1),
+    });
   };
 
   useEffect(() => {
@@ -119,24 +109,13 @@ const Result = ({
   }, [outcome]);
 
   useEffect(() => {
-    const updateBackend = async (newChipCount, username) => {
-      const token = getCookie("token");
-      try {
-        const { data } = await axios.put(
-          "http://localhost:6001/update-chips",
-          { newChipCount, username },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          }
-        );
-      } catch (error) {
-        localStorage.setItem("unsavedChipCount", newChipCount);
-      }
+    const updateChips = async (newChipCount) => {
+      const userChipRef = doc(db, "casino_users", UID);
+      await updateDoc(userChipRef, {
+        chips: newChipCount,
+      });
     };
-    updateBackend(chips, username);
+    updateChips(chips, UID);
   }, [chips]);
 
   useEffect(() => {

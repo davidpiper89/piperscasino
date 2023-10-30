@@ -1,12 +1,13 @@
 import axios from "axios";
 import { getCookie } from "./GetCookie";
+import { apiURL } from "../config/apiUrl";
 
 export const updateUserAvatar = async (avatarName, username) => {
   const token = getCookie("token");
 
   try {
     const { data } = await axios.post(
-      "http://localhost:6001/update-avatars",
+      `${apiURL}/update-avatars`,
       { avatarName, username },
       {
         headers: {

@@ -1,23 +1,24 @@
 import React from "react";
-import { updateBackend } from "../../../utils/updateBackendChips";
+import { doc, updateDoc, increment } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
 
-const StoreChips = ({ chips, setChips, username }) => {
-  
-
+const StoreChips = ({ chips, setChips, username, UID }) => {
   async function handlePlusChips(add) {
-    const result = await updateBackend(chips + add, username);
-    if (result.success) {
-      setChips(result.newChips);
-    }
+    const userChipsRef = doc(db, "casino_users", UID);
+    await updateDoc(userChipsRef, {
+      chips: increment(100),
+    });
+    setChips(chips + 100);
   }
 
-  async function handleBuyChips(cost, amount) {
+  async function handleBuyChips(cost, ammount, UID) {
     if (chips >= cost) {
-      const newChips = chips - cost + amount;
-      const result = await updateBackend(newChips, username);
-      if (result.success) {
-        setChips(newChips);
-      }
+      const newChips = chips - cost + ammount;
+      const userChipsRef = doc(db, "casino_users", UID);
+      await updateDoc(userChipsRef, {
+        chips: newChips,
+      });
+      setChips(newChips);
     } else {
       alert("Not enough chips to make this purchase");
     }
@@ -31,7 +32,7 @@ const StoreChips = ({ chips, setChips, username }) => {
       <div className="getChips">
         Get Chips
         <ul>
-          <li className="amberButton" onClick={() => handlePlusChips(100)}>
+          <li className="amberButton" onClick={() => handlePlusChips(100, UID)}>
             + 100
           </li>
         </ul>
@@ -40,10 +41,16 @@ const StoreChips = ({ chips, setChips, username }) => {
       <div className="buyChips">
         Buy Chips
         <ul>
-          <li className="amberButton" onClick={() => handleBuyChips(10, 100)}>
+          <li
+            className="amberButton"
+            onClick={() => handleBuyChips(10, 100, UID)}
+          >
             + 100 for 10 chips
           </li>
-          <li className="amberButton" onClick={() => handleBuyChips(100, 1000)}>
+          <li
+            className="amberButton"
+            onClick={() => handleBuyChips(100, 1000, UID)}
+          >
             + 1000 for 100 chips
           </li>
         </ul>

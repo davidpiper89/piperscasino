@@ -1,12 +1,13 @@
 import axios from "axios";
 import { getCookie } from "./GetCookie";
+import {apiURL} from "../config/apiUrl"
 
 export async function updateBackend(newChips, username) {
   const token = getCookie("token");
 
   try {
     const { data } = await axios.put(
-      "http://localhost:6001/update-chips",
+      `${apiURL}/update-chips`,
       { newChipCount: newChips, username },
       {
         headers: {

@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { validate } from "../../validation";
-import { signInWithCustomToken, updateProfile } from "firebase/auth";
-import { auth } from "../../firebase";
 import "./HomeNotLoggedIn.css";
 import { ToastContainer, toast } from "react-toastify";
 import defaultProfile from "../../assets/DefaultProfile.svg";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  signInWithCustomToken,
+  updateProfile,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import GoogleButton from "react-google-button";
+import { auth, db } from "../../firebase/firebase";
+import { DEFAULT_CHIPS, DEFAULT_RESULTS } from "../../config/config";
 
 const HomeNotLoggedIn = ({
   setLoggedIn,
@@ -17,6 +26,8 @@ const HomeNotLoggedIn = ({
   setDraws,
   setLoses,
   setUserAvatars,
+  UID,
+  setUID,
 }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [password, setPassword] = useState("");
@@ -38,100 +49,121 @@ const HomeNotLoggedIn = ({
     setErrors(errors || {});
     if (errors) return;
 
-    const userDetails = isLogin
-      ? {
-          username: username,
-          password: password,
-        }
-      : {
-          email: email,
-          username: username,
-          password: password,
-        };
-
     try {
       if (isLogin) {
-        await loginUser(userDetails);
-      } else {
-        const { data } = await axios.post(
-          "http://localhost:6001/signup",
-          userDetails,
-          { withCredentials: true }
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          username,
+          password
         );
-        if (data.status === 1) {
-          await loginUser({
-            username: username,
-            password: password,
-          });
+
+        // User is authenticated, now get their data from Firestore.
+        const uid = userCredential.user.uid;
+
+        const userDocRef = doc(db, "casino_users", uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+          // User data exists, update the state with the user data.
+
+          const userData = userDoc.data();
+          setUID(uid);
+          localStorage.setItem("UID", uid);
+          setUsername(userData.username);
+          localStorage.setItem("username", userData.username);
+          setChips(userData.chips);
+          localStorage.setItem("chips", userData.chips.toString());
+          setAvatar(userData.avatar);
+          setWins(userData.wins);
+          localStorage.setItem("wins", userData.wins.toString());
+          setDraws(userData.draws);
+          localStorage.setItem("draws", userData.draws.toString());
+          setLoses(userData.loses);
+          localStorage.setItem("loses", userData.loses.toString());
+
+          setLoggedIn(true);
         } else {
-          toast.error(
-            data.error ||
-              "Signup failed. Please check your details and try again."
-          );
+          toast.error("No user found.");
         }
-      }
-    } catch (err) {
-      console.error("Error:", err.data ? err.data.message : err.message);
-    }
-  };
-
-  const loginUser = async (userDetails) => {
-    const { data } = await axios.post(
-      "http://localhost:6001/login",
-      userDetails,
-      { withCredentials: true }
-    );
-    if (data.status === 1) {
-      setLoggedIn(true);
-      setUsername(userDetails.username);
-      localStorage.setItem("username", userDetails.username);
-      setChips(data.chips);
-      localStorage.setItem("chips", data.chips.toString());
-      setAvatar(data.avatar || defaultProfile);
-      localStorage.setItem("avatar", data.avatar || defaultProfile);
-      toast.success("Logged in successfully");
-
-      if (data.results && data.results.length > 0) {
-        const wins = data.results[0].casino_blackjack_wins || 0;
-        setWins(wins);
-        localStorage.setItem("wins", wins.toString());
-
-        const draws = data.results[0].casino_blackjack_draws || 0;
-        setDraws(draws);
-        localStorage.setItem("draws", draws.toString());
-
-        const loses = data.results[0].casino_blackjack_loses || 0;
-        setLoses(loses);
-        localStorage.setItem("loses", loses.toString());
       } else {
-        setWins(0);
-        localStorage.setItem("wins", "0");
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-        setDraws(0);
-        localStorage.setItem("draws", "0");
+        const uid = userCredential.user.uid;
 
-        setLoses(0);
-        localStorage.setItem("loses", "0");
+        const newUser = {
+          username: username,
+          chips: DEFAULT_CHIPS,
+          wins: 0,
+          loses: 0,
+          draws: 0,
+          avatar: defaultProfile,
+        };
+        await setDoc(doc(db, `casino_users`, uid), newUser);
+        setUsername(username);
+        localStorage.setItem("username", username);
+        setChips(DEFAULT_CHIPS);
+        localStorage.setItem("chips", DEFAULT_CHIPS.toString());
+        setAvatar(defaultProfile);
+        setWins(DEFAULT_RESULTS);
+        localStorage.setItem("wins", DEFAULT_RESULTS.toString());
+        setDraws(DEFAULT_RESULTS);
+        localStorage.setItem("draws", DEFAULT_RESULTS.toString());
+        setLoses(DEFAULT_RESULTS);
+        localStorage.setItem("loses", DEFAULT_RESULTS.toString());
+        setLoggedIn(true);
       }
-
-      setUserAvatars(data.avatars);
-      localStorage.setItem("avatars", JSON.stringify(data.avatars));
-
-      document.cookie = `token=${data.token}; Secure; HttpOnly;`;
-
-      if (data.firebaseToken) {
-        await signInWithCustomToken(auth, data.firebaseToken);
-        if (!auth.currentUser.displayName) {
-          await updateProfile(auth.currentUser, {
-            displayName: userDetails.username,
-          });
-        }
-      }
-    } else {
-      toast.error("Login failed. Please check your credentials and try again.");
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(
+        "Authentication failed. Please check your details and try again."
+      );
     }
   };
 
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Check if user exists in Firestore
+      const userDocRef = doc(db, "casino_users", user.uid);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+        // User exists in Firestore, fetch the data and update the app's state
+        const userData = userDocSnapshot.data();
+        setUsername(userData.username);
+        localStorage.setItem("username", userData.username);
+        setChips(userData.chips);
+        localStorage.setItem("chips", userData.chips.toString());
+        setAvatar(userData.avatar);
+        setWins(userData.wins);
+        localStorage.setItem("wins", userData.wins.toString());
+        setDraws(userData.draws);
+        localStorage.setItem("draws", userData.draws.toString());
+        setLoses(userData.loses);
+        localStorage.setItem("loses", userData.loses.toString());
+      } else {
+        // User doesn't exist in Firestore, create a new user entry
+        const newUser = {
+          username: user.displayName,
+          chips: DEFAULT_CHIPS,
+          wins: 0,
+          loses: 0,
+          draws: 0,
+          avatar: defaultProfile,
+        };
+        await setDoc(userDocRef, newUser);
+      }
+    } catch (error) {
+      console.error("Error with Google Sign-In:", error);
+      toast.error("Google Sign-In failed. Please try again.");
+    }
+  };
   return (
     <div className="formContainer">
       <h2 className="formTitle">{isLogin ? "Login" : "Signup"}</h2>
@@ -189,9 +221,7 @@ const HomeNotLoggedIn = ({
         </button>
       </form>
       <ToastContainer />
-      {/* <div className="mb-4">
-        <GoogleButton onClick={googleSignIn} />
-      </div> */}
+
       <button
         type="button"
         onClick={() => setIsLogin(!isLogin)}
@@ -199,6 +229,9 @@ const HomeNotLoggedIn = ({
       >
         Switch to {isLogin ? "Signup" : "Login"}
       </button>
+      <div className="mt-3">
+        <GoogleButton onClick={googleSignIn} />
+      </div>
     </div>
   );
 };

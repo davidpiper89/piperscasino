@@ -65,6 +65,7 @@ export const PlayerInterface = ({
   double,
   setDouble,
 }) => {
+
   // Checks and updates if a player has blackjack.
 
   const updateBlackjackStatus = () => {
@@ -77,7 +78,7 @@ export const PlayerInterface = ({
       ) {
         const newBlackjack = [...blackjack];
         newBlackjack[handIndex] = true;
-        setTimeout(() => setBlackjack(newBlackjack), 0);
+        setBlackjack(newBlackjack);
       }
     });
   };

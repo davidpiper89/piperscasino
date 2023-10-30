@@ -1,5 +1,5 @@
 import React from "react";
-import { auth } from "../../../firebase";
+import { auth } from "../../../firebase/firebase";
 
 const Message = ({ msg, username}) => {
   // Check if the current user is the sender

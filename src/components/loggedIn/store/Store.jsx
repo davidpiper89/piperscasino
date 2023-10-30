@@ -21,6 +21,8 @@ const Store = ({
   setDraws,
   setLoses,
   setUsername,
+  UID,
+  setUID,
 }) => {
   const isMobile = useMobileDetector();
 
@@ -63,7 +65,13 @@ const Store = ({
           </div>
         }
       />
-      <StoreChips chips={chips} setChips={setChips} username={username} />
+      <StoreChips
+        chips={chips}
+        setChips={setChips}
+        username={username}
+        UID={UID}
+        setUID={setUID}
+      />
       <StoreAvatars
         chips={chips}
         setChips={setChips}

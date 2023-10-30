@@ -116,7 +116,7 @@ const HomeLoggedIn = ({
           onClick={() => {}}
         /> */}
         {/* <Section title="LeaderBoard" content={<p>leaderboard here</p>} /> */}
-        <Section
+        {/* <Section
           title="Chat"
           content={
             <div className="chatContent">
@@ -124,7 +124,7 @@ const HomeLoggedIn = ({
             </div>
           }
           onClick={() => {}}
-        />
+        /> */}
       </main>
     </div>
   );
