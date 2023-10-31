@@ -31,9 +31,9 @@ const Result = ({
     playerCards,
     dealerCards
   ) => {
-
     const isPlayerBlackJack = playerCards[0].length === 2 && handTotal === 21;
     const isDealerBlackJack = dealerCards.length === 2 && dealerTotal === 21;
+   
 
     if (handTotal > 21) {
       return { result: result.lose, stakeResult: -stakeForHand };

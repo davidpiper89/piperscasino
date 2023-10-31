@@ -70,7 +70,6 @@ const Store = ({
         setChips={setChips}
         username={username}
         UID={UID}
-        setUID={setUID}
       />
       <StoreAvatars
         chips={chips}
@@ -78,6 +77,7 @@ const Store = ({
         username={username}
         userAvatars={userAvatars}
         setUserAvatars={setUserAvatars}
+        UID={UID}
       />
     </div>
   );

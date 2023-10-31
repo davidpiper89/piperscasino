@@ -23,6 +23,7 @@ const Profile = ({
   setWins,
   setDraws,
   setLoses,
+  UID,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [previewAvatar, setPreviewAvatar] = useState(null);
@@ -81,6 +82,7 @@ const Profile = ({
         previewAvatar={previewAvatar}
         setPreviewAvatar={setPreviewAvatar}
         username={username}
+        UID={UID}
       />
       <button
         className="amberButton"
@@ -90,7 +92,11 @@ const Profile = ({
       </button>
 
       {showDetails && (
-        <ProfileDetails username={username} setUsername={setUsername} />
+        <ProfileDetails
+          username={username}
+          setUsername={setUsername}
+          UID={UID}
+        />
       )}
     </div>
   );

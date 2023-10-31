@@ -10,7 +10,7 @@ export const validate = (
   const schemaToUse = getSchema(isLogin);
 
   const input = isLogin
-    ? { username, password }
+    ? { email, password }
     : { email, username, password, confirmPassword };
 
   const { error } = schemaToUse.validate(input, { abortEarly: false });

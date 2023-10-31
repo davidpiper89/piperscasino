@@ -2,7 +2,6 @@ import Joi from "joi-browser";
 
 export const getSchema = (isLogin) => {
   let baseSchema = {
-    username: Joi.string().min(4).max(30).required().label("Username"),
     password: Joi.string()
       .min(8)
       .regex(
@@ -18,28 +17,35 @@ export const getSchema = (isLogin) => {
           },
         },
       }),
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required()
+      .label("Email"),
   };
 
   if (!isLogin) {
-    baseSchema.email = Joi.string()
-      .email({ tlds: { allow: false } })
+    baseSchema.username = Joi.string()
+      .min(4)
+      .max(30)
       .required()
-      .label("Email");
-
+      .label("Username");
     baseSchema.confirmPassword = Joi.string()
       .valid(Joi.ref("password"))
       .required()
       .label("Confirm Password")
       .error((errors) => {
         errors.forEach((err) => {
-          if (err.path && err.path[0] === 'confirmPassword' && err.type === "any.allowOnly") {
+          if (
+            err.path &&
+            err.path[0] === "confirmPassword" &&
+            err.type === "any.allowOnly"
+          ) {
             err.message = "Passwords do not match";
           }
         });
         return errors;
       });
-  } 
+  }
 
   return Joi.object(baseSchema);
 };
-

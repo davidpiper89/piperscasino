@@ -21,7 +21,6 @@ const DealerInterface = ({
 }) => {
   const dealerDraw = useCallback(() => {
     setTimeout(() => {
-      console.log(dealerTotal);
       const newCard = RandomCardPicker(remainingDeck);
       setDealerCards((prevCards) => [...prevCards, newCard.card]);
 
@@ -44,7 +43,7 @@ const DealerInterface = ({
     ) {
       setDealerEnd(true);
     }
-  }, [playerBusted, allHandsBlackjack]);
+  }, [playerEnd]);
 
   const dealerWillShowHiddenOnly = () => {
     const timeoutId = setTimeout(() => {
@@ -90,7 +89,6 @@ const DealerInterface = ({
       dealerCards.length >= 2 &&
       dealerTotal < 17
     ) {
-
       dealerDraw();
     } else if (
       playerEnd &&

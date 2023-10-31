@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
 import avatar1 from "../../../assets/avatar1.png";
 import avatar2 from "../../../assets/avatar2.png";
 import avatar3 from "../../../assets/avatar3.png";
 import avatar4 from "../../../assets/avatar4.png";
-import { getCookie } from "../../../utils/GetCookie";
-import {apiURL} from "../../../config/apiUrl"
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
 
 const avatarMap = {
   avatar1: avatar1,
@@ -14,7 +13,7 @@ const avatarMap = {
   avatar4: avatar4,
 };
 
-const ProfileCollection = ({ userAvatars, setAvatar, username }) => {
+const ProfileCollection = ({ userAvatars, setAvatar, UID }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
 
   const handleClick = (avatarId) => {
@@ -22,36 +21,12 @@ const ProfileCollection = ({ userAvatars, setAvatar, username }) => {
   };
 
   const confirmSelection = async () => {
-    const token = getCookie("token");
-
-    if (selectedAvatar) {
-      setAvatar(selectedAvatar);
-      try {
-        const response = await axios.post(
-          `${apiURL}/set-avatar/${username}`,
-          {
-            avatar: selectedAvatar,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          }
-        );
-        console.log(response.data.status);
-
-        if (response.data.status === 1) {
-          console.log("Avatar successfully updated in the backend");
-        } else {
-          console.error("Failed to update avatar in the backend");
-        }
-      } catch (error) {
-        console.error("Error updating avatar:", error);
-      }
-
-      setSelectedAvatar(null);
-    }
+    setAvatar(selectedAvatar);
+    const userAvatarRef = doc(db, "casino_users", UID);
+    await updateDoc(userAvatarRef, {
+      avatar: selectedAvatar,
+    });
+    setSelectedAvatar(null);
   };
 
   return (

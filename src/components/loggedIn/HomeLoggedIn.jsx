@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HomeButton } from "../loggedIn/HomeButton";
 import Burger from "./Burger";
@@ -23,6 +23,7 @@ const HomeLoggedIn = ({
   setUsername,
 }) => {
   const isMobile = useMobileDetector();
+  const [chatOpen, setChatOpen] = useState(false);
 
   const Section = ({ title, content, onClick }) => (
     <section className="d-flex flex-column align-items-center section">
@@ -32,6 +33,15 @@ const HomeLoggedIn = ({
       </div>
     </section>
   );
+
+  // Handle the chat toggle
+  const toggleChat = () => {
+    setChatOpen(!chatOpen);
+  };
+  const closeChat = () => {
+    setChatOpen(false);
+  };
+
   useEffect(() => {
     const storedChips = localStorage.getItem("chips");
     if (storedChips) {
@@ -107,25 +117,30 @@ const HomeLoggedIn = ({
               </Link>
             </div>
           }
-          onClick={() => {}}
         />
 
-        {/* <Section
-          title="News"
-          content={<p>Slot machine next!</p>}
-          onClick={() => {}}
-        /> */}
-        {/* <Section title="LeaderBoard" content={<p>leaderboard here</p>} /> */}
-        {/* <Section
-          title="Chat"
-          content={
-            <div className="chatContent">
-              <Chatroom username={username} />
-            </div>
-          }
-          onClick={() => {}}
-        /> */}
+        <Section title="News" content={<p>Slot machine next!</p>} />
       </main>
+
+      {/* Chat Button */}
+      <button
+        className={`chatToggle ${chatOpen ? "hidden" : ""}`}
+        onClick={toggleChat}
+      >
+        Chat
+      </button>
+
+      {/* Chat Box */}
+      <div className={`chatBox ${chatOpen ? "open" : ""}`}>
+        <Chatroom username={username} />
+      </div>
+
+      {/* Close Button - outside the chat box */}
+      {chatOpen && (
+        <button className="chatClose" onClick={closeChat}>
+         X
+        </button>
+      )}
     </div>
   );
 };

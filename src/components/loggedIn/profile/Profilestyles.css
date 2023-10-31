@@ -33,7 +33,7 @@
 }
 
 /* Buttons */
-button {
+.updateDetailsBtn {
   background-color: #ffc107;
   color: #212121;
   padding: 10px;
@@ -43,7 +43,7 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.updateDetailsBtn:hover {
   background-color: #ffd54f;
 }
 

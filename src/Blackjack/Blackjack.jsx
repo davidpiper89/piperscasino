@@ -103,6 +103,7 @@ const Blackjack = ({
             bust={bust}
             split={split}
             blackjack={blackjack}
+            setPlayerEnd={setPlayerEnd}
           />
           <PlayerInterface
             playerCards={playerCards}

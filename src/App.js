@@ -95,6 +95,7 @@ function App() {
             setWins={setWins}
             setLoses={setLoses}
             setDraws={setDraws}
+            UID={UID}
           />
         }
       />
@@ -116,7 +117,6 @@ function App() {
             setDraws={setDraws}
             chips={chips}
             UID={UID}
-            setUID={setUID}
           />
         }
       />
