@@ -27,6 +27,7 @@ const DealerInterface = ({
       setDeck(newCard.array);
     }, 1500);
   }, [remainingDeck, setDealerCards, setDeck]);
+ 
 
   //work out if player busts in 1 or all hands
   const playerBusted = bust.slice(0, split + 1).every(Boolean);

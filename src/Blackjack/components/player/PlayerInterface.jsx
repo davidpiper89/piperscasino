@@ -64,6 +64,8 @@ export const PlayerInterface = ({
   setStand,
   double,
   setDouble,
+  setDealerHidden,
+  setDealerCards
 }) => {
 
   // Checks and updates if a player has blackjack.
@@ -249,6 +251,10 @@ export const PlayerInterface = ({
           chips={chips}
           stake={stake}
           setStake={setStake}
+          setPlayerCards={setPlayerCards}
+          setDeck={setDeck}
+          setDealerCards={setDealerCards}
+          setDealerHidden={setDealerHidden}
         />
       )}
       <div className={`split${gridClass}`}>{bet && <PlayerHandsDisplay />}</div>

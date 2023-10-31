@@ -7,7 +7,6 @@ const Double = ({
   playerCards,
   setPlayerCards,
   handIndex,
-  double,
   setDouble,
   stake,
   setStake,
@@ -16,6 +15,11 @@ const Double = ({
   setTotal,
 }) => {
   const handleDouble = (remainingDeck, index) => {
+    if (stake[index] > chips) {
+      alert("You do not have enough chips to double your bet.");
+      return;
+    }
+
     const hit = RandomCardPicker(remainingDeck);
     const newPlayerCards = [...playerCards];
     newPlayerCards[handIndex][0].push(hit.card);
@@ -24,7 +28,7 @@ const Double = ({
     setDeck(hit.array);
 
     const newStake = [...stake];
-    newStake[index]*= 2;
+    newStake[index] *= 2;
     setStake(newStake);
     setChips(chips - newStake[index] / 2);
 
@@ -48,6 +52,7 @@ const Double = ({
     <button
       className="doubleButton d-flex"
       onClick={() => handleDouble(remainingDeck, handIndex)}
+      // disabled={stake[handIndex] > chips}
     >
       <div>{buttonText}</div>
     </button>

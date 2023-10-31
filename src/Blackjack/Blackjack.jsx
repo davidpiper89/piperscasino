@@ -40,12 +40,11 @@ const Blackjack = ({
 
   const [dealerTotal, setDealerTotal] = useState([0]);
 
-  const resetGame = useCallback(() => {
-    const start = beginGame([...deck]);
-    setPlayerCards([start.playerCards]);
-    setDeck(start.currentDeck);
-    setDealerCards(start.dealerCards);
-    setDealerHidden(start.dealerHidden);
+  const resetGame = () => {
+    setPlayerEnd(false);
+    setDealerEnd(false);
+    setDealerCards();
+    setPlayerCards([[]]);
     setSplit(0);
     setTotal([false, false, false, false]);
     setBust([false, false, false, false]);
@@ -55,17 +54,15 @@ const Blackjack = ({
     setBlackjack([false, false, false, false]);
     setDealerTotal([0]);
     setBet(false);
-    setPlayerEnd(false);
-    setDealerEnd(false);
-  }, []);
+  };
 
-  useEffect(() => {
-    const start = beginGame([...deck]);
-    setPlayerCards([start.playerCards]);
-    setDeck(start.currentDeck);
-    setDealerCards(start.dealerCards);
-    setDealerHidden(start.dealerHidden);
-  }, [deckStart]);
+  // useEffect(() => {
+  //   const start = beginGame([...deck]);
+  //   setPlayerCards([start.playerCards]);
+  //   setDeck(start.currentDeck);
+  //   setDealerCards(start.dealerCards);
+  //   setDealerHidden(start.dealerHidden);
+  // }, [deckStart]);
 
   // useEffect(() => {
   //   const storedChips = localStorage.getItem("chips");

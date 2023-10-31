@@ -37,7 +37,7 @@ const ProfileDetails = ({ username, setUsername, setPassword, UID }) => {
   };
 
   const updatePasswordBackend = async (currentPassword, newPassword) => {
-    console.log(currentPassword, newPassword);
+
     try {
       if (newPassword !== confirmNewPassword) {
         setErrors({ ...errors, password: "New passwords do not match." });

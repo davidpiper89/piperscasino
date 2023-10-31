@@ -1,6 +1,19 @@
 import React from "react";
+import { deck } from "../../../utils/deck";
+import { beginGame } from "../../../utils/beginGame";
 
-const Betting = ({ setBet, bet, setChips, chips, stake, setStake }) => {
+const Betting = ({
+  setBet,
+  bet,
+  setChips,
+  chips,
+  stake,
+  setStake,
+  setPlayerCards,
+  setDeck,
+  setDealerCards,
+  setDealerHidden
+}) => {
   const placeBet = (amount) => {
     if (stake[0] + amount > chips) {
       alert("You cannot bet more than your available chips.");
@@ -12,14 +25,18 @@ const Betting = ({ setBet, bet, setChips, chips, stake, setStake }) => {
   const undoBet = () => {
     setStake([0, ...stake.slice(1)]);
   };
+  const handleBeginGame = () => {
+    const start = beginGame([...deck]);
+    setPlayerCards([start.playerCards]);
+    setDeck(start.currentDeck);
+    setDealerCards(start.dealerCards);
+    setDealerHidden(start.dealerHidden);
+  };
 
   return (
     <>
       <div className="bettingContainer">
-        <button
-          className="betButton"
-          onClick={() => placeBet(1)}
-        >
+        <button className="betButton" onClick={() => placeBet(1)}>
           Bet 1
         </button>
         <button className="betButton" onClick={() => placeBet(5)}>
@@ -40,6 +57,7 @@ const Betting = ({ setBet, bet, setChips, chips, stake, setStake }) => {
           if (stake[0] > 0) {
             setBet(!bet);
             setChips(chips - stake[0]);
+            handleBeginGame();
           } else {
             alert("Please place a bet before starting the game.");
           }

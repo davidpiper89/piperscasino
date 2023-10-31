@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 const ResultsModal = ({ resetGame, setBet, resetOutcome, results }) => {
   const handleRestartGame = () => {
     resetGame();
-    setBet(false);
     resetOutcome();
   };
 

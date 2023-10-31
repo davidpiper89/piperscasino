@@ -13,10 +13,16 @@ const Split = ({
   setStake,
   chips,
   setChips,
-  blackjack,
+
   setBlackjack,
 }) => {
   const splitHand = (index) => {
+    console.log(split);
+    if (stake[index] > chips) {
+      alert("You do not have enough chips to split your bet.");
+      return;
+    }
+
     if (playerCards.length >= 1 && playerCards.length < 4) {
       const draw1 = RandomCardPicker(remainingDeck);
       const draw2 = RandomCardPicker(draw1.array);
@@ -42,15 +48,12 @@ const Split = ({
 
       const newStake = [...stake];
       newStake[index] = stake[index];
-
-      // Find the next 0 in stake and replace it with the current stake
       const nextZeroIndex = newStake.findIndex(
         (stakeValue) => stakeValue === 0
       );
       if (nextZeroIndex !== -1) {
         newStake[nextZeroIndex] = stake[index];
       }
-
       setStake(newStake);
 
       // Update blackjack state
@@ -62,6 +65,7 @@ const Split = ({
       });
 
       setChips(chips - stake[index]);
+      setSplit(split + 1);
     }
   };
 
@@ -72,8 +76,8 @@ const Split = ({
       className="splitButton d-flex"
       onClick={() => {
         splitHand(handIndex);
-        setSplit(split + 1);
       }}
+      // disabled={stake[handIndex] > chips}
     >
       <div>{buttonText}</div>
     </button>
