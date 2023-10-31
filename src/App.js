@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Blackjack from "./Blackjack/Blackjack";
+import Blackjack from "./blackjack/Blackjack";
 import Home from "./components/Home";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";

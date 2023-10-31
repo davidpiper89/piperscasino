@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
-import { validate } from "../../../validation";
-import { db } from "../../../firebase/firebase";
+import { db, auth } from "../../../firebase/firebase";
+import {
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
+} from "firebase/auth";
 
-const ProfileDetails = ({ username, setUsername, UID }) => {
+const ProfileDetails = ({ username, setUsername, setPassword, UID }) => {
   const [editingUsername, setEditingUsername] = useState(false);
   const [newUsername, setNewUsername] = useState(username || "");
 
@@ -14,15 +18,59 @@ const ProfileDetails = ({ username, setUsername, UID }) => {
   const [errors, setErrors] = useState({});
 
   const updateUsernameBackend = async (newUsername, UID) => {
-    if (!newUsername || newUsername.trim() === "") {
-      alert("Username cannot be empty.");
-      return;
+    try {
+      if (!newUsername || newUsername.trim() === "") {
+        alert("Username cannot be empty.");
+        return;
+      }
+      const userUsernameRef = doc(db, "casino_users", UID);
+      await updateDoc(userUsernameRef, {
+        username: newUsername,
+      });
+      setUsername(newUsername);
+      alert("Successfully changed username.");
+      setEditingUsername(false);
+    } catch (error) {
+      console.error("Error updating username:", error);
+      alert("There was a problem updating the username.");
     }
-    const userUsernameRef = doc(db, "casino_users", UID);
-    await updateDoc(userUsernameRef, {
-      username: newUsername,
-    });
-    setUsername(newUsername);
+  };
+
+  const updatePasswordBackend = async (currentPassword, newPassword) => {
+    console.log(currentPassword, newPassword);
+    try {
+      if (newPassword !== confirmNewPassword) {
+        setErrors({ ...errors, password: "New passwords do not match." });
+        return;
+      }
+
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        currentPassword
+      );
+      await reauthenticateWithCredential(auth.currentUser, credential);
+
+    
+      await updatePassword(auth.currentUser, newPassword);
+      alert("Successfully changed password.");
+      setEditingPassword(false);
+    } catch (error) {
+      console.error("Error updating password:", error);
+      
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("The current password is incorrect.");
+          break;
+        case "auth/weak-password":
+          alert("The password is too weak. Please choose a stronger password.");
+          break;
+        default:
+          alert(
+            `There was a problem updating the password. Error: ${error.message}`
+          );
+          break;
+      }
+    }
   };
 
   return (
@@ -37,7 +85,7 @@ const ProfileDetails = ({ username, setUsername, UID }) => {
             onChange={(e) => setNewUsername(e.target.value)}
           />
           <button
-            className="updateDetailsBtn"
+            className="defaultBtn"
             onClick={() => updateUsernameBackend(newUsername, UID)}
           >
             Save Username
@@ -45,7 +93,7 @@ const ProfileDetails = ({ username, setUsername, UID }) => {
         </div>
       ) : (
         <button
-          className="updateDetailsBtn"
+          className="defaultBtn"
           onClick={() => setEditingUsername(true)}
         >
           Edit Username
@@ -79,16 +127,19 @@ const ProfileDetails = ({ username, setUsername, UID }) => {
             onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
 
-          <button className="updateDetailsBtn" onClick={() => {}}>
+          <button
+            className="defaultBtn"
+            onClick={() => updatePasswordBackend(currentPassword, newPassword)}
+          >
             Save Password
           </button>
         </div>
       ) : (
         <button
-          className="updateDetailsBtn"
+          className="defaultBtn"
           onClick={() => setEditingPassword(true)}
         >
-          Change Password
+          Edit Password
         </button>
       )}
     </div>

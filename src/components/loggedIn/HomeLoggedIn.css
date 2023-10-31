@@ -228,7 +228,7 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 370px;
+  max-width: 370px;
   height: 0;
   overflow: y;
   transition: height 0.5s ease;
@@ -239,7 +239,7 @@
 
 .chatBox.open {
   height: 33%;
-  width: 370px;
+  max-width: 370px;
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(5px);
 }

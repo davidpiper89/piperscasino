@@ -5,8 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import defaultProfile from "../../assets/DefaultProfile.svg";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import {
-  signInWithCustomToken,
-  updateProfile,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -57,6 +55,7 @@ const HomeNotLoggedIn = ({
         );
 
         // User is authenticated, now get their data from Firestore.
+        
         const uid = userCredential.user.uid;
 
         const userDocRef = doc(db, "casino_users", uid);
@@ -92,7 +91,7 @@ const HomeNotLoggedIn = ({
           email,
           password
         );
-  
+
         const uid = userCredential.user.uid;
         const newUser = {
           username: username,

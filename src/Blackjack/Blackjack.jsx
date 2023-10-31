@@ -20,7 +20,6 @@ const Blackjack = ({
   draws,
   setDraws,
   UID,
-  setUID,
 }) => {
   const deckStart = useMemo(() => [...deck], []);
   const [bet, setBet] = useState(false);

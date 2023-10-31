@@ -6,7 +6,7 @@ import Chatroom from "./chatRoom/ChatRoom";
 import "./HomeLoggedIn.css";
 import DesktopMenu from "./DesktopMenu";
 import Header from "./Header";
-import blackjackIcon from "../../assets/blackjackIcon.png";
+import blackjackIcon from "../../assets/blackjackIcon.webp";
 import { useMobileDetector } from "../../hooks/customHooks";
 
 const HomeLoggedIn = ({
@@ -138,7 +138,7 @@ const HomeLoggedIn = ({
       {/* Close Button - outside the chat box */}
       {chatOpen && (
         <button className="chatClose" onClick={closeChat}>
-         X
+          X
         </button>
       )}
     </div>

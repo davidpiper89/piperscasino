@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import avatar1 from "../../../assets/avatar1.png";
-import avatar2 from "../../../assets/avatar2.png";
-import avatar3 from "../../../assets/avatar3.png";
-import avatar4 from "../../../assets/avatar4.png";
+import avatar1 from "../../../assets/avatar1.webp";
+import avatar2 from "../../../assets/avatar2.webp";
+import avatar3 from "../../../assets/avatar3.webp";
+import avatar4 from "../../../assets/avatar4.webp";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 
@@ -31,7 +31,7 @@ const ProfileCollection = ({ userAvatars, setAvatar, UID }) => {
 
   return (
     <div className="collectionContainer">
-      <h2 className="collectionTitle">Your Collection</h2>
+      <h2 className="collectionTitle">Avatar Collection</h2>
       <div className="avatarCollection">
         {userAvatars.map((avatarObj, index) => {
           const avatarImage = avatarMap[avatarObj.avatar_id];
@@ -55,8 +55,8 @@ const ProfileCollection = ({ userAvatars, setAvatar, UID }) => {
           />
           <p>Do you want to set this as your avatar?</p>
           <div className="buttonGroup">
-            <button onClick={() => confirmSelection()}>Confirm</button>
-            <button onClick={() => setSelectedAvatar(null)}>Cancel</button>
+            <button className="defaultBtn" onClick={() => confirmSelection()}>Confirm</button>
+            <button  className="defaultBtn"onClick={() => setSelectedAvatar(null)}>Cancel</button>
           </div>
         </div>
       )}

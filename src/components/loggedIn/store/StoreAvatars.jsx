@@ -1,8 +1,8 @@
 import React from "react";
-import Avatar1 from "../../../assets/avatar1.png";
-import Avatar2 from "../../../assets/avatar2.png";
-import Avatar3 from "../../../assets/avatar3.png";
-import Avatar4 from "../../../assets/avatar4.png";
+import Avatar1 from "../../../assets/avatar1.webp";
+import Avatar2 from "../../../assets/avatar2.webp";
+import Avatar3 from "../../../assets/avatar3.webp";
+import Avatar4 from "../../../assets/avatar4.webp";
 import { db } from "../../../firebase/firebase";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
@@ -14,7 +14,6 @@ const StoreAvatars = ({
   UID,
 }) => {
   const ownedAvatarIds = userAvatars.map((avatar) => avatar.avatar_id);
-  console.log(userAvatars);
 
   async function handlePurchaseAvatar(cost, avatarName, UID) {
     if (chips >= cost) {
@@ -41,7 +40,10 @@ const StoreAvatars = ({
         {!ownedAvatarIds.includes("avatar1") && (
           <div className="avatarItem">
             <img src={Avatar1} alt="avatar1" />
-            <button onClick={() => handlePurchaseAvatar(50, "avatar1", UID)}>
+            <button
+              className="defaultBtn"
+              onClick={() => handlePurchaseAvatar(50, "avatar1", UID)}
+            >
               Buy for 50 chips
             </button>
           </div>
@@ -49,7 +51,10 @@ const StoreAvatars = ({
         {!ownedAvatarIds.includes("avatar2") && (
           <div className="avatarItem">
             <img src={Avatar2} alt="avatar2" />
-            <button onClick={() => handlePurchaseAvatar(50, "avatar2", UID)}>
+            <button
+              className="defaultBtn"
+              onClick={() => handlePurchaseAvatar(50, "avatar2", UID)}
+            >
               Buy for 50 chips
             </button>
           </div>
@@ -57,7 +62,10 @@ const StoreAvatars = ({
         {!ownedAvatarIds.includes("avatar3") && (
           <div className="avatarItem">
             <img src={Avatar3} alt="avatar3" />
-            <button onClick={() => handlePurchaseAvatar(50, "avatar3", UID)}>
+            <button
+              className="defaultBtn"
+              onClick={() => handlePurchaseAvatar(50, "avatar3", UID)}
+            >
               Buy for 50 chips
             </button>
           </div>
@@ -65,7 +73,10 @@ const StoreAvatars = ({
         {!ownedAvatarIds.includes("avatar4") && (
           <div className="avatarItem">
             <img src={Avatar4} alt="avatar4" />
-            <button onClick={() => handlePurchaseAvatar(50, "avatar4", UID)}>
+            <button
+              className="defaultBtn"
+              onClick={() => handlePurchaseAvatar(50, "avatar4", UID)}
+            >
               Buy for 50 chips
             </button>
           </div>
