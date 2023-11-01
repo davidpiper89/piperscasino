@@ -5,6 +5,7 @@ import Avatar3 from "../../../assets/avatar3.webp";
 import Avatar4 from "../../../assets/avatar4.webp";
 import { db } from "../../../firebase/firebase";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { AVATAR_PRICE } from "../../../config/config";
 
 const StoreAvatars = ({
   chips,
@@ -42,7 +43,7 @@ const StoreAvatars = ({
             <img src={Avatar1} alt="avatar1" />
             <button
               className="defaultBtn"
-              onClick={() => handlePurchaseAvatar(50, "avatar1", UID)}
+              onClick={() => handlePurchaseAvatar(AVATAR_PRICE, "avatar1", UID)}
             >
               Buy for 50 chips
             </button>
@@ -53,7 +54,7 @@ const StoreAvatars = ({
             <img src={Avatar2} alt="avatar2" />
             <button
               className="defaultBtn"
-              onClick={() => handlePurchaseAvatar(50, "avatar2", UID)}
+              onClick={() => handlePurchaseAvatar(AVATAR_PRICE, "avatar2", UID)}
             >
               Buy for 50 chips
             </button>
@@ -64,7 +65,7 @@ const StoreAvatars = ({
             <img src={Avatar3} alt="avatar3" />
             <button
               className="defaultBtn"
-              onClick={() => handlePurchaseAvatar(50, "avatar3", UID)}
+              onClick={() => handlePurchaseAvatar(AVATAR_PRICE, "avatar3", UID)}
             >
               Buy for 50 chips
             </button>
@@ -75,7 +76,7 @@ const StoreAvatars = ({
             <img src={Avatar4} alt="avatar4" />
             <button
               className="defaultBtn"
-              onClick={() => handlePurchaseAvatar(50, "avatar4", UID)}
+              onClick={() => handlePurchaseAvatar(AVATAR_PRICE, "avatar4", UID)}
             >
               Buy for 50 chips
             </button>

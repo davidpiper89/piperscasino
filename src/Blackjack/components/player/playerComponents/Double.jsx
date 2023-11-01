@@ -1,5 +1,6 @@
 import React from "react";
 import { RandomCardPicker } from "../../../utils/RandomCardPicker";
+import { MOBILE_BUTTON_BREAKPOINT } from "../../../../config/config";
 
 const Double = ({
   remainingDeck,
@@ -46,7 +47,8 @@ const Double = ({
     });
   };
 
-  const buttonText = window.innerWidth <= 480 ? "D" : "Double";
+  const buttonText =
+    window.innerWidth <= MOBILE_BUTTON_BREAKPOINT ? "D" : "Double";
 
   return (
     <button

@@ -32,6 +32,21 @@ const HomeNotLoggedIn = ({
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
 
+  const setUserDataInStorage = (data, uid) => {
+    Object.entries(data).forEach(([key, value]) => {
+      localStorage.setItem(key, value.toString());
+    });
+    localStorage.setItem("UID", uid.toString());
+    setUID(uid);
+    setUsername(data.username);
+    setChips(data.chips);
+    setAvatar(data.avatar);
+    setWins(data.wins);
+    setDraws(data.draws);
+    setLoses(data.loses);
+    setUserAvatars(data.avatars);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -55,32 +70,15 @@ const HomeNotLoggedIn = ({
         );
 
         // User is authenticated, now get their data from Firestore.
-        
+
         const uid = userCredential.user.uid;
 
         const userDocRef = doc(db, "casino_users", uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           // User data exists, update the state with the user data.
-
           const userData = userDoc.data();
-          setUID(uid);
-          localStorage.setItem("UID", uid);
-          setUsername(userData.username);
-          localStorage.setItem("username", userData.username);
-          setChips(userData.chips);
-          localStorage.setItem("chips", userData.chips.toString());
-          setAvatar(userData.avatar);
-          localStorage.setItem("avatar", userData.avatar.toString());
-          setWins(userData.wins);
-          localStorage.setItem("wins", userData.wins.toString());
-          setDraws(userData.draws);
-          localStorage.setItem("draws", userData.draws.toString());
-          setLoses(userData.loses);
-          localStorage.setItem("loses", userData.loses.toString());
-          setUserAvatars(userData.avatars);
-          localStorage.setItem("avatars", userData.avatars.toString());
-
+          setUserDataInStorage(userData, uid);
           setLoggedIn(true);
         } else {
           toast.error("No user found.");
@@ -96,27 +94,14 @@ const HomeNotLoggedIn = ({
         const newUser = {
           username: username,
           chips: DEFAULT_CHIPS,
-          wins: 0,
-          loses: 0,
-          draws: 0,
+          wins: DEFAULT_RESULTS,
+          loses: DEFAULT_RESULTS,
+          draws: DEFAULT_RESULTS,
           avatar: defaultProfile,
           avatars: [],
         };
         await setDoc(doc(db, `casino_users`, uid), newUser);
-        setUID(uid);
-        localStorage.setItem("UID", uid);
-        setUsername(username);
-        localStorage.setItem("username", username);
-        setChips(DEFAULT_CHIPS);
-        localStorage.setItem("chips", DEFAULT_CHIPS.toString());
-        setAvatar(defaultProfile);
-
-        setWins(DEFAULT_RESULTS);
-        localStorage.setItem("wins", DEFAULT_RESULTS.toString());
-        setDraws(DEFAULT_RESULTS);
-        localStorage.setItem("draws", DEFAULT_RESULTS.toString());
-        setLoses(DEFAULT_RESULTS);
-        localStorage.setItem("loses", DEFAULT_RESULTS.toString());
+        setUserDataInStorage(newUser, uid);
         setLoggedIn(true);
       }
     } catch (error) {
@@ -141,49 +126,21 @@ const HomeNotLoggedIn = ({
         // User exists in Firestore, fetch the data and update the app's state
         const userData = userDocSnapshot.data();
 
-        setUID(user.uid);
-        localStorage.setItem("UID", user.uid);
-        setUsername(userData.username);
-        localStorage.setItem("username", userData.username);
-        setChips(userData.chips);
-        localStorage.setItem("chips", userData.chips.toString());
-        setAvatar(userData.avatar);
-        setWins(userData.wins);
-        localStorage.setItem("wins", userData.wins.toString());
-        setDraws(userData.draws);
-        localStorage.setItem("draws", userData.draws.toString());
-        setLoses(userData.loses);
-        localStorage.setItem("loses", userData.loses.toString());
-        setUserAvatars(userData.avatars);
-        localStorage.setItem("avatars", userData.avatars.toString());
+        setUserDataInStorage(userData, user.uid);
         setLoggedIn(true);
       } else {
         // User doesn't exist in Firestore, create a new user entry
         const newUser = {
           username: user.displayName,
           chips: DEFAULT_CHIPS,
-          wins: 0,
-          loses: 0,
-          draws: 0,
+          wins: DEFAULT_RESULTS,
+          loses: DEFAULT_RESULTS,
+          draws: DEFAULT_RESULTS,
           avatar: defaultProfile,
           avatars: [],
         };
         await setDoc(userDocRef, newUser);
-        setUID(user.uid);
-        localStorage.setItem("UID", user.uid);
-        setUsername(newUser.username);
-        localStorage.setItem("username", newUser.username);
-        setChips(newUser.chips);
-        localStorage.setItem("chips", newUser.chips.toString());
-        setAvatar(newUser.avatar);
-        setWins(newUser.wins);
-        localStorage.setItem("wins", newUser.wins.toString());
-        setDraws(newUser.draws);
-        localStorage.setItem("draws", newUser.draws.toString());
-        setLoses(newUser.loses);
-        localStorage.setItem("loses", newUser.loses.toString());
-        setUserAvatars(newUser.avatars);
-        localStorage.setItem("avatars", newUser.avatars.toString());
+        setUserDataInStorage(newUser, user.uid);
         setLoggedIn(true);
       }
     } catch (error) {

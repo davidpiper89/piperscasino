@@ -22,7 +22,6 @@ const Store = ({
   setLoses,
   setUsername,
   UID,
-  setUID,
 }) => {
   const isMobile = useMobileDetector();
 

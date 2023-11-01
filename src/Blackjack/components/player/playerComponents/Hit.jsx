@@ -1,5 +1,6 @@
 import React from "react";
 import { RandomCardPicker } from "../../../utils/RandomCardPicker";
+import { MOBILE_BUTTON_BREAKPOINT } from "../../../../config/config";
 
 const Hit = ({
   remainingDeck,
@@ -18,10 +19,14 @@ const Hit = ({
     setDeck(hit.array);
   };
 
-  const buttonText = window.innerWidth <= 480 ? "H" : "Hit";
+  const buttonText =
+    window.innerWidth <= MOBILE_BUTTON_BREAKPOINT ? "H" : "Hit";
 
   return (
-    <button className="hitButton d-flex" onClick={() => handleHit(remainingDeck)}>
+    <button
+      className="hitButton d-flex"
+      onClick={() => handleHit(remainingDeck)}
+    >
       <div>{buttonText}</div>
     </button>
   );

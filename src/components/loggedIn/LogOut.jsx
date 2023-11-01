@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from "../../firebase/firebase";
 import defaultProfile from "../../assets/DefaultProfile.svg";
+import { DEFAULT_RESULTS } from "../../config/config";
 
 const Logout = ({
   setLoggedIn,
@@ -16,9 +17,9 @@ const Logout = ({
     setUsername("");
     setChips(null);
     setAvatar(defaultProfile);
-    setWins(0);
-    setLoses(0);
-    setDraws(0);
+    setWins(DEFAULT_RESULTS);
+    setLoses(DEFAULT_RESULTS);
+    setDraws(DEFAULT_RESULTS);
     setUserAvatars([]);
 
     localStorage.removeItem("username");

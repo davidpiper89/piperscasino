@@ -1,5 +1,6 @@
 import React from "react";
 import { RandomCardPicker } from "../../../utils/RandomCardPicker";
+import { MOBILE_BUTTON_BREAKPOINT } from "../../../../config/config";
 
 const Split = ({
   remainingDeck,
@@ -17,7 +18,6 @@ const Split = ({
   setBlackjack,
 }) => {
   const splitHand = (index) => {
-    console.log(split);
     if (stake[index] > chips) {
       alert("You do not have enough chips to split your bet.");
       return;
@@ -69,7 +69,8 @@ const Split = ({
     }
   };
 
-  const buttonText = window.innerWidth <= 480 ? "Sp" : "Split";
+  const buttonText =
+    window.innerWidth <= MOBILE_BUTTON_BREAKPOINT ? "Sp" : "Split";
 
   return (
     <button
