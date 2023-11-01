@@ -127,7 +127,7 @@ const HomeLoggedIn = ({
         className={`chatToggle ${chatOpen ? "hidden" : ""}`}
         onClick={toggleChat}
       >
-        Chat
+        Chatroom
       </button>
 
       {/* Chat Box */}
