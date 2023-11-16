@@ -1,8 +1,10 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import DealerHoleCards from "./DealerHoleCards";
 import Total from "../Total";
 import { RandomCardPicker } from "../../utils/RandomCardPicker";
 import "./Dealer.css";
+import { cardConverterToTotals } from "../../utils/cardConverter";
+import { totalCalc } from "../../utils/totalCalc";
 
 const DealerInterface = ({
   dealerCards,
@@ -20,20 +22,35 @@ const DealerInterface = ({
   blackjack,
 }) => {
   const dealerDraw = useCallback(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       const newCard = RandomCardPicker(remainingDeck);
       setDealerCards((prevCards) => [...prevCards, newCard.card]);
-
       setDeck(newCard.array);
     }, 1500);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [remainingDeck, setDealerCards, setDeck]);
- 
 
   //work out if player busts in 1 or all hands
   const playerBusted = bust.slice(0, split + 1).every(Boolean);
   //work out if player has blackjack in all hands
   const allHandsBlackjack =
     blackjack.slice(0, split + 1).every(Boolean) && split <= 3;
+
+  const allHandsBlackjackRef = useRef(allHandsBlackjack);
+
+  const calculateDealerTotal = (dealerCards) => {
+    if (!dealerCards) return;
+    const cardTotals = cardConverterToTotals(dealerCards);
+    const { total: dealerTotal } = totalCalc(cardTotals);
+    return dealerTotal;
+  };
+
+  useEffect(() => {
+    allHandsBlackjackRef.current = allHandsBlackjack;
+  }, [allHandsBlackjack]);
 
   useEffect(() => {
     if (playerBusted) {
@@ -64,13 +81,17 @@ const DealerInterface = ({
       (dealerCards[0].value === "ACE" || dealerCards[0].value === 10) &&
       playerEnd
     ) {
-      dealerWillShowHiddenOnly(allHandsBlackjack, dealerCards);
+      const cleanup = dealerWillShowHiddenOnly();
+
+      return cleanup;
     }
   }, [allHandsBlackjack, playerEnd]);
 
   const dealerWillDrawToSeventeenOrMore = () => {
     const timeoutId = setTimeout(() => {
-      setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
+      if (!allHandsBlackjackRef.current) {
+        setDealerCards((prevCards) => [...prevCards, dealerHidden[0]]);
+      }
     }, 1200);
     return () => clearTimeout(timeoutId);
   };
@@ -79,16 +100,18 @@ const DealerInterface = ({
     if (playerEnd && !allHandsBlackjack && !playerBusted) {
       dealerWillDrawToSeventeenOrMore();
     }
-  }, [allHandsBlackjack, playerBusted, playerEnd]);
+  }, [playerEnd]);
 
   useEffect(() => {
+    const currentTotal = calculateDealerTotal(dealerCards);
+
     if (
       playerEnd &&
       !allHandsBlackjack &&
       !playerBusted &&
       dealerCards &&
       dealerCards.length >= 2 &&
-      dealerTotal < 17
+      currentTotal < 17
     ) {
       dealerDraw();
     } else if (
@@ -97,11 +120,11 @@ const DealerInterface = ({
       !playerBusted &&
       dealerCards &&
       dealerCards.length >= 2 &&
-      dealerTotal >= 17
+      currentTotal >= 17
     ) {
       setDealerEnd(true);
     }
-  }, [playerEnd, allHandsBlackjack, playerBusted, dealerTotal]);
+  }, [dealerCards]);
 
   return bet ? (
     <div

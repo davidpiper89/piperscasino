@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo } from "react";
 import { deck } from "./utils/deck";
-import { beginGame } from "./utils/beginGame";
 import Result from "./components/Result";
 import DealerInterface from "./components/dealer/DealerInterface";
 import PlayerInterface from "./components/player/PlayerInterface";
