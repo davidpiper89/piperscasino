@@ -56,7 +56,7 @@ const DealerInterface = ({
     if (playerBusted) {
       setDealerEnd(true);
     } else if (
-      allHandsBlackjack &&
+      allHandsBlackjackRef.current &&
       !(dealerCards[0].value === "ACE" || dealerCards[0].value === 10)
     ) {
       setDealerEnd(true);
@@ -76,8 +76,9 @@ const DealerInterface = ({
     };
   };
   useEffect(() => {
+
     if (
-      allHandsBlackjack &&
+      allHandsBlackjackRef.current &&
       (dealerCards[0].value === "ACE" || dealerCards[0].value === 10) &&
       playerEnd
     ) {
@@ -97,7 +98,7 @@ const DealerInterface = ({
   };
 
   useEffect(() => {
-    if (playerEnd && !allHandsBlackjack && !playerBusted) {
+    if (playerEnd && !allHandsBlackjackRef.current && !playerBusted) {
       dealerWillDrawToSeventeenOrMore();
     }
   }, [playerEnd]);
@@ -107,7 +108,7 @@ const DealerInterface = ({
 
     if (
       playerEnd &&
-      !allHandsBlackjack &&
+      !allHandsBlackjackRef.current &&
       !playerBusted &&
       dealerCards &&
       dealerCards.length >= 2 &&
@@ -116,7 +117,7 @@ const DealerInterface = ({
       dealerDraw();
     } else if (
       playerEnd &&
-      !allHandsBlackjack &&
+      !allHandsBlackjackRef.current &&
       !playerBusted &&
       dealerCards &&
       dealerCards.length >= 2 &&

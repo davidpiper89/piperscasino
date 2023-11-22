@@ -20,6 +20,7 @@ export const validate = (
   const validationErrors = {};
   for (let item of error.details) {
     validationErrors[item.path[0]] = item.message;
+
   }
 
   return validationErrors;
