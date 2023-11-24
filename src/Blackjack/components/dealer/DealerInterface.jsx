@@ -38,7 +38,6 @@ const DealerInterface = ({
   //work out if player has blackjack in all hands
   const allHandsBlackjack =
     blackjack.slice(0, split + 1).every(Boolean) && split <= 3;
-
   const allHandsBlackjackRef = useRef(allHandsBlackjack);
 
   const calculateDealerTotal = (dealerCards) => {
@@ -76,7 +75,6 @@ const DealerInterface = ({
     };
   };
   useEffect(() => {
-
     if (
       allHandsBlackjackRef.current &&
       (dealerCards[0].value === "ACE" || dealerCards[0].value === 10) &&

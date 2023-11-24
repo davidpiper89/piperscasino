@@ -33,16 +33,15 @@ const Result = ({
   ) => {
     const isPlayerBlackJack = playerCards[0].length === 2 && handTotal === 21;
     const isDealerBlackJack = dealerCards.length === 2 && dealerTotal === 21;
-   
 
     if (handTotal > 21) {
       return { result: result.lose, stakeResult: -stakeForHand };
     } else if (isDealerBlackJack && isPlayerBlackJack) {
-      return { result: result.draw, stakeResult: 0 };
+      return { result: result.draw, stakeResult: stakeForHand };
     } else if (isPlayerBlackJack && !isDealerBlackJack) {
       return { result: result.win, stakeResult: 2.5 * stakeForHand };
     } else if (dealerTotal === handTotal) {
-      return { result: result.draw, stakeResult: 0 };
+      return { result: result.draw, stakeResult: stakeForHand };
     } else if (dealerTotal > 21 || handTotal > dealerTotal) {
       return { result: result.win, stakeResult: stakeForHand };
     } else if (isDealerBlackJack || dealerTotal > handTotal) {
